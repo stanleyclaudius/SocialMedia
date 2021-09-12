@@ -1,4 +1,3 @@
-import React from 'react';
 import { Center, Heading, Text, VStack } from '@chakra-ui/react';
 
 const NotFound = () => {

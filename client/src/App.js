@@ -1,4 +1,3 @@
-import React from 'react';
 import PageRender from './custom_routes/PageRender';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
