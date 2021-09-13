@@ -1,0 +1,11 @@
+.notFound {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  place-items: center;
+
+  h1 {
+    color: $light-gray;
+    font-weight: 500;
+  }
+}
