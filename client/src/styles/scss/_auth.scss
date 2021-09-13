@@ -1,0 +1,30 @@
+.auth {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+
+  &__box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 300px;
+
+    h1 {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    p {
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    form {
+      border: 1px solid $light-gray;
+      border-radius: 5px;
+      padding: 15px;
+    }
+  }
+}
