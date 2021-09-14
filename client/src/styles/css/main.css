@@ -337,6 +337,7 @@
 .postBody__info--comments .ownComment {
   margin-top: 5px;
   margin-bottom: 15px;
+  padding-left: 10px;
 }
 
 .postBody__info--comments .otherComment {
@@ -346,6 +347,7 @@
   align-items: center;
   border-radius: 5px 5px 0 0;
   margin-bottom: 15px;
+  padding: 10px;
 }
 
 .postBody__info--comments .otherComment small {

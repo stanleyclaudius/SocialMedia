@@ -52,7 +52,7 @@ const PostBody = () => {
         }
       </div>
       <div className="postBody__menu">
-        <div className="postBody__menu--left">
+        <div className="postBody__menu--left" style={{marginLeft: '9px'}}>
           <AiOutlineHeart />
           <IoChatbubbleOutline />
           <IoPaperPlaneOutline />
@@ -62,7 +62,7 @@ const PostBody = () => {
         </div>
       </div>
       <div className="postBody__info">
-        <p className='likeCount'>101 likes</p>
+        <p className='likeCount' style={{paddingLeft: '10px'}}>101 likes</p>
         <div className="postBody__info--comments">
           <div className="ownComment">
             <p>
