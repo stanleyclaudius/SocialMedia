@@ -55,7 +55,7 @@
 }
 
 .home > * + * {
-  margin-left: 30px;
+  margin-left: 80px;
 }
 
 .homeLeft {
@@ -65,6 +65,21 @@
 .homeRight {
   flex: 2;
   display: none;
+}
+
+.homeRight .homeRight__user {
+  display: flex;
+  align-items: center;
+}
+
+.homeRight .homeRight__user p {
+  margin-left: 20px;
+}
+
+.homeRight h4 {
+  margin: 30px 0 15px 0;
+  font-weight: 500;
+  color: #646464;
 }
 
 @media (min-width: 850px) {
@@ -410,6 +425,36 @@
 
 .postFooter__form button:hover {
   background: transparent;
+}
+
+.userCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.userCard:not(:last-child) {
+  margin-bottom: 25px;
+}
+
+.userCard__left {
+  display: flex;
+  align-items: center;
+}
+
+.userCard__left p {
+  margin-left: 15px;
+}
+
+.userCard__right button {
+  background: transparent;
+  color: #35a7ff;
+  border: 1px solid #35a7ff;
+}
+
+.userCard__right button:hover {
+  background: #35a7ff;
+  color: #fff;
 }
 
 .container {

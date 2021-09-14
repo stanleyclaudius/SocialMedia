@@ -1,5 +1,7 @@
 import React from 'react';
 import PostCard from './../components/post/PostCard';
+import Avatar from './../components/Avatar';
+import UserCard from '../components/UserCard';
 
 const Home = () => {
   return (
@@ -8,7 +10,16 @@ const Home = () => {
         <PostCard />
       </div>
       <div className="homeRight">
-        Suggestion user here
+        <div className="homeRight__user">
+          <Avatar size='medium' />
+          <p>username01</p>
+        </div>
+        <h4>Suggestions For You</h4>
+        <div className="homeRight__suggestions">
+          <UserCard />
+          <UserCard />
+          <UserCard />
+        </div>
       </div>
     </div>
   )
