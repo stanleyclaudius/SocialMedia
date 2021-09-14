@@ -1,0 +1,26 @@
+.home {
+  margin-top: 20px !important;
+  display: flex;
+
+  & > * + * {
+    margin-left: 30px;
+  }
+
+  &Left {
+    flex: 3;
+  }
+
+  &Right {
+    flex: 2;
+    display: none;
+  }
+}
+
+@include mediaDesktop {
+  .home {
+
+    &Right {
+      display: block;
+    }
+  }
+}

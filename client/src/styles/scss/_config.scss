@@ -15,7 +15,7 @@ $light-gray: #A0AEC0;
 }
 
 @mixin mediaDesktop {
-  @media (min-width: 768px) {
+  @media (min-width: 850px) {
     @content;
   }
 }

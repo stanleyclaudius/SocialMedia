@@ -50,6 +50,30 @@
   padding: 15px;
 }
 
+.home {
+  margin-top: 20px !important;
+  display: flex;
+}
+
+.home > * + * {
+  margin-left: 30px;
+}
+
+.homeLeft {
+  flex: 3;
+}
+
+.homeRight {
+  flex: 2;
+  display: none;
+}
+
+@media (min-width: 850px) {
+  .homeRight {
+    display: block;
+  }
+}
+
 .header {
   position: sticky;
   text-align: center;
@@ -68,12 +92,12 @@
   margin-bottom: 10px;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 850px) {
   .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 70px;
+    padding: 15px 170px;
   }
   .header a h2 {
     margin-bottom: 0;
@@ -129,7 +153,7 @@
   align-items: center;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 850px) {
   .menu {
     all: unset;
     display: flex;
@@ -138,6 +162,11 @@
     margin-right: 30px;
     font-size: 24px;
   }
+}
+
+.container {
+  width: 90%;
+  margin: auto;
 }
 
 .inputGroup {
@@ -184,5 +213,11 @@ button {
 
 button:hover {
   background-color: #2D3748;
+}
+
+@media (min-width: 850px) {
+  .container {
+    width: 75%;
+  }
 }
 /*# sourceMappingURL=main.css.map */

@@ -2,9 +2,15 @@
   './config', 
   './notFound', 
   './auth', 
+  './home',
   './header/header',
   './header/search',
   './header/menu';
+
+.container {
+  width: 90%;
+  margin: auto;
+}
 
 .inputGroup {
   margin-bottom: 20px;
@@ -49,5 +55,11 @@ button {
 
   &:hover {
     background-color: $secondary-color;
+  }
+}
+
+@include mediaDesktop {
+  .container {
+    width: 75%;
   }
 }
