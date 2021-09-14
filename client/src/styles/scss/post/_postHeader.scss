@@ -1,0 +1,57 @@
+.postHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+
+  svg {
+    cursor: pointer;
+  }
+
+  &__user {
+    display: flex;
+    align-items: center;
+    flex: 1;
+
+    p {
+      margin-left: 10px;
+    }
+  }
+
+  &__menu {
+    position: relative;
+
+    &Dropdown {
+      position: absolute;
+      top: 30px;
+      right: 0;
+      box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+      border-radius: 10px;
+      transition: transform 150ms;
+      transform: scaleY(0);
+      transform-origin: top;
+      z-index: 999;
+
+      &.active {
+        transform: scaleY(1);
+      }
+
+      &--single {
+        width: 125px;
+        background: #fff;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        padding: 10px;
+
+        svg {
+          margin-right: 7px;
+        }
+
+        &:hover {
+          background-color: rgb(242, 242, 242);
+        }
+      }
+    }
+  }
+}

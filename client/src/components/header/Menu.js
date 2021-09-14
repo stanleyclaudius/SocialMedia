@@ -44,7 +44,7 @@ const Menu = () => {
     <div className='menu'>
       {
         links.map(link => (
-          <Link to={link.path}>
+          <Link to={link.path} key={link.path}>
             {isLinkActive(link.path) ? <link.ActiveIcon /> : <link.Icon />}
           </Link>
         ))

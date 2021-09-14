@@ -1,0 +1,23 @@
+.postFooter__form {
+  display: flex;
+  padding: 12px 15px;
+
+  input {
+    width: 100%;
+    border: none;
+    outline: none;
+    padding-right: 7px;
+  }
+
+  button {
+    all: unset;
+    color: rgb(69, 69, 209);
+    font-weight: 500;
+    font-size: 14px;
+    cursor: pointer;
+
+    &:hover {
+      background: transparent;
+    }
+  }
+}

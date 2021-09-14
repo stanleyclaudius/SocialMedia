@@ -1,0 +1,141 @@
+.postBody {
+  border-top: 1px solid #ccc;
+
+  &__image {
+    width: 100%;
+    height: 350px;
+    position: relative;
+
+    &:hover > svg {
+      opacity: 1;
+    }
+
+    svg {
+      position: absolute;
+      top: 50%;
+      color: #fff;
+      transform: translateY(-50%);
+      font-size: 25px;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 150ms;
+
+      &:first-child {
+        left: 12px;
+      }
+
+      &:last-child {
+        right: 12px;
+      }
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+    }
+  }
+
+  &__menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 15px 2px 15px;
+
+    &--left > * + * {
+      margin-left: 15px;
+    }
+
+    svg {
+      font-size: 25px;
+      cursor: pointer;
+    }
+  }
+
+  &__info {
+    padding: 0 15px;
+
+    &--comments {
+
+      p {
+        font-size: 15px;
+
+        span {
+          margin-right: 15px;
+          font-weight: bold;
+        }
+      }
+
+      .ownComment {
+        margin-top: 5px;
+        margin-bottom: 15px;
+      }
+
+      .otherComment {
+        background: rgb(237, 237, 237);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 5px 5px 0 0;
+        margin-bottom: 15px;
+
+        small {
+          margin-top: 7px;
+          display: inline-block;
+          font-weight: 500;
+
+          &:not(:last-child) {
+            margin-right: 25px;
+          }
+        }
+
+        &--right {
+          display: flex;
+          align-items: center;
+
+          svg {
+            cursor: pointer;
+            margin-left: 8px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.commentMenu {
+  position: relative;
+
+  &__dropdown {
+    position: absolute;
+    top: 25px;
+    right: 7px;
+    width: 120px;
+    background: #fff;
+    border-radius: 5px;
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 150ms;
+    z-index: 999;
+
+    &.active {
+      transform: scaleY(1);
+    }
+
+    span {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      padding: 5px;
+
+      &:hover {
+        background-color: rgb(230, 230, 230);
+      }
+
+      svg {
+        margin-right: 8px;
+      }
+    }
+  }
+}

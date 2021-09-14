@@ -3,9 +3,14 @@
   './notFound', 
   './auth', 
   './home',
+  './avatar',
   './header/header',
   './header/search',
-  './header/menu';
+  './header/menu',
+  './post/postCard',
+  './post/postHeader',
+  './post/postBody',
+  './post/postFooter';
 
 .container {
   width: 90%;
