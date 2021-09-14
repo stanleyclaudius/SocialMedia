@@ -6,8 +6,13 @@
   background-color: #fff;
   border-bottom: 1px solid #ccc;
 
-  h2 {
-    margin-bottom: 10px;
+  a {
+    text-decoration: none;
+    color: #000;
+
+    h2 {
+      margin-bottom: 10px;
+    }
   }
 }
 
@@ -18,8 +23,11 @@
     align-items: center;
     padding: 15px 70px;
 
-    h2 {
-      margin-bottom: 0;
+    a {
+      
+      h2 {
+        margin-bottom: 0;
+      }
     }
   }
 }
