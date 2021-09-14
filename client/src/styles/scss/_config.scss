@@ -13,3 +13,9 @@ $light-gray: #A0AEC0;
   font-family: 'Poppins', sans-serif;
   overflow-x: hidden;
 }
+
+@mixin mediaDesktop {
+  @media (min-width: 768px) {
+    @content;
+  }
+}

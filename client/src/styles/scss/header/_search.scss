@@ -1,0 +1,29 @@
+.search {
+  position: relative;
+  height: fit-content;
+
+  input {
+    width: 250px;
+    height: 35px;
+    border-radius: 4px;
+    border: 1px solid $light-gray;
+    outline: none;
+    text-indent: 6px;
+  }
+
+  span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #aaa;
+    font-size: 15px;
+    width: 100%;
+    pointer-events: none;
+
+    svg {
+      transform: translateY(3px);
+      margin-right: 10px;
+    }
+  }
+}

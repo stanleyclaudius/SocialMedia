@@ -50,6 +50,91 @@
   padding: 15px;
 }
 
+.header {
+  position: sticky;
+  text-align: center;
+  padding: 10px 0;
+  width: 100vw;
+  background-color: #fff;
+  border-bottom: 1px solid #ccc;
+}
+
+.header h2 {
+  margin-bottom: 10px;
+}
+
+@media (min-width: 768px) {
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 70px;
+  }
+  .header h2 {
+    margin-bottom: 0;
+  }
+}
+
+.search {
+  position: relative;
+  height: fit-content;
+}
+
+.search input {
+  width: 250px;
+  height: 35px;
+  border-radius: 4px;
+  border: 1px solid #A0AEC0;
+  outline: none;
+  text-indent: 6px;
+}
+
+.search span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #aaa;
+  font-size: 15px;
+  width: 100%;
+  pointer-events: none;
+}
+
+.search span svg {
+  transform: translateY(3px);
+  margin-right: 10px;
+}
+
+.menu {
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  padding: 14px 25px;
+}
+
+.menu a {
+  color: #000;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .menu {
+    all: unset;
+    display: flex;
+  }
+  .menu a:not(:last-child) {
+    margin-right: 30px;
+    font-size: 24px;
+  }
+}
+
 .inputGroup {
   margin-bottom: 20px;
 }

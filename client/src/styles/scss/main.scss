@@ -1,4 +1,10 @@
-@import './config', './notFound', './auth';
+@import 
+  './config', 
+  './notFound', 
+  './auth', 
+  './header/header',
+  './header/search',
+  './header/menu';
 
 .inputGroup {
   margin-bottom: 20px;

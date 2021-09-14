@@ -1,0 +1,25 @@
+.header {
+  position: sticky;
+  text-align: center;
+  padding: 10px 0;
+  width: 100vw;
+  background-color: #fff;
+  border-bottom: 1px solid #ccc;
+
+  h2 {
+    margin-bottom: 10px;
+  }
+}
+
+@include mediaDesktop {
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 70px;
+
+    h2 {
+      margin-bottom: 0;
+    }
+  }
+}
