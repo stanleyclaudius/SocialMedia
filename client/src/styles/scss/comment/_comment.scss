@@ -1,0 +1,29 @@
+.comment {
+  background: rgb(237, 237, 237);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 5px 5px 0 0;
+  margin-bottom: 15px;
+  padding: 10px;
+
+  small {
+    margin-top: 7px;
+    display: inline-block;
+    font-weight: 500;
+
+    &:not(:last-child) {
+      margin-right: 25px;
+    }
+  }
+
+  &--right {
+    display: flex;
+    align-items: center;
+
+    svg {
+      cursor: pointer;
+      margin-left: 8px;
+    }
+  }
+}

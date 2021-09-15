@@ -64,7 +64,7 @@ const PostBody = () => {
       <div className="postBody__info">
         <p className='likeCount' style={{paddingLeft: '10px'}}>101 likes</p>
         <div className="postBody__info--comments">
-          <div className="ownComment">
+          <div className="caption">
             <p>
               <span>username01</span>
               Lorem ipsum dolor sit amet.

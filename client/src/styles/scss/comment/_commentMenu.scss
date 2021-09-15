@@ -1,0 +1,35 @@
+.commentMenu {
+  position: relative;
+
+  &__dropdown {
+    position: absolute;
+    top: 25px;
+    right: 7px;
+    width: 120px;
+    background: #fff;
+    border-radius: 5px;
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 150ms;
+    z-index: 999;
+
+    &.active {
+      transform: scaleY(1);
+    }
+
+    span {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      padding: 5px;
+
+      &:hover {
+        background-color: rgb(230, 230, 230);
+      }
+
+      svg {
+        margin-right: 8px;
+      }
+    }
+  }
+}

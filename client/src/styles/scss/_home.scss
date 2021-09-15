@@ -13,35 +13,32 @@
   &Right {
     flex: 2;
     display: none;
-  }
-}
 
-.homeRight {
-
-  .homeRight__user {
-    display: flex;
-    align-items: center;
-    
-    p {
-      margin-left: 20px;
-    }
-  }
-
-  .reloadGroup {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 30px 0 25px 0;
-
-    svg {
-      font-size: 21px;
-      cursor: pointer;
-      color: rgb(77, 77, 77);
+    &__user {
+      display: flex;
+      align-items: center;
+      
+      p {
+        margin-left: 20px;
+      }
     }
 
-    h4 {
-      font-weight: 500;
-      color: rgb(100, 100, 100);
+    .reloadGroup {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 30px 0 25px 0;
+
+      svg {
+        font-size: 21px;
+        cursor: pointer;
+        color: rgb(77, 77, 77);
+      }
+
+      h4 {
+        font-weight: 500;
+        color: rgb(100, 100, 100);
+      }
     }
   }
 }

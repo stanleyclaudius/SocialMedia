@@ -68,12 +68,12 @@
   display: none;
 }
 
-.homeRight .homeRight__user {
+.homeRight__user {
   display: flex;
   align-items: center;
 }
 
-.homeRight .homeRight__user p {
+.homeRight__user p {
   margin-left: 20px;
 }
 
@@ -122,6 +122,36 @@
 .avatar--big {
   width: 120px;
   height: 120px;
+}
+
+.userCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.userCard:not(:last-child) {
+  margin-bottom: 25px;
+}
+
+.userCard__left {
+  display: flex;
+  align-items: center;
+}
+
+.userCard__left p {
+  margin-left: 15px;
+}
+
+.userCard__right button {
+  background: transparent;
+  color: #35a7ff;
+  border: 1px solid #35a7ff;
+}
+
+.userCard__right button:hover {
+  background: #35a7ff;
+  color: #fff;
 }
 
 .header {
@@ -350,13 +380,37 @@
   font-weight: bold;
 }
 
-.postBody__info--comments .ownComment {
+.postBody__info--comments .caption {
   margin-top: 5px;
   margin-bottom: 15px;
   padding-left: 10px;
 }
 
-.postBody__info--comments .otherComment {
+.postFooter__form {
+  display: flex;
+  padding: 12px 15px;
+}
+
+.postFooter__form input {
+  width: 100%;
+  border: none;
+  outline: none;
+  padding-right: 7px;
+}
+
+.postFooter__form button {
+  all: unset;
+  color: #4545d1;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.postFooter__form button:hover {
+  background: transparent;
+}
+
+.comment {
   background: #ededed;
   display: flex;
   justify-content: space-between;
@@ -366,22 +420,22 @@
   padding: 10px;
 }
 
-.postBody__info--comments .otherComment small {
+.comment small {
   margin-top: 7px;
   display: inline-block;
   font-weight: 500;
 }
 
-.postBody__info--comments .otherComment small:not(:last-child) {
+.comment small:not(:last-child) {
   margin-right: 25px;
 }
 
-.postBody__info--comments .otherComment--right {
+.comment--right {
   display: flex;
   align-items: center;
 }
 
-.postBody__info--comments .otherComment--right svg {
+.comment--right svg {
   cursor: pointer;
   margin-left: 8px;
 }
@@ -420,60 +474,6 @@
 
 .commentMenu__dropdown span svg {
   margin-right: 8px;
-}
-
-.postFooter__form {
-  display: flex;
-  padding: 12px 15px;
-}
-
-.postFooter__form input {
-  width: 100%;
-  border: none;
-  outline: none;
-  padding-right: 7px;
-}
-
-.postFooter__form button {
-  all: unset;
-  color: #4545d1;
-  font-weight: 500;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.postFooter__form button:hover {
-  background: transparent;
-}
-
-.userCard {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.userCard:not(:last-child) {
-  margin-bottom: 25px;
-}
-
-.userCard__left {
-  display: flex;
-  align-items: center;
-}
-
-.userCard__left p {
-  margin-left: 15px;
-}
-
-.userCard__right button {
-  background: transparent;
-  color: #35a7ff;
-  border: 1px solid #35a7ff;
-}
-
-.userCard__right button:hover {
-  background: #35a7ff;
-  color: #fff;
 }
 
 .container {

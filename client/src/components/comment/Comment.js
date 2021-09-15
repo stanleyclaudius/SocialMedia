@@ -9,8 +9,8 @@ const Comment = () => {
 
   return (
     <>
-      <div className="otherComment">
-        <div className="otherComment--left">
+      <div className="comment">
+        <div className="comment--left">
           <p>
             <span>username02</span>
             lorem ipsum dolor.
@@ -19,7 +19,7 @@ const Comment = () => {
           <small>1 like</small>
           <small style={{cursor: 'pointer'}} onClick={() => setOnReply(!onReply)}>{onReply ? 'Cancel' : 'Reply'}</small>
         </div>
-        <div className="otherComment--right">
+        <div className="comment--right">
           <CommentMenu
             isOpenMenu={isOpenMenu}
             setIsOpenMenu={setIsOpenMenu}

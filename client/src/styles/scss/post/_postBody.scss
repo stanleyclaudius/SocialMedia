@@ -67,76 +67,10 @@
         }
       }
 
-      .ownComment {
+      .caption {
         margin-top: 5px;
         margin-bottom: 15px;
         padding-left: 10px;
-      }
-
-      .otherComment {
-        background: rgb(237, 237, 237);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-radius: 5px 5px 0 0;
-        margin-bottom: 15px;
-        padding: 10px;
-
-        small {
-          margin-top: 7px;
-          display: inline-block;
-          font-weight: 500;
-
-          &:not(:last-child) {
-            margin-right: 25px;
-          }
-        }
-
-        &--right {
-          display: flex;
-          align-items: center;
-
-          svg {
-            cursor: pointer;
-            margin-left: 8px;
-          }
-        }
-      }
-    }
-  }
-}
-
-.commentMenu {
-  position: relative;
-
-  &__dropdown {
-    position: absolute;
-    top: 25px;
-    right: 7px;
-    width: 120px;
-    background: #fff;
-    border-radius: 5px;
-    transform: scaleY(0);
-    transform-origin: top;
-    transition: transform 150ms;
-    z-index: 999;
-
-    &.active {
-      transform: scaleY(1);
-    }
-
-    span {
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-      padding: 5px;
-
-      &:hover {
-        background-color: rgb(230, 230, 230);
-      }
-
-      svg {
-        margin-right: 8px;
       }
     }
   }

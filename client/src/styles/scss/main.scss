@@ -4,6 +4,7 @@
   './auth', 
   './home',
   './avatar',
+  './userCard',
   './header/header',
   './header/search',
   './header/menu',
@@ -11,7 +12,8 @@
   './post/postHeader',
   './post/postBody',
   './post/postFooter',
-  './userCard';
+  './comment/comment',
+  './comment/commentMenu';
 
 .container {
   width: 90%;
