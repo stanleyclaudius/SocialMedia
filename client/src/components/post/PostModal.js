@@ -10,6 +10,20 @@ const PostModal = ({setIsOpenModal}) => {
   const videoRef = useRef();
   const canvasRef = useRef();
 
+  const handleCloseModal = () => {
+    if (content || images.length > 0) {
+      if (window.confirm('Discard changes?')) {
+        setStream(false);
+        tracks && tracks.stop();
+        setIsOpenModal(false);
+      }
+    } else {
+      setStream(false);
+      tracks && tracks.stop();
+      setIsOpenModal(false);
+    }
+  }
+
   const handleImageChange = e => {
     const files = [...e.target.files];
     const newImages = [];
@@ -73,7 +87,7 @@ const PostModal = ({setIsOpenModal}) => {
       <div className="postModal__box">
         <div className="postModal__box--header">
           <h3>Create Post</h3>
-          <AiOutlineClose onClick={() => setIsOpenModal(false)} />
+          <AiOutlineClose onClick={handleCloseModal} />
         </div>
         <div className="postModal__box--content">
           <form onSubmit={handleSubmit}>
