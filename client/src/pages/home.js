@@ -1,7 +1,7 @@
-import React from 'react';
 import PostCard from './../components/post/PostCard';
 import Avatar from './../components/Avatar';
 import UserCard from '../components/UserCard';
+import { MdRefresh } from 'react-icons/md';
 
 const Home = () => {
   return (
@@ -14,7 +14,10 @@ const Home = () => {
           <Avatar size='medium' />
           <p>username01</p>
         </div>
-        <h4>Suggestions For You</h4>
+        <div className='reloadGroup'>
+          <h4>Suggestions For You</h4>
+          <MdRefresh />
+        </div>
         <div className="homeRight__suggestions">
           <UserCard />
           <UserCard />

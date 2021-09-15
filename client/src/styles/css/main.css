@@ -77,8 +77,20 @@
   margin-left: 20px;
 }
 
-.homeRight h4 {
-  margin: 30px 0 15px 0;
+.homeRight .reloadGroup {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 30px 0 25px 0;
+}
+
+.homeRight .reloadGroup svg {
+  font-size: 21px;
+  cursor: pointer;
+  color: #4d4d4d;
+}
+
+.homeRight .reloadGroup h4 {
   font-weight: 500;
   color: #646464;
 }
