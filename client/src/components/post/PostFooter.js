@@ -5,15 +5,17 @@ const PostFooter = ({onReply, children}) => {
 
   return (
     <form className='postFooter__form' style={{
-      marginTop: onReply ? '-15px' : '20px',
+      marginTop: onReply ? '-16px' : '20px',
       borderTop: onReply ? 'none' : '1px solid #ccc',
       marginBottom: onReply ? '15px' : '',
-      borderBottom: onReply ? '1px solid #ccc' : '',
-      borderLeft: onReply ? '1px solid #ccc' : '',
-      borderRight: onReply ? '1px solid #ccc' : '',
+      background: onReply ? 'rgb(220, 220, 220)' : '',
+      borderRadius: '0 0 5px 5px'
     }}>
       {children}
-      <input placeholder='Your comment here' type="text" value={comment} onChange={e => setComment(e.target.value)} style={{marginLeft: onReply ? '5px' : ''}}/>
+      <input placeholder='Your comment here' type="text" value={comment} onChange={e => setComment(e.target.value)} style={{
+        marginLeft: onReply ? '5px' : '',
+        background: onReply ? 'rgb(220, 220, 220)' : ''
+      }}/>
       <button>Send</button>
     </form>
   )
