@@ -1,15 +1,15 @@
 .followBtn {
-  border: 1px solid $follow-blue;
-  background: transparent;
-  color: $follow-blue;
+  border: 1px solid $follow-blue !important;
+  background: transparent !important;
+  color: $follow-blue !important;
 
   &:hover {
-    background: $follow-blue;
-    color: #fff;
+    background: $follow-blue !important;
+    color: #fff !important;
   }
 
   &.active {
-    background: $follow-blue;
-    color: #fff;
+    background: $follow-blue !important;
+    color: #fff !important;
   }
 }

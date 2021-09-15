@@ -89,7 +89,7 @@
 }
 
 .homeRight__user button:hover {
-  background: #2e8ed8;
+  background: #2a90dd;
 }
 
 .homeRight .reloadGroup {
@@ -164,19 +164,19 @@
 }
 
 .followBtn {
-  border: 1px solid #35a7ff;
-  background: transparent;
-  color: #35a7ff;
+  border: 1px solid #35a7ff !important;
+  background: transparent !important;
+  color: #35a7ff !important;
 }
 
 .followBtn:hover {
-  background: #35a7ff;
-  color: #fff;
+  background: #35a7ff !important;
+  color: #fff !important;
 }
 
 .followBtn.active {
-  background: #35a7ff;
-  color: #fff;
+  background: #35a7ff !important;
+  color: #fff !important;
 }
 
 .header {
@@ -755,7 +755,7 @@
 }
 
 .userProfile__right--username button:hover {
-  background: #2990df;
+  background: #2a90dd;
 }
 
 .userProfile__right--info {
