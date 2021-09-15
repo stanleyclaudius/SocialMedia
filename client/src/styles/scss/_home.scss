@@ -38,7 +38,10 @@
   .home {
 
     &Right {
+      height: fit-content;
       display: block;
+      position: sticky;
+      top: 110px;
     }
   }
 }

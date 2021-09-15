@@ -85,7 +85,10 @@
 
 @media (min-width: 850px) {
   .homeRight {
+    height: fit-content;
     display: block;
+    position: sticky;
+    top: 110px;
   }
 }
 
