@@ -1,5 +1,3 @@
-
-
 const FollowBtn = () => {
   return (
     <button>

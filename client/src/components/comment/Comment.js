@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { AiOutlineHeart } from 'react-icons/ai';
 import CommentMenu from './CommentMenu';
-import PostFooter from './PostFooter';
+import PostFooter from './../post/PostFooter';
 
 const Comment = () => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);

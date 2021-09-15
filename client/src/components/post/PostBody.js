@@ -3,7 +3,7 @@ import { AiOutlineHeart } from 'react-icons/ai';
 import { IoPaperPlaneOutline, IoChatbubbleOutline } from 'react-icons/io5';
 import { BsBookmark } from 'react-icons/bs';
 import { RiArrowLeftCircleFill, RiArrowRightCircleFill } from 'react-icons/ri';
-import Comment from './Comment';
+import Comment from './../comment/Comment';
 
 const PostBody = () => {
   const image = [
