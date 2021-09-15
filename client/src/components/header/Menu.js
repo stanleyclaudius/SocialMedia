@@ -58,12 +58,12 @@ const Menu = () => {
         </div>
 
         <div className={`profile__dropdown ${isOpenProfile ? 'active' : ''}`}>
-          <Link to='/profile'>
+          <Link to='/profile/dsdf' onClick={() => setIsOpenProfile(false)}>
             <FaUserAlt />
             Profile
           </Link>
           <div className='separator'></div>
-          <Link to='/login'>
+          <Link to='/login' onClick={() => setIsOpenProfile(false)}>
             <IoLogOut />
             Logout
           </Link>
