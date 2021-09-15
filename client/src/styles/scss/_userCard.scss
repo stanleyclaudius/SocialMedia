@@ -15,18 +15,4 @@
       margin-left: 15px;
     }
   }
-
-  &__right {
-
-    button {
-      background: transparent;
-      color: $follow-blue;
-      border: 1px solid $follow-blue;
-
-      &:hover {
-        background: $follow-blue;
-        color: #fff;
-      }
-    }
-  }
 }

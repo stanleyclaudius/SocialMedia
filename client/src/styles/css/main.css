@@ -163,13 +163,18 @@
   margin-left: 15px;
 }
 
-.userCard__right button {
+.followBtn {
+  border: 1px solid #35a7ff;
   background: transparent;
   color: #35a7ff;
-  border: 1px solid #35a7ff;
 }
 
-.userCard__right button:hover {
+.followBtn:hover {
+  background: #35a7ff;
+  color: #fff;
+}
+
+.followBtn.active {
   background: #35a7ff;
   color: #fff;
 }

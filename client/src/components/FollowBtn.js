@@ -1,6 +1,6 @@
 const FollowBtn = () => {
   return (
-    <button>
+    <button className='followBtn'>
       Follow
     </button>
   )
