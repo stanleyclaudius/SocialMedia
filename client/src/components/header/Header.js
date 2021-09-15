@@ -6,7 +6,9 @@ import { Link } from 'react-router-dom';
 const Header = () => {
   return (
     <div className='header'>
-      <Link to='/'><h2>SR Social</h2></Link>
+      <Link to='/'>
+        <h2 onClick={() => window.scrollTo({top: 0})}>SR Social</h2>
+      </Link>
       <Search />
       <Menu />
     </div>

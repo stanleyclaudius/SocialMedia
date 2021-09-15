@@ -12,6 +12,7 @@ $follow-blue: rgb(53, 167, 255);
   padding: 0;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
+  scroll-behavior: smooth;
 }
 
 @mixin mediaDesktop {
