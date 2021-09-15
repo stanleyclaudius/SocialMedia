@@ -140,8 +140,8 @@
 }
 
 .avatar--big {
-  width: 120px;
-  height: 120px;
+  width: 140px;
+  height: 140px;
 }
 
 .userCard {
@@ -713,6 +713,97 @@
 @media (min-width: 850px) {
   .postModal {
     padding: 0;
+  }
+}
+
+.userProfile {
+  padding: 30px 100px;
+}
+
+.userProfile__top {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.userProfile__right--username {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 25px;
+  margin-top: 20px;
+}
+
+.userProfile__right--usernameInfo {
+  display: flex;
+  align-items: center;
+}
+
+.userProfile__right--usernameInfo svg {
+  margin-left: 10px;
+  font-size: 25px;
+}
+
+.userProfile__right--username button {
+  background: #35a7ff;
+}
+
+.userProfile__right--username button:hover {
+  background: #2990df;
+}
+
+.userProfile__right--info {
+  display: flex;
+  margin-bottom: 15px;
+  font-weight: 500;
+}
+
+.userProfile__right--info div:not(:first-child) {
+  cursor: pointer;
+}
+
+.userProfile__right--info div:not(:first-child):hover {
+  text-decoration: underline;
+}
+
+.userProfile__right--info > * + * {
+  margin-left: 35px;
+}
+
+.userProfile__right .fullname, .userProfile__right .story {
+  margin-bottom: 5px;
+}
+
+.userProfile__bottom {
+  margin-top: 40px;
+}
+
+.userProfile__bottom--header {
+  display: flex;
+  justify-content: center;
+}
+
+.userProfile__bottom--header > * + * {
+  margin-left: 100px;
+}
+
+.userProfile__bottom--header div {
+  cursor: pointer;
+}
+
+.userProfile__bottom--header div.active {
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+  font-weight: bold;
+}
+
+@media (min-width: 850px) {
+  .userProfile__top {
+    flex-direction: row;
+  }
+  .userProfile__right--username {
+    margin-top: 0;
   }
 }
 

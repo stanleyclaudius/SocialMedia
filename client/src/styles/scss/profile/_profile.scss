@@ -1,0 +1,100 @@
+.userProfile {
+  padding: 30px 100px;
+  
+  &__top {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__right {
+
+    &--username {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 25px;
+      margin-top: 20px;
+
+      &Info {
+        display: flex;
+        align-items: center;
+
+        svg {
+          margin-left: 10px;
+          font-size: 25px;
+        }
+      }
+
+      button {
+        background: $follow-blue;
+
+        &:hover {
+          background: rgb(41, 144, 223);
+        }
+      }
+    }
+
+    &--info {
+      display: flex;
+      margin-bottom: 15px;
+      font-weight: 500;
+
+      div:not(:first-child) {
+        cursor: pointer;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      & > * + * {
+        margin-left: 35px;
+      }
+    }
+
+    .fullname, .story {
+      margin-bottom: 5px;
+    }
+  }
+
+  &__bottom {
+    margin-top: 40px;
+
+    &--header {
+      display: flex;
+      justify-content: center;
+
+      > * + * {
+        margin-left: 100px;
+      }
+
+      div {
+        cursor: pointer;
+
+        &.active {
+          border-top: 1px solid #000;
+          border-bottom: 1px solid #000;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}
+
+@include mediaDesktop {
+  .userProfile {
+
+    &__top {
+      flex-direction: row;
+    }
+
+    &__right {
+
+      &--username {
+        margin-top: 0;
+      }
+    }
+  }
+}
