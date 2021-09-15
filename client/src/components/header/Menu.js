@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   AiOutlineCompass,
   AiOutlineHome,
@@ -6,10 +7,13 @@ import {
   AiFillHome,
   AiFillHeart
 } from 'react-icons/ai';
-import { IoPaperPlaneOutline, IoPaperPlaneSharp } from 'react-icons/io5';
+import { IoPaperPlaneOutline, IoPaperPlaneSharp, IoLogOut } from 'react-icons/io5';
+import { FaUserAlt } from 'react-icons/fa';
 import { Link, useLocation } from 'react-router-dom';
+import Avatar from './../Avatar';
 
 const Menu = () => {
+  const [isOpenProfile, setIsOpenProfile] = useState(false);
   const links = [
     {
       path: '/',
@@ -48,6 +52,23 @@ const Menu = () => {
           </Link>
         ))
       }
+      <div className='profile'>
+        <div onClick={() => setIsOpenProfile(!isOpenProfile)}>
+          <Avatar size='xs' />
+        </div>
+
+        <div className={`profile__dropdown ${isOpenProfile ? 'active' : ''}`}>
+          <Link to='/profile'>
+            <FaUserAlt />
+            Profile
+          </Link>
+          <div className='separator'></div>
+          <Link to='/login'>
+            <IoLogOut />
+            Logout
+          </Link>
+        </div>
+      </div>
     </div>
   )
 }
