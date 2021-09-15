@@ -21,7 +21,7 @@ const Register = () => {
   const handleFormSubmit = e => {
     e.preventDefault();
 
-    setUserData({email: '', password: ''});
+    setUserData({name: '', username: '', email: '', password: '', confirmPassword: ''});
   }
 
   return (
