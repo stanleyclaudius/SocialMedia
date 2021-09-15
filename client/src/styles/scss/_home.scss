@@ -17,9 +17,24 @@
     &__user {
       display: flex;
       align-items: center;
-      
-      p {
-        margin-left: 20px;
+      justify-content: space-between;
+
+      div:first-child {
+        display: flex;
+        align-items: center;
+
+        p {
+          margin-left: 20px;
+        }
+      }
+
+      button {
+        background: $follow-blue;
+        transition: 150ms;
+
+        &:hover {
+          background: rgb(46, 142, 216);
+        }
       }
     }
 

@@ -71,10 +71,25 @@
 .homeRight__user {
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
-.homeRight__user p {
+.homeRight__user div:first-child {
+  display: flex;
+  align-items: center;
+}
+
+.homeRight__user div:first-child p {
   margin-left: 20px;
+}
+
+.homeRight__user button {
+  background: #35a7ff;
+  transition: 150ms;
+}
+
+.homeRight__user button:hover {
+  background: #2e8ed8;
 }
 
 .homeRight .reloadGroup {
@@ -474,6 +489,176 @@
 
 .commentMenu__dropdown span svg {
   margin-right: 8px;
+}
+
+.postModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 30px;
+}
+
+.postModal__box {
+  background: #fff;
+  width: 100%;
+  max-width: 700px;
+  border-radius: 5px;
+}
+
+.postModal__box--header {
+  border-bottom: 1px solid #ccc;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.postModal__box--header svg {
+  cursor: pointer;
+}
+
+.postModal__box--content {
+  padding: 15px;
+}
+
+.postModal__box--content form div:first-child {
+  display: flex;
+}
+
+.postModal__box--content form div:first-child > * + * {
+  margin-left: 20px;
+}
+
+.postModal__box--content form div:first-child textarea {
+  flex: 1;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #ccc;
+}
+
+.postModal__box--content form div:first-child .postImage {
+  flex: 1;
+  border-left: 1px solid #ccc;
+  padding-left: 20px;
+}
+
+.postModal__box--content form div:first-child .postImage__icon {
+  display: flex;
+  margin-top: 10px;
+}
+
+.postModal__box--content form div:first-child .postImage__icon > * + * {
+  margin-left: 15px;
+}
+
+.postModal__box--content form div:first-child .postImage__icon .fileInput {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  overflow: hidden;
+  cursor: pointer !important;
+}
+
+.postModal__box--content form div:first-child .postImage__icon .fileInput svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.postModal__box--content form div:first-child .postImage__icon .fileInput input {
+  position: absolute;
+  z-index: 2;
+  opacity: 0;
+  height: 30px;
+}
+
+.postModal__box--content form div:first-child .postImage__icon svg {
+  cursor: pointer;
+  font-size: 30px;
+}
+
+.postModal__box--content form div:first-child .postImage__container {
+  width: 100%;
+  height: 300px;
+  margin-top: 20px;
+  border: 5px dashed #ccc;
+  overflow: auto;
+  padding: 10px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
+}
+
+.postModal__box--content form div:first-child .postImage__container::-webkit-scrollbar {
+  display: none;
+}
+
+.postModal__box--content form div:first-child .postImage__container div {
+  position: relative;
+}
+
+.postModal__box--content form div:first-child .postImage__container div img {
+  width: 85px;
+  height: 85px;
+  object-fit: contain;
+  border: 3px solid #ccc;
+}
+
+.postModal__box--content form div:first-child .postImage__container div video {
+  width: 85px;
+  height: 85px;
+  border: 3px solid #ccc;
+}
+
+.postModal__box--content form div:first-child .postImage__container div svg {
+  position: absolute;
+  top: -5px;
+  right: 5px;
+  border-radius: 50%;
+  color: red;
+  font-size: 20px;
+  border: 1px solid red;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.postModal__box--content form div:first-child .postImage__video {
+  margin-top: 15px;
+  position: relative;
+}
+
+.postModal__box--content form div:first-child .postImage__video svg {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  color: red;
+  font-size: 22px;
+  border-radius: 50%;
+  background: #fff;
+  cursor: pointer;
+}
+
+.postModal__box--content form button {
+  margin-top: 20px;
+  float: right;
+}
+
+@media (min-width: 850px) {
+  .postModal {
+    padding: 0;
+  }
+}
+
+.clear {
+  clear: both;
 }
 
 .container {

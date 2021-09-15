@@ -13,7 +13,12 @@
   './post/postBody',
   './post/postFooter',
   './comment/comment',
-  './comment/commentMenu';
+  './comment/commentMenu',
+  './post/postModal';
+
+.clear {
+  clear: both;
+}
 
 .container {
   width: 90%;
