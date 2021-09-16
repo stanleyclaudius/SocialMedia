@@ -1,4 +1,3 @@
-
 const ConfirmAlert = ({title, text, onConfirm, onCancel}) => {
   return (
     <div className='confirmAlert'>
