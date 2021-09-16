@@ -40,11 +40,26 @@ const Menu = () => {
     return false;
   }
 
+  const handleCloseAllDropdown = () => {
+    setIsOpenProfile(false);
+    setIsOpenNotification(false);
+  }
+
+  const handleClickProfile = () => {
+    setIsOpenProfile(!isOpenProfile);
+    setIsOpenNotification(false);
+  }
+
+  const handleClickNotification = () => {
+    setIsOpenNotification(!isOpenNotification);
+    setIsOpenProfile(false);
+  }
+
   return (
     <div className='menu'>
       {
         links.map(link => (
-          <Link to={link.path} key={link.path}>
+          <Link to={link.path} key={link.path} onClick={handleCloseAllDropdown}>
             {isLinkActive(link.path) ? <link.ActiveIcon /> : <link.Icon />}
           </Link>
         ))
@@ -53,8 +68,8 @@ const Menu = () => {
       <div className='notification'>
         {
           isOpenNotification 
-          ? <AiFillHeart onClick={() => setIsOpenNotification(false)} />
-          : <AiOutlineHeart onClick={() => setIsOpenNotification(true)} />
+          ? <AiFillHeart onClick={handleClickNotification} />
+          : <AiOutlineHeart onClick={handleClickNotification} />
         }
 
         <div className={`notification__dropdown ${isOpenNotification ? 'active' : ''}`}>
@@ -66,7 +81,7 @@ const Menu = () => {
       </div>
 
       <div className='profile'>
-        <div onClick={() => setIsOpenProfile(!isOpenProfile)}>
+        <div onClick={handleClickProfile}>
           <Avatar size='xs' />
         </div>
 
