@@ -255,6 +255,14 @@
   align-items: center;
   justify-content: center;
   z-index: 99999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 150ms;
+}
+
+.confirmAlert.active {
+  opacity: 1;
+  pointer-events: all;
 }
 
 .confirmAlert__box {
@@ -262,6 +270,12 @@
   max-width: 400px;
   border-radius: 5px;
   background: #fff;
+  transform: scale(0);
+  transition: transform 150ms;
+}
+
+.confirmAlert__box.active {
+  transform: scale(1);
 }
 
 .confirmAlert__header {

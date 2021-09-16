@@ -9,12 +9,26 @@
   align-items: center;
   justify-content: center;
   z-index: 99999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 150ms;
+
+  &.active {
+    opacity: 1;
+    pointer-events: all;
+  }
 
   &__box  {
     width: 100%;
     max-width: 400px;
     border-radius: 5px;
     background: #fff;
+    transform: scale(0);
+    transition: transform 150ms;
+
+    &.active {
+      transform: scale(1);
+    }
   }
 
   &__header {

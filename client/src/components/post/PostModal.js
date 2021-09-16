@@ -152,22 +152,20 @@ const PostModal = ({setIsOpenModal}) => {
           </div>
         </div>
       </div>
-      {
-        openConfirm && (
-          <ConfirmAlert
-            title='Discard Changes?'
-            text='Once you confirm, all remaining content will be removed.' 
-            onConfirm={() => {
-              setStream(false);
-              tracks && tracks.stop();
-              setIsOpenModal(false);
-            }}
-            onCancel={() => {
-              setOpenConfirm(false);
-            }}
-          />
-        )
-      }
+
+      <ConfirmAlert
+        active={openConfirm}
+        title='Discard Changes?'
+        text='Once you confirm, all remaining content will be removed.' 
+        onConfirm={() => {
+          setStream(false);
+          tracks && tracks.stop();
+          setIsOpenModal(false);
+        }}
+        onCancel={() => {
+          setOpenConfirm(false);
+        }}
+      />
     </>
   )
 }

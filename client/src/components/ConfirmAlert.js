@@ -1,7 +1,7 @@
-const ConfirmAlert = ({title, text, onConfirm, onCancel}) => {
+const ConfirmAlert = ({active, title, text, onConfirm, onCancel}) => {
   return (
-    <div className='confirmAlert'>
-      <div className="confirmAlert__box">
+    <div className={`confirmAlert ${active ? 'active' : ''}`}>
+      <div className={`confirmAlert__box ${active ? 'active' : ''}`}>
         <div className="confirmAlert__header">
           <h3>{title}</h3>
         </div>
