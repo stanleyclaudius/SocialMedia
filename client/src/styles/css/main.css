@@ -186,6 +186,56 @@
   color: #fff !important;
 }
 
+.postThumbnail {
+  background: #ccc;
+  height: 250px;
+  cursor: pointer;
+  position: relative;
+}
+
+.postThumbnail a {
+  outline: none;
+}
+
+.postThumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.postThumbnail:hover .postThumbnail--overlay {
+  opacity: 1;
+}
+
+.postThumbnail--overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 150ms;
+}
+
+.postThumbnail--overlay div {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  font-size: 22px;
+}
+
+.postThumbnail--overlay div svg {
+  margin-right: 5px;
+}
+
+.postThumbnail--overlay > * + * {
+  margin-left: 20px;
+}
+
 .header {
   position: sticky;
   top: 0;
@@ -880,6 +930,13 @@
   .editProfile {
     padding: 0;
   }
+}
+
+.profilePost {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-gap: 30px;
+  margin-top: 25px;
 }
 
 .clear {

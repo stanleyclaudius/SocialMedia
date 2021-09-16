@@ -3,6 +3,7 @@ import { BiFemaleSign, BiMaleSign } from 'react-icons/bi';
 import Avatar from './../../components/Avatar';
 // import FollowBtn from './../../components/FollowBtn';
 import EditProfile from './../../components/profile/EditProfile';
+import Post from './../../components/profile/Post';
 
 const Profile = () => {
   const [isOpenSaved, setIsOpenSaved] = useState(false);
@@ -51,6 +52,10 @@ const Profile = () => {
             <div onClick={() => setIsOpenSaved(true)} className={`${isOpenSaved ? 'active' : ''}`}>
               SAVED
             </div>
+          </div>
+
+          <div className="userProfile__bottom--content">
+            <Post />
           </div>
         </div>
       </div>

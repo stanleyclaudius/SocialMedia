@@ -1,0 +1,52 @@
+.postThumbnail {
+  background: #ccc;
+  height: 250px;
+  cursor: pointer;
+  position: relative;
+
+  a {
+    outline: none;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &:hover {
+
+    .postThumbnail--overlay {
+      opacity: 1;
+    }
+  }
+
+  &--overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 150ms;
+  
+    div {
+      display: flex;
+      align-items: center;
+      color: #fff;
+      font-size: 22px;
+
+      svg {
+        margin-right: 5px;
+      }
+    }
+    
+    & > * + * {
+      margin-left: 20px;
+    }
+  }
+}
