@@ -3,6 +3,7 @@ import { AiOutlineHeart } from 'react-icons/ai';
 import { IoPaperPlaneOutline, IoChatbubbleOutline } from 'react-icons/io5';
 import { BsBookmark } from 'react-icons/bs';
 import { RiArrowLeftCircleFill, RiArrowRightCircleFill } from 'react-icons/ri';
+import { Link } from 'react-router-dom';
 import Comment from './../comment/Comment';
 
 const PostBody = () => {
@@ -54,7 +55,9 @@ const PostBody = () => {
       <div className="postBody__menu">
         <div className="postBody__menu--left" style={{marginLeft: '9px'}}>
           <AiOutlineHeart />
-          <IoChatbubbleOutline />
+          <Link to='/post/fdsf' style={{color: '#000'}}>
+            <IoChatbubbleOutline />
+          </Link>
           <IoPaperPlaneOutline />
         </div>
         <div className="postBody__menu--right">
