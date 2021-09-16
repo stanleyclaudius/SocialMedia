@@ -11,9 +11,11 @@ import { IoPaperPlaneOutline, IoPaperPlaneSharp, IoLogOut } from 'react-icons/io
 import { FaUserAlt } from 'react-icons/fa';
 import { Link, useLocation } from 'react-router-dom';
 import Avatar from './../Avatar';
+import Notification from './../Notification';
 
 const Menu = () => {
   const [isOpenProfile, setIsOpenProfile] = useState(false);
+  const [isOpenNotification, setIsOpenNotification] = useState(false);
   const links = [
     {
       path: '/',
@@ -29,11 +31,6 @@ const Menu = () => {
       path: '/discover',
       Icon: AiOutlineCompass,
       ActiveIcon: AiFillCompass
-    },
-    {
-      path: '/notification',
-      Icon: AiOutlineHeart,
-      ActiveIcon: AiFillHeart
     }
   ];
   const { pathname } = useLocation();
@@ -52,6 +49,18 @@ const Menu = () => {
           </Link>
         ))
       }
+
+      <div className='notification'>
+        <AiOutlineHeart onClick={() => setIsOpenNotification(!isOpenNotification)} />
+
+        <div className={`notification__dropdown ${isOpenNotification ? 'active' : ''}`}>
+          <Notification />
+          <Notification />
+          <Notification />
+          <Notification />
+        </div>
+      </div>
+
       <div className='profile'>
         <div onClick={() => setIsOpenProfile(!isOpenProfile)}>
           <Avatar size='xs' />

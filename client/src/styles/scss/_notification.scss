@@ -1,0 +1,36 @@
+.singleNotification {
+  padding: 10px;
+  text-align: left;
+  display: flex;
+  align-items: center;
+
+  & > * + * {
+    margin-left: 15px;
+  }
+
+  &:not(:last-child) {
+    border-bottom: 1px solid #ccc;
+  }
+
+  &__left {
+    position: relative;
+
+    div:last-child {
+      width: 10px;
+      height: 10px;
+      background-color: $follow-blue;
+      border-radius: 50%;
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+  }
+
+  &__right {
+    font-size: 15px;
+
+    span {
+      font-weight: 500;
+    }
+  }
+}

@@ -17,6 +17,35 @@
     align-items: center;
   }
 
+  .notification {
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    svg {
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    &__dropdown {
+      position: absolute;
+      width: 250px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+      background: #fff;
+      bottom: 100%;
+      margin-bottom: 13px;
+      right: 0;
+      border-radius: 5px;
+      transform: scaleY(0);
+      transform-origin: bottom;
+      transition: transform 150ms;
+
+      &.active {
+        transform: scaleY(1);
+      }
+    }
+  }
+
   .profile {
     position: relative;
     cursor: pointer;
@@ -86,6 +115,28 @@
       &__dropdown {
         top: 40px;
         transform-origin: top;
+      }
+    }
+
+    .notification {
+      margin-right: 30px;
+      
+      &__dropdown {
+        all: unset;
+        position: absolute;
+        top: 40px;
+        right: 0;
+        background: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+        border-radius: 5px;
+        width: 300px;
+        transform: scaleY(0);
+        transform-origin: top;
+        transition: transform 150ms;
+
+        &.active {
+          transform: scaleY(1);
+        }
       }
     }
   }
