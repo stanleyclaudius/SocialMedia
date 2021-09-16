@@ -1,22 +1,20 @@
 import { useState, useRef } from 'react';
 import { AiOutlineClose, AiFillCamera, AiFillPicture } from 'react-icons/ai';
+import ConfirmAlert from './../ConfirmAlert';
 
 const PostModal = ({setIsOpenModal}) => {
   const [content, setContent] = useState('');
   const [images, setImages] = useState([]);
   const [stream, setStream] = useState(false);
   const [tracks, setTracks] = useState('');
+  const [openConfirm, setOpenConfirm] = useState(false);
 
   const videoRef = useRef();
   const canvasRef = useRef();
 
   const handleCloseModal = () => {
     if (content || images.length > 0) {
-      if (window.confirm('Discard changes?')) {
-        setStream(false);
-        tracks && tracks.stop();
-        setIsOpenModal(false);
-      }
+      setOpenConfirm(true);
     } else {
       setStream(false);
       tracks && tracks.stop();
@@ -83,76 +81,94 @@ const PostModal = ({setIsOpenModal}) => {
   }
 
   return (
-    <div className='postModal'>
-      <div className="postModal__box">
-        <div className="postModal__box--header">
-          <h3>Create Post</h3>
-          <AiOutlineClose onClick={handleCloseModal} />
-        </div>
-        <div className="postModal__box--content">
-          <form onSubmit={handleSubmit}>
-            <div>
-              <textarea placeholder='Your caption here ...' value={content} onChange={e => setContent(e.target.value)} />
-              <div className="postImage">
-                <h4>Image Upload</h4>
-                <div className="postImage__icon">
+    <>
+      <div className='postModal'>
+        <div className="postModal__box">
+          <div className="postModal__box--header">
+            <h3>Create Post</h3>
+            <AiOutlineClose onClick={handleCloseModal} />
+          </div>
+          <div className="postModal__box--content">
+            <form onSubmit={handleSubmit}>
+              <div>
+                <textarea placeholder='Your caption here ...' value={content} onChange={e => setContent(e.target.value)} />
+                <div className="postImage">
+                  <h4>Image Upload</h4>
+                  <div className="postImage__icon">
+                    {
+                      stream
+                      ? <AiFillCamera onClick={handleCapture} />
+                      : (
+                        <>
+                          <AiFillCamera onClick={handleStartStream} />
+                          <div className='fileInput'>
+                            <input type="file" multiple accept='image/*,video/*' onChange={handleImageChange} />
+                            <AiFillPicture />
+                          </div>
+                        </>
+                      )
+                    }
+                  </div>
+                  
                   {
                     stream
-                    ? <AiFillCamera onClick={handleCapture} />
+                    ? (
+                      <div className='postImage__video'>
+                        <video ref={videoRef} autoPlay muted width="100%" />
+                        <AiOutlineClose onClick={handleStopStream} />
+                        <canvas ref={canvasRef} style={{display: 'none'}} />
+                      </div>
+                    )
                     : (
-                      <>
-                        <AiFillCamera onClick={handleStartStream} />
-                        <div className='fileInput'>
-                          <input type="file" multiple accept='image/*,video/*' onChange={handleImageChange} />
-                          <AiFillPicture />
-                        </div>
-                      </>
+                      <div className="postImage__container">
+                        {
+                          images.map((img, i) => (
+                            <div key={i}>
+                              {
+                                img.camera
+                                ? <img src={img.camera} alt='Post' />
+                                : img.type.match(/video/i)
+                                  ? <video src={URL.createObjectURL(img)} controls />
+                                  : (
+                                    <img src={
+                                      img.camera
+                                      ? img.camera
+                                      : URL.createObjectURL(img)
+                                    } alt='Post' />
+                                  )
+                              }
+                              <AiOutlineClose onClick={() => deleteImage(i)} />
+                            </div>
+                          ))
+                        }
+                      </div>
                     )
                   }
                 </div>
-                
-                {
-                  stream
-                  ? (
-                    <div className='postImage__video'>
-                      <video ref={videoRef} autoPlay muted width="100%" />
-                      <AiOutlineClose onClick={handleStopStream} />
-                      <canvas ref={canvasRef} style={{display: 'none'}} />
-                    </div>
-                  )
-                  : (
-                    <div className="postImage__container">
-                      {
-                        images.map((img, i) => (
-                          <div key={i}>
-                            {
-                              img.camera
-                              ? <img src={img.camera} alt='Post' />
-                              : img.type.match(/video/i)
-                                ? <video src={URL.createObjectURL(img)} controls />
-                                : (
-                                  <img src={
-                                    img.camera
-                                    ? img.camera
-                                    : URL.createObjectURL(img)
-                                  } alt='Post' />
-                                )
-                            }
-                            <AiOutlineClose onClick={() => deleteImage(i)} />
-                          </div>
-                        ))
-                      }
-                    </div>
-                  )
-                }
               </div>
-            </div>
-            <button type='submit'>Submit</button>
-            <div className="clear"></div>
-          </form>
+              <button type='submit'>Submit</button>
+              <div className="clear"></div>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
+      {
+        openConfirm && (
+          <ConfirmAlert
+            title='Discard Changes?'
+            text='Once you confirm, all remaining content will be removed.' 
+            onConfirm={() => {
+              setStream(false);
+              tracks && tracks.stop();
+              setIsOpenModal(false);
+            }}
+            onCancel={() => {
+              setOpenConfirm(false);
+            }}
+          />
+        )
+      }
+    </>
   )
 }
 

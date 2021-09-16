@@ -1,0 +1,45 @@
+.confirmAlert {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, .5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+
+  &__box  {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 5px;
+    background: #fff;
+  }
+
+  &__header {
+    border-bottom: 1px solid #ccc;
+    padding: 10px 15px;
+  }
+
+  &__body {
+    padding: 15px;
+  }
+
+  &__button {
+    margin-top: 20px;
+
+    button:first-child {
+      background-color: $red;
+    }
+
+    button:last-child {
+      background-color: #ccc;
+      color: rgb(87, 87, 87);
+    }
+
+    & > * + * {
+      margin-left: 25px;
+    }
+  }
+}
