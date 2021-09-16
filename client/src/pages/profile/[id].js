@@ -4,10 +4,14 @@ import Avatar from './../../components/Avatar';
 // import FollowBtn from './../../components/FollowBtn';
 import EditProfile from './../../components/profile/EditProfile';
 import Post from './../../components/profile/Post';
+import Followers from './../../components/profile/Followers';
+import Followings from './../../components/profile/Followings';
 
 const Profile = () => {
   const [isOpenSaved, setIsOpenSaved] = useState(false);
   const [isEditProfile, setIsEditProfile] = useState(false);
+  const [isOpenFollowers, setIsOpenFollowers] = useState(false);
+  const [isOpenFollowings, setIsOpenFollowings] = useState(false);
 
   return (
     <>
@@ -29,10 +33,10 @@ const Profile = () => {
             <div className='postCount'>
               101 Post
             </div>
-            <div className="followerCount">
+            <div className="followerCount" onClick={() => setIsOpenFollowers(true)}>
               101 Followers
             </div>
-            <div className="followingCount">
+            <div className="followingCount" onClick={() => setIsOpenFollowings(true)}>
               101 Followings
             </div>
           </div>
@@ -61,6 +65,16 @@ const Profile = () => {
       </div>
 
       {isEditProfile && <EditProfile setIsEditProfile={setIsEditProfile} />}
+
+      <Followers
+        active={isOpenFollowers}
+        setIsOpenFollowers={setIsOpenFollowers}
+      />
+
+      <Followings
+        active={isOpenFollowings}
+        setIsOpenFollowings={setIsOpenFollowings}
+      />
     </>
   )
 }

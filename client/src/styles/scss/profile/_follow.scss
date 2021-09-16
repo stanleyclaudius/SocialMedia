@@ -1,0 +1,58 @@
+.followModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, .5);
+  z-index: 999;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 150ms;
+
+  &.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  &__box {
+    width: 100%;
+    max-width: 380px;
+    background-color: #fff;
+    height: 70vh;
+    overflow: auto;
+    border-radius: 5px;
+    transform: scale(0);
+    transition: transform 150ms;
+
+    &.active {
+      transform: scale(1);
+    }
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #ccc;
+
+    svg {
+      cursor: pointer;
+    }
+  }
+
+  &__body {
+    padding: 15px;
+  }
+}
+
+@include mediaDesktop {
+  .followersModal {
+    padding: 0;
+  }
+}
