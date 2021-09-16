@@ -1,0 +1,7 @@
+.discover {
+  margin-top: 30px !important;
+  margin-bottom: 50px !important;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-gap: 25px;
+}
