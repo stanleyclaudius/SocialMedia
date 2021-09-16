@@ -51,7 +51,11 @@ const Menu = () => {
       }
 
       <div className='notification'>
-        <AiOutlineHeart onClick={() => setIsOpenNotification(!isOpenNotification)} />
+        {
+          isOpenNotification 
+          ? <AiFillHeart onClick={() => setIsOpenNotification(false)} />
+          : <AiOutlineHeart onClick={() => setIsOpenNotification(true)} />
+        }
 
         <div className={`notification__dropdown ${isOpenNotification ? 'active' : ''}`}>
           <Notification />
