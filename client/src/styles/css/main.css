@@ -166,8 +166,12 @@
   align-items: center;
 }
 
-.userCard__left p {
+.userCard__left div:last-child {
   margin-left: 15px;
+}
+
+.userCard__left div:last-child small {
+  color: #767676;
 }
 
 .followBtn {
@@ -1149,6 +1153,88 @@
   .followersModal {
     padding: 0;
   }
+}
+
+.message {
+  width: 100%;
+  height: 78vh;
+  margin-top: 30px !important;
+  border: 1px solid #ccc;
+  display: flex;
+}
+
+.message__left {
+  flex: 2;
+}
+
+.message__right {
+  flex: 5;
+}
+
+.message__right .placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  flex-direction: column;
+  color: #777777;
+}
+
+.message__right .placeholder svg {
+  font-size: 130px;
+}
+
+.peopleList {
+  border-right: 1px solid #ccc;
+  height: 100%;
+}
+
+.peopleList form {
+  padding: 15px;
+}
+
+.peopleList form div {
+  position: relative;
+}
+
+.peopleList form div input {
+  width: 100%;
+  height: 35px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  outline: none;
+  text-indent: 6px;
+}
+
+.peopleList form div span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 13px;
+  pointer-events: none;
+  color: #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.peopleList form div span svg {
+  margin-right: 5px;
+}
+
+.peopleList form button {
+  display: none;
+}
+
+.peopleList__container a {
+  display: block;
+  padding: 12px;
+}
+
+.peopleList__container a:hover {
+  background: #f2f2f2;
 }
 
 .clear {

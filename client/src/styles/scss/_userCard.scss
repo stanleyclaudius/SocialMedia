@@ -11,8 +11,12 @@
     display: flex;
     align-items: center;
 
-    p {
+    div:last-child {
       margin-left: 15px;
+
+      small {
+        color: rgb(118, 118, 118);
+      }
     }
   }
 }
