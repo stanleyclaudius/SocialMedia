@@ -20,7 +20,7 @@
 
 @include mediaDesktop {
   .header {
-    @include flexCenterBetween;
+    @include flexCenter(space-between);
     padding: 15px 170px;
 
     a {

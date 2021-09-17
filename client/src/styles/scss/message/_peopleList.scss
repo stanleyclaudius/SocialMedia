@@ -18,6 +18,7 @@
       }
 
       span {
+        @include flexCenter(center);
         position: absolute;
         top: 50%;
         left: 50%;
@@ -25,9 +26,6 @@
         font-size: 13px;
         pointer-events: none;
         color: #ccc;
-        display: flex;
-        align-items: center;
-        justify-content: center;
         width: 100%;
 
         svg {

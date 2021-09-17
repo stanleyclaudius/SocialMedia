@@ -16,10 +16,10 @@ $follow-blue-hover: rgb(42, 144, 221);
   scroll-behavior: smooth;
 }
 
-@mixin flexCenterBetween {
+@mixin flexCenter($justify-content) {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: $justify-content;
 }
 
 @mixin mediaDesktop {

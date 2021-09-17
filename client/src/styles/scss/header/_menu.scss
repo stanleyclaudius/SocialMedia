@@ -1,5 +1,5 @@
 .menu {
-  @include flexCenterBetween;
+  @include flexCenter(space-between);
   position: fixed;
   bottom: 0;
   width: 100vw;

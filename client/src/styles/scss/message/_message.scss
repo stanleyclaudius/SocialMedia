@@ -13,9 +13,7 @@
     flex: 5;
 
     .placeholder {
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      @include flexCenter(center);
       height: 100%;
       flex-direction: column;
       color: rgb(119, 119, 119);

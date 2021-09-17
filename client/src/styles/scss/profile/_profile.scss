@@ -2,14 +2,14 @@
   padding: 30px 100px;
   
   &__top {
-    @include flexCenterBetween;
+    @include flexCenter(space-between);
     flex-direction: column;
   }
 
   &__right {
 
     &--username {
-      @include flexCenterBetween;
+      @include flexCenter(space-between);
       margin-bottom: 25px;
       margin-top: 20px;
 

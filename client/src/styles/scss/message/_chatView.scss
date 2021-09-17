@@ -1,7 +1,7 @@
 .chatView {
 
   &__header {
-    @include flexCenterBetween;
+    @include flexCenter(space-between);
     border-bottom: 1px solid #ccc;
     padding: 10px 25px;
 

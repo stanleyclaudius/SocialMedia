@@ -15,7 +15,7 @@
     display: none;
 
     &__user {
-      @include flexCenterBetween;
+      @include flexCenter(space-between);
 
       div:first-child {
         display: flex;
@@ -37,7 +37,7 @@
     }
 
     .reloadGroup {
-      @include flexCenterBetween;
+      @include flexCenter(space-between);
       margin: 30px 0 25px 0;
 
       svg {

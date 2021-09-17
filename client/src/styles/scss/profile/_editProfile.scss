@@ -1,4 +1,5 @@
 .editProfile {
+  @include flexCenter(center);
   position: fixed;
   top: 0;
   left: 0;
@@ -6,9 +7,6 @@
   right: 0;
   background: rgba(0, 0, 0, .5);
   z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   padding: 0 30px;
 
   &__box {
@@ -21,7 +19,7 @@
   }
 
   &__header {
-    @include flexCenterBetween;
+    @include flexCenter(space-between);
     padding: 12px;
     border-bottom: 1px solid #ccc;
 

@@ -1,5 +1,5 @@
 .comment {
-  @include flexCenterBetween;
+  @include flexCenter(space-between);
   background: rgb(237, 237, 237);
   border-radius: 5px 5px 0 0;
   margin-bottom: 15px;

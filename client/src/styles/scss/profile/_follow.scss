@@ -1,4 +1,5 @@
 .followModal {
+  @include flexCenter(center);
   position: fixed;
   top: 0;
   left: 0;
@@ -7,9 +8,6 @@
   background: rgba(0, 0, 0, .5);
   z-index: 999;
   padding: 0 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   opacity: 0;
   pointer-events: none;
   transition: opacity 150ms;
@@ -35,7 +33,7 @@
   }
 
   &__header {
-    @include flexCenterBetween;
+    @include flexCenter(space-between);
     padding: 15px;
     border-bottom: 1px solid #ccc;
 

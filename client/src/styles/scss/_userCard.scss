@@ -1,5 +1,5 @@
 .userCard {
-  @include flexCenterBetween;
+  @include flexCenter(space-between);
 
   &:not(:last-child) {
     margin-bottom: 25px;
