@@ -6,6 +6,7 @@ import EditProfile from './../../components/profile/EditProfile';
 import Post from './../../components/profile/Post';
 import Followers from './../../components/profile/Followers';
 import Followings from './../../components/profile/Followings';
+import HeadInfo from './../../utils/HeadInfo';
 
 const Profile = () => {
   const [isOpenSaved, setIsOpenSaved] = useState(false);
@@ -15,6 +16,7 @@ const Profile = () => {
 
   return (
     <>
+      <HeadInfo title='SR Social - Profile' />
       <div className='container userProfile'>
         <div className="userProfile__top">
           <div className="userProfile__left">
