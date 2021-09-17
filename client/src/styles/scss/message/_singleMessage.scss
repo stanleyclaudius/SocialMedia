@@ -25,13 +25,41 @@
 
     .otherMessage {
       background: rgb(240, 240, 240);
-      border-radius: 0 10px 10px 10px;  
+      border-radius: 0 10px 10px 10px;
+      position: relative;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0px;
+        left: -4px;
+        width: 20px;
+        height: 20px;
+        z-index: -1;
+        background: rgb(240, 240, 240);
+        transform: skew(30deg);
+        border-top-left-radius: 3px;
+      }
     }
 
     .yourMessage {
       background: $follow-blue;
       color: #fff;
       border-radius: 10px 10px 0 10px;
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0px;
+        right: -4px;
+        width: 20px;
+        height: 20px;
+        z-index: -1;
+        background: $follow-blue;
+        transform: skew(30deg);
+        border-bottom-right-radius: 3px;
+      }
     }
   }
 }
