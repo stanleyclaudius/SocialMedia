@@ -1,5 +1,5 @@
 import { AiFillWechat } from 'react-icons/ai';
-import PeopleList from "./../components/message/PeopleList";
+import PeopleList from "./../../components/message/PeopleList";
 
 const Message = () => {
   return (
