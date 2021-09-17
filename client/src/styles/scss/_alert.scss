@@ -1,0 +1,31 @@
+.alert {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 999;
+  border-radius: 5px;
+  color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+  transition: opacity 150ms;
+
+  &.alert--error {
+    background: $red;
+  }
+
+  &.alert--success {
+    background: $green;
+  }
+
+  &__header {
+    border-bottom: 1px solid rgb(233, 233, 233);
+    padding: 8px 10px;
+  }
+
+  &__body {
+    padding: 8px 10px;
+
+    p {
+      font-size: 14px;
+    }
+  }
+}
