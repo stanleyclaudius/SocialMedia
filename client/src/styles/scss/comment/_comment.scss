@@ -1,8 +1,6 @@
 .comment {
+  @include flexCenterBetween;
   background: rgb(237, 237, 237);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   border-radius: 5px 5px 0 0;
   margin-bottom: 15px;
   padding: 10px;

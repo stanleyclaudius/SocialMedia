@@ -153,8 +153,8 @@
 
 .userCard {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
 }
 
 .userCard:not(:last-child) {
@@ -368,8 +368,8 @@
 @media (min-width: 850px) {
   .header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
     padding: 15px 170px;
   }
   .header a h2 {
@@ -409,13 +409,13 @@
 }
 
 .menu {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   position: fixed;
   bottom: 0;
   width: 100vw;
   text-align: left;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   padding: 14px 25px;
   background: #fff;
@@ -548,8 +548,8 @@
 
 .postHeader {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   padding: 10px 15px;
 }
 
@@ -646,8 +646,8 @@
 
 .postBody__menu {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   padding: 15px 15px 2px 15px;
 }
 
@@ -704,10 +704,10 @@
 }
 
 .comment {
-  background: #ededed;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+  background: #ededed;
   border-radius: 5px 5px 0 0;
   margin-bottom: 15px;
   padding: 10px;
@@ -791,11 +791,11 @@
 }
 
 .postModal__box--header {
-  border-bottom: 1px solid #ccc;
-  padding: 15px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  border-bottom: 1px solid #ccc;
+  padding: 15px;
 }
 
 .postModal__box--header svg {
@@ -941,9 +941,9 @@
 
 .userProfile__top {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
 }
 
 .userProfile__right--username {
@@ -1135,8 +1135,8 @@
 
 .followModal__header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   padding: 15px;
   border-bottom: 1px solid #ccc;
 }

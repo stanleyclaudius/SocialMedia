@@ -15,9 +15,7 @@
     display: none;
 
     &__user {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      @include flexCenterBetween;
 
       div:first-child {
         display: flex;
@@ -39,9 +37,7 @@
     }
 
     .reloadGroup {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      @include flexCenterBetween;
       margin: 30px 0 25px 0;
 
       svg {

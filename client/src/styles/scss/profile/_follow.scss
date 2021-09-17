@@ -35,9 +35,7 @@
   }
 
   &__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    @include flexCenterBetween;
     padding: 15px;
     border-bottom: 1px solid #ccc;
 

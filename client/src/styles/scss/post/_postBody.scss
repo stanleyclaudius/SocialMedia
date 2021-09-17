@@ -38,9 +38,7 @@
   }
 
   &__menu {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    @include flexCenterBetween;
     padding: 15px 15px 2px 15px;
 
     &--left > * + * {

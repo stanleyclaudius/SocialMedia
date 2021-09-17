@@ -2,18 +2,14 @@
   padding: 30px 100px;
   
   &__top {
-    display: flex;
+    @include flexCenterBetween;
     flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
   }
 
   &__right {
 
     &--username {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      @include flexCenterBetween;
       margin-bottom: 25px;
       margin-top: 20px;
 

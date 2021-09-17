@@ -1,7 +1,5 @@
 .postHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  @include flexCenterBetween;
   padding: 10px 15px;
 
   svg {

@@ -1,7 +1,5 @@
 .userCard {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  @include flexCenterBetween;
 
   &:not(:last-child) {
     margin-bottom: 25px;

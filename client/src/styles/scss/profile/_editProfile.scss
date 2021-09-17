@@ -21,9 +21,7 @@
   }
 
   &__header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    @include flexCenterBetween;
     padding: 12px;
     border-bottom: 1px solid #ccc;
 

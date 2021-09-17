@@ -1,11 +1,9 @@
 .menu {
+  @include flexCenterBetween;
   position: fixed;
   bottom: 0;
   width: 100vw;
   text-align: left;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   box-shadow: 0 0 10px rgba(0, 0, 0, .3);
   padding: 14px 25px;
   background: #fff;

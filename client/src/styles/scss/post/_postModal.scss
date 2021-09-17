@@ -18,11 +18,9 @@
     border-radius: 5px;
 
     &--header {
+      @include flexCenterBetween;
       border-bottom: 1px solid #ccc;
       padding: 15px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
 
       svg {
         cursor: pointer;
