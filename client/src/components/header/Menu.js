@@ -10,6 +10,8 @@ import {
 import { IoPaperPlaneOutline, IoPaperPlaneSharp, IoLogOut } from 'react-icons/io5';
 import { FaUserAlt } from 'react-icons/fa';
 import { Link, useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../redux/actions/authActions';
 import Avatar from './../Avatar';
 import Notification from './../Notification';
 
@@ -34,6 +36,8 @@ const Menu = () => {
     }
   ];
   const { pathname } = useLocation();
+
+  const dispatch = useDispatch();
   
   const isLinkActive = path => {
     if (path === pathname) return true;
@@ -53,6 +57,11 @@ const Menu = () => {
   const handleClickNotification = () => {
     setIsOpenNotification(!isOpenNotification);
     setIsOpenProfile(false);
+  }
+
+  const handleLogout = () => {
+    setIsOpenProfile(false);
+    dispatch(logout());
   }
 
   return (
@@ -91,7 +100,7 @@ const Menu = () => {
             Profile
           </Link>
           <div className='separator'></div>
-          <Link to='/login' onClick={() => setIsOpenProfile(false)}>
+          <Link to='/login' onClick={handleLogout}>
             <IoLogOut />
             Logout
           </Link>

@@ -58,7 +58,7 @@ export const login = (userData) => async(dispatch) => {
       payload: {
         success: res.data.msg
       }
-    })
+    });
   } catch (err) {
     dispatch({
       type: GLOBALTYPES.ALERT,
@@ -91,6 +91,20 @@ export const refreshToken = () => async(dispatch) => {
       type: GLOBALTYPES.ALERT,
       payload: {}
     });
+  } catch (err) {
+    dispatch({
+      type: GLOBALTYPES.ALERT,
+      payload: {
+        error: err.response.data.msg
+      }
+    });
+  }
+}
+
+export const logout = () => async(dispatch) => {
+  try {
+    await postDataAPI('logout');
+    window.location.href='/';
   } catch (err) {
     dispatch({
       type: GLOBALTYPES.ALERT,
