@@ -448,6 +448,8 @@
 .search {
   position: relative;
   height: fit-content;
+  width: fit-content;
+  margin: auto;
 }
 
 .search input {
@@ -474,6 +476,47 @@
 .search span svg {
   transform: translateY(3px);
   margin-right: 7px;
+}
+
+.searchResult {
+  position: absolute;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  margin-top: 10px;
+  background: #fff;
+}
+
+.searchResult__single {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 7px 15px;
+}
+
+.searchResult__single--right {
+  margin-left: 10px;
+}
+
+.searchResult__single h5 {
+  text-align: left;
+  margin-top: 5px;
+}
+
+.searchResult__single:not(:last-child) {
+  border-bottom: 1px solid #ccc;
+}
+
+.searchResult__single:first-child {
+  border-radius: 5px 5px 0 0;
+}
+
+.searchResult__single:last-child {
+  border-radius: 0 0 5px 5px;
+}
+
+.searchResult__single:hover {
+  background: #f2f2f2;
 }
 
 .menu {

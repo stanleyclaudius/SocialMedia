@@ -4,8 +4,8 @@ const userCtrl = {
   searchUser: async(req, res) => {
     const {username} = req.query;
     try {
-      const user = await User.find({username: {$regex: username}}).limit(10).select('username fullname avatar');
-      res.status(200).json({user});
+      const users = await User.find({username: {$regex: username}}).limit(10).select('username name avatar');
+      res.status(200).json({users});
     } catch (err) {
       return res.status(500).json({msg: err.message});
     }
@@ -13,7 +13,7 @@ const userCtrl = {
   getProfile: async(req, res) => {
     try {
       const {id} = req.params;
-      const user = await User.findById(id).select('-password').populate('followers followings', 'avatar username fullname');
+      const user = await User.findById(id).select('-password').populate('followers followings', 'avatar username name');
       if (!user)
         return res.status(400).json({msg: 'User not found.'});
 

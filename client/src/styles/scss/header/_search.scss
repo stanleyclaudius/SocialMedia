@@ -1,6 +1,8 @@
 .search {
   position: relative;
   height: fit-content;
+  width: fit-content;
+  margin: auto;
 
   input {
     width: 250px;
@@ -25,6 +27,47 @@
     svg {
       transform: translateY(3px);
       margin-right: 7px;
+    }
+  }
+
+  &Result {
+    position: absolute;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+    width: 100%;
+    margin-top: 10px;
+    background: #fff;
+
+    &__single {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      padding: 7px 15px;
+
+      &--right {
+        margin-left: 10px;
+      }
+
+      h5 {
+        text-align: left;
+        margin-top: 5px;
+      }
+
+      &:not(:last-child) {
+        border-bottom: 1px solid #ccc;
+      }
+
+      &:first-child {
+        border-radius: 5px 5px 0 0;
+      }
+
+      &:last-child {
+        border-radius: 0 0 5px 5px;
+      }
+
+      &:hover {
+        background: rgb(242, 242, 242);
+      }
     }
   }
 }
