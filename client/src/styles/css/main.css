@@ -394,6 +394,25 @@
   }
 }
 
+.loader {
+  border: 5px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 5px solid #35a7ff;
+  border-bottom: 5px solid #35a7ff;
+  width: 70px;
+  height: 70px;
+  animation: spin 900ms linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 .header {
   position: sticky;
   top: 0;
