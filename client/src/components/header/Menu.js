@@ -96,7 +96,7 @@ const Menu = () => {
         </div>
 
         <div className={`profile__dropdown ${isOpenProfile ? 'active' : ''}`}>
-          <Link to='/profile/dsdf' onClick={() => setIsOpenProfile(false)}>
+          <Link to={`/profile/${auth.user?._id}`} onClick={() => setIsOpenProfile(false)}>
             <FaUserAlt />
             Profile
           </Link>
