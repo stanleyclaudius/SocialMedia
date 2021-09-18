@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 
 const authCtrl = {
   register: async(req, res) => {
-    const {name, username, email, password} = req.body;
+    const {name, username, email, password, confirmPassword} = req.body;
     const formattedUsername = username.toLowerCase().replace(/ /g, '');
 
     try {
@@ -18,6 +18,9 @@ const authCtrl = {
 
       if (password.length < 6)
         return res.status(400).json({msg: 'Password should be at least 6 characters.'});
+
+      if (password !== confirmPassword)
+        return res.status(400).json({msg: 'Password confirmation does not match.'});
 
       const passwordHash = await bcrypt.hash(password, 12);
 
