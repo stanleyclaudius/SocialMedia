@@ -352,16 +352,22 @@
   z-index: 999;
   border-radius: 5px;
   color: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  transition: opacity 150ms;
 }
 
 .alert.alert--error {
   background: #ee5d5d;
+  opacity: 1;
+  pointer-events: all;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  animation: removeAlert 7s forwards;
 }
 
 .alert.alert--success {
   background: #57d58b;
+  opacity: 1;
+  pointer-events: all;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  animation: removeAlert 7s forwards;
 }
 
 .alert__header {
@@ -375,6 +381,17 @@
 
 .alert__body p {
   font-size: 14px;
+}
+
+@keyframes removeAlert {
+  from {
+    opacity: 1;
+    pointer-events: all;
+  }
+  to {
+    opacity: 0;
+    pointer-events: none;
+  }
 }
 
 .header {

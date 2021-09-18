@@ -1,24 +1,35 @@
-import { useRef, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 const Alert = () => {
-  const alertRef = useRef();
-
-  useEffect(() => {
-    const removeAlert = setTimeout(() => {
-      alertRef.current.style.opacity = '0';
-    }, 3000);
-
-    return () => clearTimeout(removeAlert);
-  }, []);
+  const {alert} = useSelector(state => state);
 
   return (
-    <div ref={alertRef} className='alert alert--success'>
-      <div className="alert__header">
-        <h4>Error</h4>
-      </div>
-      <div className="alert__body">
-        <p>An error has occured</p>
-      </div>
+    <div className={`alert alert--${alert.error ? 'error' : alert.success ? 'success' : ''}`}>
+      {
+        alert.error && (
+          <>
+            <div className="alert__header">
+              <h4>Error</h4>
+            </div>
+            <div className="alert__body">
+              <p>{alert.error}</p>
+            </div>
+          </>
+        )
+      }
+
+      {
+        alert.success && (
+          <>
+            <div className="alert__header">
+              <h4>Success</h4>
+            </div>
+            <div className="alert__body">
+              <p>{alert.success}</p>
+            </div>
+          </>
+        )
+      }
     </div>
   )
 }

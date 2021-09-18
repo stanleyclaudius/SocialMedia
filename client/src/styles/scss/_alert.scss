@@ -5,15 +5,21 @@
   z-index: 999;
   border-radius: 5px;
   color: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, .3);
-  transition: opacity 150ms;
 
   &.alert--error {
     background: $red;
+    opacity: 1;
+    pointer-events: all;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+    animation: removeAlert 7s forwards;
   }
 
   &.alert--success {
     background: $green;
+    opacity: 1;
+    pointer-events: all;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+    animation: removeAlert 7s forwards;
   }
 
   &__header {
@@ -27,5 +33,17 @@
     p {
       font-size: 14px;
     }
+  }
+}
+
+@keyframes removeAlert {
+  from {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  to {
+    opacity: 0;
+    pointer-events: none;
   }
 }
