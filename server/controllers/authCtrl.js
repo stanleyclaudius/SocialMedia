@@ -35,7 +35,7 @@ const authCtrl = {
       const accessToken = createAccessToken({id: newUser._id});
       const refreshToken = createRefreshToken({id: newUser._id});
 
-      res.cookie('sr-social-rf-token', refreshToken, {
+      res.cookie('srsocialrftoken', refreshToken, {
         path: '/api/refresh_token',
         httpOnly: true,
         maxAge: 30 * 24 * 60 * 60 * 1000
@@ -68,7 +68,7 @@ const authCtrl = {
       const accessToken = createAccessToken({id: user._id});
       const refreshToken = createRefreshToken({id: user._id});
 
-      res.cookie('sr-social-rf-token', refreshToken, {
+      res.cookie('srsocialrftoken', refreshToken, {
         httpOnly: true,
         maxAge: 30 * 24 * 60 * 60 * 1000,
         path: '/api/refresh_token'
@@ -88,7 +88,7 @@ const authCtrl = {
   },
   logout: async(req, res) => {
     try {
-      res.clearCookie('sr-social-rf-token', {
+      res.clearCookie('srsocialrftoken', {
         path: '/api/refresh_token'
       });
 
@@ -101,7 +101,7 @@ const authCtrl = {
   },
   generateAccessToken: async(req, res) => {
     try {
-      const rfToken = req.cookies('sr-social-rf-token');
+      const rfToken = req.cookies.srsocialrftoken;
       if (!rfToken)
         return res.status(400).json({msg: 'Please login first.'});
 
