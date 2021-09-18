@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { register } from './../redux/actions/authActions';
 import HeadInfo from './../utils/HeadInfo';
@@ -16,7 +16,9 @@ const Register = () => {
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [isShowConfirmPassword, setIsShowConfirmPassword] = useState(false);
 
+  const history = useHistory();
   const dispatch = useDispatch();
+  const {auth} = useSelector(state => state);
 
   const handleInputChange = e => {
     const {name, value} = e.target;
@@ -28,6 +30,11 @@ const Register = () => {
     dispatch(register(userData));
     setUserData({name: '', username: '', email: '', password: '', confirmPassword: ''});
   }
+
+  useEffect(() => {
+    if (auth.token)
+      history.push('/');
+  }, [auth.token, history]);
 
   return (
     <>
