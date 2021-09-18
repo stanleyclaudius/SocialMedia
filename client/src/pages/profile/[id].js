@@ -3,7 +3,6 @@ import { BiFemaleSign, BiMaleSign } from 'react-icons/bi';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getUserProfile } from './../../redux/actions/profileActions';
-import { Link } from 'react-router-dom';
 import Avatar from './../../components/Avatar';
 import FollowBtn from './../../components/FollowBtn';
 import EditProfile from './../../components/profile/EditProfile';
@@ -11,6 +10,7 @@ import Post from './../../components/profile/Post';
 import Followers from './../../components/profile/Followers';
 import Followings from './../../components/profile/Followings';
 import HeadInfo from './../../utils/HeadInfo';
+import Loading from './../../components/Loading';
 
 const Profile = () => {
   const [userData, setUserData] = useState([]);
@@ -37,40 +37,50 @@ const Profile = () => {
   return (
     <>
       <HeadInfo title='SR Social - Profile' />
-      <Link to='/profile/6145e295dc20387854dfc470'>user 2</Link>
-      <Link to='/profile/6145e634dc20387854dfc486'>user 3</Link>
       <div className='container userProfile'>
         <div className="userProfile__top">
-          <div className="userProfile__left">
-            <Avatar src={userData?.avatar} size='big' />
-          </div>
-          <div className="userProfile__right">
-            <div className="userProfile__right--username">
-              <div className="userProfile__right--usernameInfo">
-                <h3>{userData?.username}</h3>
-                {
-                  userData?.gender === 'male' ? <BiMaleSign /> : userData?.gender === 'female' ? <BiFemaleSign style={{color: 'rgb(255, 156, 172)'}} /> : ''
-                }
+          {
+            profile.loading
+            ? (
+              <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', marginBottom: '15px'}}>
+                <Loading />
               </div>
-              {userData?._id === auth.user?._id ? <button onClick={() => setIsEditProfile(true)}>Edit Profile</button> : <FollowBtn />}
-            </div>
-            <div className="userProfile__right--info">
-              <div className='postCount'>
-                101 Post
-              </div>
-              <div className="followerCount" onClick={() => setIsOpenFollowers(true)}>
-                {userData?.followers?.length} Followers
-              </div>
-              <div className="followingCount" onClick={() => setIsOpenFollowings(true)}>
-                {userData?.followings?.length} Followings
-              </div>
-            </div>
-            <p className='fullname'>{userData?.name} <span>{userData?.mobile}</span></p>
-            <p className='story'>
-              {userData?.story}
-            </p>
-            <p className='email'>{userData?.email}</p>
-          </div>
+            )
+            : (
+              <>
+                <div className="userProfile__left">
+                  <Avatar src={userData.avatar} size='big' />
+                </div>
+                <div className="userProfile__right">
+                  <div className="userProfile__right--username">
+                    <div className="userProfile__right--usernameInfo">
+                      <h3>{userData.username}</h3>
+                      {
+                        userData.gender === 'male' ? <BiMaleSign /> : userData.gender === 'female' ? <BiFemaleSign style={{color: 'rgb(255, 156, 172)'}} /> : ''
+                      }
+                    </div>
+                    {userData._id === auth.user?._id ? <button onClick={() => setIsEditProfile(true)}>Edit Profile</button> : <FollowBtn />}
+                  </div>
+                  <div className="userProfile__right--info">
+                    <div className='postCount'>
+                      101 Post
+                    </div>
+                    <div className="followerCount" onClick={() => setIsOpenFollowers(true)}>
+                      {userData.followers?.length} Followers
+                    </div>
+                    <div className="followingCount" onClick={() => setIsOpenFollowings(true)}>
+                      {userData.followings?.length} Followings
+                    </div>
+                  </div>
+                  <p className='fullname'>{userData.name} <span>{userData.mobile}</span></p>
+                  <p className='story'>
+                    {userData.story}
+                  </p>
+                  <p className='email'>{userData.email}</p>
+                </div>
+              </>
+            )
+          }
         </div>
       
         <div className="userProfile__bottom">
