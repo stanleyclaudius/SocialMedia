@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from './../redux/actions/authActions';
 import HeadInfo from './../utils/HeadInfo';
 
 const Login = () => {
@@ -10,6 +12,8 @@ const Login = () => {
   });
   const [isShowPassword, setIsShowPassword] = useState(false);
 
+  const dispatch = useDispatch();
+
   const handleInputChange = e => {
     const {name, value} = e.target;
     setUserData({...userData, [name]: value});
@@ -17,7 +21,7 @@ const Login = () => {
 
   const handleFormSubmit = e => {
     e.preventDefault();
-
+    dispatch(login(userData));
     setUserData({email: '', password: ''});
   }
 
