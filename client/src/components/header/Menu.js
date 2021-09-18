@@ -10,7 +10,7 @@ import {
 import { IoPaperPlaneOutline, IoPaperPlaneSharp, IoLogOut } from 'react-icons/io5';
 import { FaUserAlt } from 'react-icons/fa';
 import { Link, useLocation } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../redux/actions/authActions';
 import Avatar from './../Avatar';
 import Notification from './../Notification';
@@ -38,6 +38,7 @@ const Menu = () => {
   const { pathname } = useLocation();
 
   const dispatch = useDispatch();
+  const {auth} = useSelector(state => state);
   
   const isLinkActive = path => {
     if (path === pathname) return true;
@@ -91,7 +92,7 @@ const Menu = () => {
 
       <div className='profile'>
         <div onClick={handleClickProfile}>
-          <Avatar size='xs' />
+          <Avatar src={auth.user?.avatar} size='xs' />
         </div>
 
         <div className={`profile__dropdown ${isOpenProfile ? 'active' : ''}`}>
