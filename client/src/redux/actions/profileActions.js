@@ -37,8 +37,10 @@ export const getUserProfile = ({id, token}) => async(dispatch) => {
 export const editProfile = ({userData, avatar, auth}) => async(dispatch) => {
   try {
     dispatch({
-      type: PROFILE_TYPES.LOADING,
-      payload: true
+      type: GLOBALTYPES.ALERT,
+      payload: {
+        loading: true
+      }
     });
 
     let media;
@@ -49,13 +51,6 @@ export const editProfile = ({userData, avatar, auth}) => async(dispatch) => {
       ...userData,
       avatar: avatar ? media[0].secure_url : auth.user.avatar
     }, auth.token);
-    
-    dispatch({
-      type: GLOBALTYPES.ALERT,
-      payload: {
-        success: res.data.msg
-      }
-    });
 
     dispatch({
       type: GLOBALTYPES.AUTH,
@@ -70,8 +65,10 @@ export const editProfile = ({userData, avatar, auth}) => async(dispatch) => {
     });
 
     dispatch({
-      type: PROFILE_TYPES.LOADING,
-      payload: false
+      type: GLOBALTYPES.ALERT,
+      payload: {
+        success: res.data.msg
+      }
     });
   } catch (err) {
     dispatch({

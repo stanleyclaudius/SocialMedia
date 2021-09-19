@@ -10,7 +10,6 @@
   './discover',
   './confirmAlert',
   './notification',
-  './alert',
   './loading',
   './header/header',
   './header/search',
@@ -103,6 +102,10 @@ button {
   &:hover {
     background-color: $secondary-color;
   }
+}
+
+#__react-alert__ div {
+  z-index: 9999 !important;
 }
 
 @include mediaDesktop {
