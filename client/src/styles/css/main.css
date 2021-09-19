@@ -1545,6 +1545,16 @@
   cursor: pointer;
 }
 
+.inputGroup--lengthInfo {
+  position: relative;
+}
+
+.inputGroup--lengthInfo small {
+  position: absolute;
+  bottom: 14px;
+  right: 10px;
+}
+
 button {
   border: none;
   outline: none;

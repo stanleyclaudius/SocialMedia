@@ -24,10 +24,14 @@ const Profile = () => {
   const {auth, profile} = useSelector(state => state);
 
   useEffect(() => {
+    if (auth.user?._id === id) {
+      setUserData(auth.user);
+    }
+
     if (profile.users.every(item => item._id !== id)) {
       dispatch(getUserProfile({id, token: auth.token}));
     }
-  }, [dispatch, id, profile.users, auth.token]);
+  }, [dispatch, id, profile.users, auth]);
 
   useEffect(() => {
     const user = profile.users.find(user => user._id === id);
@@ -56,7 +60,7 @@ const Profile = () => {
                     <div className="userProfile__right--usernameInfo">
                       <h3>{userData.username}</h3>
                       {
-                        userData.gender === 'male' ? <BiMaleSign /> : userData.gender === 'female' ? <BiFemaleSign style={{color: 'rgb(255, 156, 172)'}} /> : ''
+                        userData.gender === 'male' ? <BiMaleSign style={{color: 'blue'}} /> : userData.gender === 'female' ? <BiFemaleSign style={{color: 'rgb(255, 156, 172)'}} /> : ''
                       }
                     </div>
                     {userData._id === auth.user?._id ? <button onClick={() => setIsEditProfile(true)}>Edit Profile</button> : <FollowBtn />}

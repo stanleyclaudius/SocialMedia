@@ -4,7 +4,7 @@ export const uploadImage = async(files, type) => {
   for (const file of files) {
     const formData = new FormData();
     formData.append('file', file);
-    type === avatar ? formData.append('upload_preset', 'scmlcvko') : formData.append('upload_preset', 'esekoizw');
+    type === 'avatar' ? formData.append('upload_preset', 'scmlcvko') : formData.append('upload_preset', 'esekoizw');
     formData.append('cloud_name', 'dpef9sjqt');
 
     const res = await fetch('https://api.cloudinary.com/v1_1/dpef9sjqt/image/upload', {

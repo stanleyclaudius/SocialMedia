@@ -78,6 +78,16 @@
       cursor: pointer;
     }
   }
+
+  &--lengthInfo {
+    position: relative;
+    
+    small {
+      position: absolute;
+      bottom: 14px;
+      right: 10px;
+    }
+  }
 }
 
 button {
