@@ -4,6 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { register } from './../redux/actions/authActions';
 import HeadInfo from './../utils/HeadInfo';
+import Loading from './../components/Loading';
 
 const Register = () => {
   const [userData, setUserData] = useState({
@@ -18,7 +19,7 @@ const Register = () => {
 
   const history = useHistory();
   const dispatch = useDispatch();
-  const {auth} = useSelector(state => state);
+  const {auth, alert} = useSelector(state => state);
 
   const handleInputChange = e => {
     const {name, value} = e.target;
@@ -38,6 +39,23 @@ const Register = () => {
 
   return (
     <>
+      {
+        alert.loading &&
+        <div style={{
+          position: 'fixed',
+          top: '0',
+          left: '0',
+          bottom: '0',
+          right: '0',
+          background: 'rgba(0, 0, 0, .8)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: '999'
+        }}>
+          <Loading />
+        </div>
+      }
       <HeadInfo title='SR Social - Register' />
       <div className='auth'>
         <div className="auth__box">

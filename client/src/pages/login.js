@@ -4,6 +4,7 @@ import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from './../redux/actions/authActions';
 import HeadInfo from './../utils/HeadInfo';
+import Loading from './../components/Loading';
 
 const Login = () => {
   const [userData, setUserData] = useState({
@@ -14,7 +15,7 @@ const Login = () => {
 
   const history = useHistory();
   const dispatch = useDispatch();
-  const {auth} = useSelector(state => state);
+  const {auth, alert} = useSelector(state => state);
 
   const handleInputChange = e => {
     const {name, value} = e.target;
@@ -34,6 +35,23 @@ const Login = () => {
 
   return (
     <>
+      {
+        alert.loading &&
+        <div style={{
+          position: 'fixed',
+          top: '0',
+          left: '0',
+          bottom: '0',
+          right: '0',
+          background: 'rgba(0, 0, 0, .8)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: '999'
+        }}>
+          <Loading />
+        </div>
+      }
       <HeadInfo title='SR Social - Login' />
       <div className='auth'>
         <div className="auth__box">
