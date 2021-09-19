@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
+import { useSelector } from 'react-redux';
 import Avatar from './../Avatar';
 
 const EditProfile = ({setIsEditProfile}) => {
@@ -12,6 +13,7 @@ const EditProfile = ({setIsEditProfile}) => {
     gender: ''
   });
   const [avatar, setAvatar] = useState('');
+  const {auth, alert} = useSelector(state => state);
 
   const handleChange = e => {
     const {name, value} = e.target;
@@ -27,6 +29,19 @@ const EditProfile = ({setIsEditProfile}) => {
     e.preventDefault();
   }
 
+  useEffect(() => {
+    if (!alert.loading) {
+      setUserData({
+        name: auth.user.name,
+        mobile: auth.user.mobile,
+        address: auth.user.address,
+        website: auth.user.website,
+        story: auth.user.story,
+        gender: auth.user.gender
+      })
+    }
+  }, [alert.loading, auth.user]);
+
   return (
     <div className='editProfile'>
       <div className="editProfile__box">
@@ -37,7 +52,7 @@ const EditProfile = ({setIsEditProfile}) => {
         <div className="editProfile__content">
           <form onSubmit={handleSubmit}>
             <div className="inputFile">
-              <Avatar src={avatar ? URL.createObjectURL(avatar) : ''} size='big' />
+              <Avatar src={avatar ? URL.createObjectURL(avatar) : auth.user?.avatar} size='big' />
               <div>
                 <input type="file" accept='image/*' onChange={handleChangeImage} />
               </div>
@@ -64,7 +79,8 @@ const EditProfile = ({setIsEditProfile}) => {
             </div>
             <div className="inputGroup">
               <label htmlFor="gender">Gender</label>
-              <select name="gender" id="gender">
+              <select name="gender" id="gender" value={userData.gender}>
+                <option value="">Do not specify</option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
               </select>
