@@ -77,7 +77,7 @@ export const editProfile = ({userData, avatar, auth}) => async(dispatch) => {
     dispatch({
       type: GLOBALTYPES.ALERT,
       payload: {
-        error: err.stack
+        error: err.reponse.data.msg
       }
     });
   }

@@ -18,6 +18,7 @@ const Profile = () => {
   const [isEditProfile, setIsEditProfile] = useState(false);
   const [isOpenFollowers, setIsOpenFollowers] = useState(false);
   const [isOpenFollowings, setIsOpenFollowings] = useState(false);
+  const [isShowStoryMore, setIsShowStoryMore] = useState(false);
 
   const {id} = useParams();
   const dispatch = useDispatch();
@@ -53,7 +54,7 @@ const Profile = () => {
             : (
               <>
                 <div className="userProfile__left">
-                  <Avatar src={userData.avatar} size='big' />
+                  <Avatar src={userData.avatar} size='supper' />
                 </div>
                 <div className="userProfile__right">
                   <div className="userProfile__right--username">
@@ -76,11 +77,28 @@ const Profile = () => {
                       {userData.followings?.length} Followings
                     </div>
                   </div>
-                  <p className='fullname'>{userData.name} <span>{userData.mobile}</span></p>
-                  <p className='story'>
-                    {userData.story}
-                  </p>
+                  <p className='fullname'>{userData.name} <span style={{marginLeft: '15px', fontWeight: '500'}}>{userData.mobile}</span></p>
                   <p className='email'>{userData.email}</p>
+                  <p className='address'>{userData.address}</p>
+                  {userData.website && <a href={userData.website} target='_blank' rel='noreferrer'>{userData.website}</a>}
+
+                  {
+                    userData.story?.length < 100
+                    ? <p className='story'>{userData.story}</p>
+                    : isShowStoryMore
+                      ? (
+                          <div style={{marginTop: '5px'}}>
+                            <span>{userData.story}</span>
+                            <span onClick={() => setIsShowStoryMore(false)} style={{color: '#aaa', cursor: 'pointer', fontSize: '15px'}}> See less</span>
+                          </div>
+                        )
+                      : (
+                          <div style={{marginTop: '5px'}}>
+                            <span>{userData.story?.slice(0, 100)}</span>
+                            <span onClick={() => setIsShowStoryMore(true)} style={{color: '#aaa', cursor: 'pointer', fontSize: '15px'}}> See more</span>
+                          </div>
+                        )
+                  }
                 </div>
               </>
             )

@@ -144,6 +144,11 @@
   height: 140px;
 }
 
+.avatar--supper {
+  width: 180px;
+  height: 180px;
+}
+
 .avatar img {
   width: 100%;
   height: 100%;
@@ -1053,7 +1058,7 @@
 .userProfile__top {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   flex-direction: column;
 }
 
@@ -1101,8 +1106,12 @@
   margin-left: 35px;
 }
 
-.userProfile__right .fullname, .userProfile__right .story {
+.userProfile__right .fullname, .userProfile__right .address, .userProfile__right .email {
   margin-bottom: 5px;
+}
+
+.userProfile__right .story {
+  margin-top: 5px;
 }
 
 .userProfile__bottom {
@@ -1131,6 +1140,9 @@
 @media (min-width: 850px) {
   .userProfile__top {
     flex-direction: row;
+  }
+  .userProfile__right {
+    margin-left: 60px;
   }
   .userProfile__right--username {
     margin-top: 0;

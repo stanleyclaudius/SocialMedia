@@ -2,7 +2,7 @@
   padding: 30px 100px;
   
   &__top {
-    @include flexCenter(space-between);
+    @include flexCenter(center);
     flex-direction: column;
   }
 
@@ -50,8 +50,12 @@
       }
     }
 
-    .fullname, .story {
+    .fullname, .address, .email {
       margin-bottom: 5px;
+    }
+
+    .story {
+      margin-top: 5px;
     }
   }
 
@@ -87,6 +91,7 @@
     }
 
     &__right {
+      margin-left: 60px;
 
       &--username {
         margin-top: 0;
