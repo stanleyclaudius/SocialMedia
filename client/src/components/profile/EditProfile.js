@@ -8,10 +8,12 @@ import Avatar from './../Avatar';
 const checkErr = ({file, name, story}) => {
   let err = {};
 
-  if (file.type !== 'image/jpeg' && file.type !== 'image/png') {
-    err.avatar = 'The avatar should be jpeg or png format';
-  } else if (file.size > 1024 * 1024 * 2) {
-    err.avatar = 'The maximum avatar size is 2MB.';
+  if (file) {
+    if (file.type !== 'image/jpeg' && file.type !== 'image/png') {
+      err.avatar = 'The avatar should be jpeg or png format';
+    } else if (file.size > 1024 * 1024 * 2) {
+      err.avatar = 'The maximum avatar size is 2MB.';
+    }
   }
 
   if (!name) {
@@ -51,7 +53,7 @@ const EditProfile = ({setIsEditProfile}) => {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    const err = checkErr({name: userData.name, story: userData.story});
+    const err = checkErr({file: avatar, name: userData.name, story: userData.story});
     if (Object.keys(err).length !== 0) {
       dispatch({
         type: GLOBALTYPES.ALERT,
