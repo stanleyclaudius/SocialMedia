@@ -21,6 +21,21 @@ const userCtrl = {
     } catch (err) {
       return res.status(500).json({msg: err.message});
     }
+  },
+  editProfile: async(req, res) => {
+    try {
+      const {name, mobile, address, website, story, gender, avatar} = req.body;
+      if (!name)
+        return res.status(400).json({msg: 'Name can\'t be empty.'});
+
+      const user = await User.findOneAndUpdate({_id: req.user._id}, {
+        name, mobile, address, website, story, gender, avatar
+      });
+
+      res.status(200).json({msg: 'Profile updated.'});
+    } catch (err) {
+      return res.status(500).json({msg: err.message});
+    }
   }
 };
 
