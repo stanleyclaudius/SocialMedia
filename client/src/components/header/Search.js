@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { AiOutlineSearch, AiOutlineClose } from 'react-icons/ai';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getDataAPI } from './../../utils/fetchData';
 import { GLOBALTYPES } from './../../redux/actions/globalTypes';
@@ -11,6 +11,7 @@ const Search = () => {
   const [users, setUsers] = useState([]);
   const [search, setSearch] = useState('');
   const [load, setLoad] = useState(false);
+  const {auth} = useSelector(state => state);
 
   const dispatch = useDispatch();
 
@@ -18,7 +19,7 @@ const Search = () => {
     e.preventDefault();
     try {
       setLoad(true);
-      const res = await getDataAPI(`search?username=${search}`);
+      const res = await getDataAPI(`search?username=${search}`, auth.token);
       setLoad(false);
       setUsers(res.data.users);
     } catch (err) {

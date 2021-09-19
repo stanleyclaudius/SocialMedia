@@ -6,14 +6,14 @@ export const PROFILE_TYPES = {
   GET_USER_PROFILE: 'GET_USER_PROFILE'
 };
 
-export const getUserProfile = ({id}) => async(dispatch) => {
+export const getUserProfile = ({id, token}) => async(dispatch) => {
   try {
     dispatch({
       type: PROFILE_TYPES.LOADING,
       payload: true
     });
 
-    const res = await getDataAPI(`profile/${id}`);
+    const res = await getDataAPI(`profile/${id}`, token);
     dispatch({
       type: PROFILE_TYPES.GET_USER_PROFILE,
       payload: res.data.user

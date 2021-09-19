@@ -25,9 +25,9 @@ const Profile = () => {
 
   useEffect(() => {
     if (profile.users.every(item => item._id !== id)) {
-      dispatch(getUserProfile({id}));
+      dispatch(getUserProfile({id, token: auth.token}));
     }
-  }, [dispatch, id, profile.users]);
+  }, [dispatch, id, profile.users, auth.token]);
 
   useEffect(() => {
     const user = profile.users.find(user => user._id === id);
