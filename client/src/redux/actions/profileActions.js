@@ -4,7 +4,9 @@ import { getDataAPI, patchDataAPI } from './../../utils/fetchData';
 
 export const PROFILE_TYPES = {
   LOADING: 'PROFILE_LOADING',
-  GET_USER_PROFILE: 'GET_USER_PROFILE'
+  GET_USER_PROFILE: 'GET_USER_PROFILE',
+  FOLLOW: 'FOLLOW',
+  UNFOLLOW: 'UNFOLLOW'
 };
 
 export const getUserProfile = ({id, token}) => async(dispatch) => {
@@ -75,6 +77,68 @@ export const editProfile = ({userData, avatar, auth}) => async(dispatch) => {
       type: GLOBALTYPES.ALERT,
       payload: {
         error: err.reponse.data.msg
+      }
+    });
+  }
+}
+
+export const followUser = ({user, auth}) => async(dispatch) => {
+  let newUser = {...user, followers: [...user.followers, auth.user]};
+
+  dispatch({
+    type: PROFILE_TYPES.FOLLOW,
+    payload: newUser
+  });
+
+  dispatch({
+    type: GLOBALTYPES.AUTH,
+    payload: {
+      ...auth,
+      user: {
+        ...auth.user,
+        followings: [...auth.user.followings, newUser]
+      }
+    }
+  });
+
+  try {
+
+  } catch (err) {
+    dispatch({
+      type: GLOBALTYPES.ALERT,
+      payload: {
+        error: err.response.data.msg
+      }
+    });
+  }
+}
+
+export const unfollowUser = ({user, auth}) => async(dispatch) => {
+  const newUser = {...user, followers: user.followers.filter(item => item._id !== auth.user._id)};
+
+  dispatch({
+    type: PROFILE_TYPES.UNFOLLOW,
+    payload: newUser
+  });
+
+  dispatch({
+    type: GLOBALTYPES.AUTH,
+    payload: {
+      ...auth,
+      user: {
+        ...auth.user,
+        followings: auth.user.followings.filter(item => item._id !== user._id)
+      }
+    }
+  });
+
+  try {
+
+  } catch (err) {
+    dispatch({
+      type: GLOBALTYPES.ALERT,
+      payload: {
+        error: err.response.data.msg
       }
     });
   }
