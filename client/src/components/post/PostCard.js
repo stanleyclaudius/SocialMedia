@@ -2,11 +2,11 @@ import PostHeader from './PostHeader';
 import PostBody from './PostBody';
 import PostFooter from './PostFooter';
 
-const PostCard = () => {
+const PostCard = ({post}) => {
   return (
     <div className='postCard'>
-      <PostHeader />
-      <PostBody />
+      <PostHeader user={post.user} />
+      <PostBody post={post} />
       <PostFooter />
     </div>
   )

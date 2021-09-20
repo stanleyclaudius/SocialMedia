@@ -7,12 +7,13 @@ import Avatar from './../components/Avatar';
 import UserCard from '../components/UserCard';
 import PostModal from './../components/post/PostModal';
 import HeadInfo from './../utils/HeadInfo';
+import Loading from './../components/Loading';
 
 const Home = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   const dispatch = useDispatch();
-  const {auth} = useSelector(state => state);
+  const {homePost, auth} = useSelector(state => state);
 
   useEffect(() => {
     dispatch(getPosts(auth.token));
@@ -23,7 +24,23 @@ const Home = () => {
       <HeadInfo title='SR Social - Home' />
       <div className='container home'>
         <div className="homeLeft">
-          <PostCard />
+          {
+            homePost.loading
+            ? (
+              <div style={{display: 'flex', justifyContent: 'center'}}>
+                <Loading />
+              </div>
+            )
+            : (
+              <>
+                {
+                  homePost.posts.map(post => (
+                    <PostCard key={post._id} post={post} />
+                  ))
+                }
+              </>
+            )
+          }
         </div>
         <div className="homeRight">
           <div className="homeRight__user">

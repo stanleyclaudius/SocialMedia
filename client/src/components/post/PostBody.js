@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { IoPaperPlaneOutline, IoChatbubbleOutline } from 'react-icons/io5';
 import { BsBookmark } from 'react-icons/bs';
@@ -6,12 +6,8 @@ import { RiArrowLeftCircleFill, RiArrowRightCircleFill } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
 import Comment from './../comment/Comment';
 
-const PostBody = () => {
-  const image = [
-    'https://militaryspouseafcpe.org/storage/2020/09/kitty.jpg',
-    'https://images.unsplash.com/photo-1560114928-40f1f1eb26a0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8Y3V0ZSUyMGtpdHRlbnxlbnwwfHwwfHw%3D&w=1000&q=80',
-    'https://militaryspouseafcpe.org/storage/2020/09/kitty.jpg',
-  ];
+const PostBody = ({post}) => {
+  const [images, setImages] = useState([]);
   const [curImage, setCurImage] = useState(0);
 
   const imageToLeft = () => {
@@ -21,17 +17,21 @@ const PostBody = () => {
   }
 
   const imageToRight = () => {
-    const length = image.length;
+    const length = images.length;
     const newPos = curImage + 1;
     if (newPos >= (length - 1)) setCurImage(length - 1);
     else setCurImage(newPos)
   }
 
+  useEffect(() => {
+    setImages(post.images);
+  }, [post]);
+
   return (
     <div className='postBody'>
       <div className="postBody__image">
         {
-          image.length > 1 && (
+          images.length > 1 && (
             <>
               {
                 (curImage !== 0) && 
@@ -40,12 +40,18 @@ const PostBody = () => {
             </>
           )
         }
-        <img src={image[curImage]} alt='Post' />
+
         {
-          image.length > 1 && (
+          images[curImage]?.secure_url.match(/video/i)
+          ? <video src={images[curImage]?.secure_url} controls />
+          : <img src={images[curImage]?.secure_url} alt='Post' />
+        }
+
+        {
+          images.length > 1 && (
             <>
               {
-                (curImage !== (image.length - 1)) && 
+                (curImage !== (images.length - 1)) && 
                 <RiArrowRightCircleFill onClick={imageToRight} />
               }
             </>
@@ -65,12 +71,12 @@ const PostBody = () => {
         </div>
       </div>
       <div className="postBody__info">
-        <p className='likeCount' style={{paddingLeft: '10px'}}>101 likes</p>
+        <p className='likeCount' style={{paddingLeft: '10px'}}>{post.likes.length} {post.likes.length > 1 ? 'likes' : 'like'}</p>
         <div className="postBody__info--comments">
           <div className="caption">
             <p>
-              <span>username01</span>
-              Lorem ipsum dolor sit amet.
+              <span>{post.user.username}</span>
+              {post.content}
             </p>
           </div>
           <Comment />
