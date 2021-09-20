@@ -1,13 +1,19 @@
 import Avatar from './Avatar';
 import FollowBtn from './FollowBtn';
+import { Link } from 'react-router-dom';
 
-const UserCard = ({message}) => {
+const UserCard = ({user, message, setIsOpenFollowers, setIsOpenFollowings}) => {
+  const handleCloseAll = () => {
+    if (setIsOpenFollowings) setIsOpenFollowings(false);
+    if (setIsOpenFollowers) setIsOpenFollowers(false);
+  }
+
   return (
-    <div className='userCard'>
+    <Link style={{color: '#000', textDecoration: 'none'}} to={`/profile/${user?._id}`} className='userCard' onClick={handleCloseAll}>
       <div className="userCard__left">
-        <Avatar size='small' />
+        <Avatar src={user?.avatar} size='small' />
         <div>
-          <p>username02</p>
+          <p>{user?.username}</p>
           <small>{message}</small>
         </div>
       </div>
@@ -15,11 +21,11 @@ const UserCard = ({message}) => {
       {
         !message && (
           <div className="userCard__right">
-            <FollowBtn />
+            <FollowBtn user={user} />
           </div>
         )
       }
-    </div>
+    </Link>
   )
 }
 

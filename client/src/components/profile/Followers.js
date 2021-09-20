@@ -1,7 +1,8 @@
 import UserCard from './../UserCard';
 import { AiOutlineClose } from 'react-icons/ai';
 
-const Followers = ({active, setIsOpenFollowers}) => {
+const Followers = ({followers, active, setIsOpenFollowers}) => {
+
   return (
     <div className={`followModal ${active ? 'active' : ''}`}>
       <div className={`followModal__box ${active ? 'active' : ''}`}>
@@ -10,12 +11,11 @@ const Followers = ({active, setIsOpenFollowers}) => {
           <AiOutlineClose onClick={() => setIsOpenFollowers(false)} />
         </div>
         <div className="followModal__body">
-          <UserCard />
-          <UserCard />
-          <UserCard />
-          <UserCard />
-          <UserCard />
-          <UserCard />
+          {
+            followers?.map(item => (
+              <UserCard key={item._id} user={item} setIsOpenFollowers={setIsOpenFollowers} />
+            ))
+          }
         </div>
       </div>
     </div>

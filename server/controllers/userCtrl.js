@@ -13,7 +13,7 @@ const userCtrl = {
   getProfile: async(req, res) => {
     try {
       const {id} = req.params;
-      const user = await User.findById(id).select('-password').populate('followers followings', 'avatar username name');
+      const user = await User.findById(id).select('-password').populate('followers followings', 'avatar username name followers followings');
       if (!user)
         return res.status(400).json({msg: 'User not found.'});
 
