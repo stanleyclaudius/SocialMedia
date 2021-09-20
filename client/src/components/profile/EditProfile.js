@@ -127,7 +127,7 @@ const EditProfile = ({setIsEditProfile}) => {
                 <option value="female">Female</option>
               </select>
             </div>
-            <button type="submit">Save Changes</button>
+            <button type="submit" disabled={alert.loading ? true : false}>{alert.loading ? 'Loading ...' : 'Save Changes'}</button>
           </form>
         </div>
       </div>
