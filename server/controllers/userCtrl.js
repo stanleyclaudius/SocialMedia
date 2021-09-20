@@ -62,17 +62,19 @@ const userCtrl = {
   },
   unfollowUser: async(req, res) => {
     try {
-      await findOneAndUpdate({_id: req.params.id}, {
+      await User.findOneAndUpdate({_id: req.params.id}, {
         $pull: {
           followers: req.user._id
         }
       }, {new: true});
 
-      await findOneAndUpdate({_id: req.user._id}, {
+      await User.findOneAndUpdate({_id: req.user._id}, {
         $pull: {
           followings: req.params.id
         }
       }, {new: true});
+
+      res.status(200).json({msg: 'User unfollowed.'});
     } catch (err) {
       return res.status(500).json({msg: err.messgae});
     }

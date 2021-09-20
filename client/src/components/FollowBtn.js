@@ -18,12 +18,12 @@ const FollowBtn = ({user}) => {
     dispatch(unfollowUser({user, auth}));
   }
 
-  // useEffect(() => {
-  //   if (auth.user?.followings.find(item => item._id === user._id)) {
-  //     setIsFollowed(true);
-  //   }
-  //   return () => setIsFollowed(false);
-  // }, [auth.user.followings, user._id]);
+  useEffect(() => {
+    if (auth.user.followings.find(item => item._id === user?._id)) {
+      setIsFollowed(true);
+    }
+    return () => setIsFollowed(false);
+  }, [auth.user.followings, user?._id]);
 
   return (
     <>

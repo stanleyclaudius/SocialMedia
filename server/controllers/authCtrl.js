@@ -57,7 +57,7 @@ const authCtrl = {
     const {email, password} = req.body;
 
     try {
-      const user = await User.findOne({email});
+      const user = await User.findOne({email}).populate('followers followings', 'avatar username name');
       if (!user)
         return res.status(400).json({msg: 'Invalid credential.'});
 
@@ -109,7 +109,7 @@ const authCtrl = {
         if (err)
           return res.status(400).json({msg: 'Please login first.'});
 
-        const user = await User.findById(result.id).select('-password');
+        const user = await User.findById(result.id).select('-password').populate('followers followings', 'avatar username name');
         if (!user)
           return res.status(404).json({msg: 'User not found.'});
 
