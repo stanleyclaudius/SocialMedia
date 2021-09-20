@@ -1,6 +1,25 @@
 import { useState, useRef } from 'react';
 import { AiOutlineClose, AiFillCamera, AiFillPicture } from 'react-icons/ai';
+import { useDispatch, useSelector } from 'react-redux';
+import { GLOBALTYPES } from './../../redux/actions/globalTypes';
+import { createPost } from './../../redux/actions/postActions';
 import ConfirmAlert from './../ConfirmAlert';
+
+const checkErr = ({content, images}) => {
+  let err = {};
+
+  if (!content) {
+    err.content = 'Please provide content for this post.';
+  }
+
+  if (images.length === 0) {
+    err.images = 'Please provide images for this post.';
+  } else if (images.size > 1024 * 1024 * 5) {
+    err.images = 'Maximum media size is 5MB.';
+  }
+
+  return err;
+}
 
 const PostModal = ({setIsOpenModal}) => {
   const [content, setContent] = useState('');
@@ -12,6 +31,9 @@ const PostModal = ({setIsOpenModal}) => {
   const videoRef = useRef();
   const canvasRef = useRef();
 
+  const dispatch = useDispatch();
+  const {auth, alert} = useSelector(state => state);
+
   const handleCloseModal = () => {
     if (content || images.length > 0) {
       setOpenConfirm(true);
@@ -20,6 +42,10 @@ const PostModal = ({setIsOpenModal}) => {
       tracks && tracks.stop();
       setIsOpenModal(false);
     }
+    dispatch({
+      type: GLOBALTYPES.ALERT,
+      payload: {}
+    });
   }
 
   const handleImageChange = e => {
@@ -76,8 +102,19 @@ const PostModal = ({setIsOpenModal}) => {
     tracks.stop();
   }
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
+    const err = checkErr({content, images});
+    if (Object.keys(err).length !== 0) {
+      dispatch({
+        type: GLOBALTYPES.ALERT,
+        payload: err
+      })
+    } else {
+      await dispatch(createPost({content, images, auth}));
+      setIsOpenModal(false);
+      tracks && tracks.stop();
+    }
   }
 
   return (
@@ -86,14 +123,15 @@ const PostModal = ({setIsOpenModal}) => {
         <div className="postModal__box">
           <div className="postModal__box--header">
             <h3>Create Post</h3>
-            <AiOutlineClose onClick={handleCloseModal} />
+            {!alert.loading && <AiOutlineClose onClick={handleCloseModal} />}
           </div>
           <div className="postModal__box--content">
             <form onSubmit={handleSubmit}>
               <div>
-                <textarea placeholder='Your caption here ...' value={content} onChange={e => setContent(e.target.value)} />
+                <textarea placeholder={alert.content ? alert.content : 'Write your caption here ...'} value={content} onChange={e => setContent(e.target.value)} style={{background: alert.content ? '#ffd1d1' : ''}} />
                 <div className="postImage">
                   <h4>Image Upload</h4>
+                  {alert.images && <small style={{color: 'red'}}>{alert.images}</small>}
                   <div className="postImage__icon">
                     {
                       stream
@@ -146,7 +184,7 @@ const PostModal = ({setIsOpenModal}) => {
                   }
                 </div>
               </div>
-              <button type='submit'>Submit</button>
+              <button type='submit' disabled={alert.loading ? true : false}>{alert.loading ? 'Loading ...' : 'Submit'}</button>
               <div className="clear"></div>
             </form>
           </div>
