@@ -52,7 +52,15 @@ export const createPost = ({content, images, auth}) => async(dispatch) => {
 
     dispatch({
       type: POST_TYPES.CREATE_POST,
-      payload: res.data.post
+      payload: {
+        ...res.data.post,
+        user: {
+          _id: auth.user._id,
+          name: auth.user.name,
+          username: auth.user.username,
+          avatar: auth.user.avatar
+        }
+      }
     });
 
     dispatch({
