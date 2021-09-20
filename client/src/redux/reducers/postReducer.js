@@ -18,6 +18,12 @@ const postReducer = (state = initialState, action) => {
         ...state,
         posts: [action.payload, ...state.posts]
       }
+    case POST_TYPES.GET_POSTS:
+      return {
+        ...state,
+        result: action.payload.result,
+        posts: action.payload.posts
+      }
     default:
       return state;
   }

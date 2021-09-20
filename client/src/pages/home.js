@@ -1,13 +1,22 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { MdRefresh } from 'react-icons/md';
+import { useDispatch, useSelector } from 'react-redux';
+import { getPosts } from './../redux/actions/postActions';
 import PostCard from './../components/post/PostCard';
 import Avatar from './../components/Avatar';
 import UserCard from '../components/UserCard';
-import { MdRefresh } from 'react-icons/md';
 import PostModal from './../components/post/PostModal';
 import HeadInfo from './../utils/HeadInfo';
 
 const Home = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
+
+  const dispatch = useDispatch();
+  const {auth} = useSelector(state => state);
+
+  useEffect(() => {
+    dispatch(getPosts(auth.token));
+  }, [dispatch, auth.token]);
 
   return (
     <>
