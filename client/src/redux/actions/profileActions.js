@@ -102,7 +102,7 @@ export const followUser = ({user, auth}) => async(dispatch) => {
   });
 
   try {
-
+    await patchDataAPI(`follow/${user._id}`, null, auth.token);
   } catch (err) {
     dispatch({
       type: GLOBALTYPES.ALERT,
@@ -133,7 +133,7 @@ export const unfollowUser = ({user, auth}) => async(dispatch) => {
   });
 
   try {
-
+    await patchDataAPI(`unfollow/${user._id}`, null, auth.token);
   } catch (err) {
     dispatch({
       type: GLOBALTYPES.ALERT,
