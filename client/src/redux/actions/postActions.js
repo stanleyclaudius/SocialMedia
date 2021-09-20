@@ -1,0 +1,4 @@
+export const POST_TYPES = {
+  LOADING: 'POST_LOADING',
+  CREATE_POST: 'CREATE_POST'
+};
