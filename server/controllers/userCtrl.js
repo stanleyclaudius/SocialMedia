@@ -44,14 +44,14 @@ const userCtrl = {
         return res.status(400).json({msg: 'You have followed this user.'});
 
       await User.findOneAndUpdate({_id: req.params.id}, {
-        followers: {
-          $push: req.user._id
+        $push: {
+          followers: req.user._id
         }
       }, {new: true});
 
       await User.findOneAndUpdate({_id: req.user._id}, {
-        followings: {
-          $push: req.params.id
+        $push: {
+          followings: req.params.id
         }
       }, {new: true});
 
@@ -63,14 +63,14 @@ const userCtrl = {
   unfollowUser: async(req, res) => {
     try {
       await findOneAndUpdate({_id: req.params.id}, {
-        followers: {
-          $pull: req.user._id
+        $pull: {
+          followers: req.user._id
         }
       }, {new: true});
 
       await findOneAndUpdate({_id: req.user._id}, {
-        followings: {
-          $pull: req.params.id
+        $pull: {
+          followings: req.params.id
         }
       }, {new: true});
     } catch (err) {
