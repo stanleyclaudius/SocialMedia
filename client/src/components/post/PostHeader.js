@@ -4,10 +4,12 @@ import { AiFillEdit } from 'react-icons/ai';
 import { FaTrash, FaCopy } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
 import { GLOBALTYPES } from './../../redux/actions/globalTypes';
+import PostModal from './PostModal';
 import Avatar from './../Avatar';
 
 const PostHeader = ({post}) => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
+  const [isOpenModal, setIsOpenModal] = useState(false);
 
   const dispatch = useDispatch();
   const {auth} = useSelector(state => state);
@@ -29,6 +31,7 @@ const PostHeader = ({post}) => {
   }
 
   return (
+    <>
     <div className='postHeader'>
       <div className="postHeader__user">
         <Avatar src={post.user.avatar} size='small' />
@@ -40,7 +43,7 @@ const PostHeader = ({post}) => {
           {
             auth.user?._id === post.user._id &&
             <>
-              <div className="postHeader__menuDropdown--single">
+              <div className="postHeader__menuDropdown--single" onClick={() => setIsOpenModal(true)}>
                 <AiFillEdit />
                 Edit
               </div>
@@ -57,6 +60,9 @@ const PostHeader = ({post}) => {
         </div>
       </div>
     </div>
+
+    {isOpenModal && <PostModal setIsOpenModal={setIsOpenModal} post={post} />}
+    </>
   )
 }
 

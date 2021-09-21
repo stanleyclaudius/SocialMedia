@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { AiOutlineClose, AiFillCamera, AiFillPicture } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import { GLOBALTYPES } from './../../redux/actions/globalTypes';
@@ -21,7 +21,7 @@ const checkErr = ({content, images}) => {
   return err;
 }
 
-const PostModal = ({setIsOpenModal}) => {
+const PostModal = ({post, setIsOpenModal}) => {
   const [content, setContent] = useState('');
   const [images, setImages] = useState([]);
   const [stream, setStream] = useState(false);
@@ -35,17 +35,21 @@ const PostModal = ({setIsOpenModal}) => {
   const {auth, alert} = useSelector(state => state);
 
   const handleCloseModal = () => {
-    if (content || images.length > 0) {
-      setOpenConfirm(true);
-    } else {
-      setStream(false);
-      tracks && tracks.stop();
+    if (post) {
       setIsOpenModal(false);
+    } else {
+      if (content || images.length > 0) {
+        setOpenConfirm(true);
+      } else {
+        setStream(false);
+        tracks && tracks.stop();
+        setIsOpenModal(false);
+      }
+      dispatch({
+        type: GLOBALTYPES.ALERT,
+        payload: {}
+      });
     }
-    dispatch({
-      type: GLOBALTYPES.ALERT,
-      payload: {}
-    });
   }
 
   const handleImageChange = e => {
@@ -117,6 +121,13 @@ const PostModal = ({setIsOpenModal}) => {
     }
   }
 
+  useEffect(() => {
+    if (post) {
+      setContent(post.content);
+      setImages(post.images);
+    }
+  }, [post]);
+
   return (
     <>
       <div className='postModal'>
@@ -165,15 +176,17 @@ const PostModal = ({setIsOpenModal}) => {
                               {
                                 img.camera
                                 ? <img src={img.camera} alt='Post' />
-                                : img.type.match(/video/i)
-                                  ? <video src={URL.createObjectURL(img)} controls />
-                                  : (
-                                    <img src={
-                                      img.camera
-                                      ? img.camera
-                                      : URL.createObjectURL(img)
-                                    } alt='Post' />
-                                  )
+                                : img.secure_url
+                                  ? img.secure_url.match(/video/i) ? <video src={img.secure_url} controls /> : <img src={img.secure_url} alt='Post' />
+                                  : img.type.match(/video/i)
+                                    ? <video src={URL.createObjectURL(img)} controls />
+                                    : (
+                                      <img src={
+                                        img.camera
+                                        ? img.camera
+                                        : URL.createObjectURL(img)
+                                      } alt='Post' />
+                                    )
                               }
                               <AiOutlineClose onClick={() => deleteImage(i)} />
                             </div>
@@ -190,20 +203,23 @@ const PostModal = ({setIsOpenModal}) => {
           </div>
         </div>
       </div>
-
-      <ConfirmAlert
-        active={openConfirm}
-        title='Discard Changes?'
-        text='Once you confirm, all remaining content will be removed.' 
-        onConfirm={() => {
-          setStream(false);
-          tracks && tracks.stop();
-          setIsOpenModal(false);
-        }}
-        onCancel={() => {
-          setOpenConfirm(false);
-        }}
-      />
+      
+      {
+        !post && 
+        <ConfirmAlert
+          active={openConfirm}
+          title='Discard Changes?'
+          text='Once you confirm, all remaining content will be removed.' 
+          onConfirm={() => {
+            setStream(false);
+            tracks && tracks.stop();
+            setIsOpenModal(false);
+          }}
+          onCancel={() => {
+            setOpenConfirm(false);
+          }}
+        />
+      }
     </>
   )
 }
