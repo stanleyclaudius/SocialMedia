@@ -4,6 +4,7 @@ import { AiFillEdit } from 'react-icons/ai';
 import { FaTrash, FaCopy } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
 import { GLOBALTYPES } from './../../redux/actions/globalTypes';
+import { deletePost } from './../../redux/actions/postActions';
 import PostModal from './PostModal';
 import Avatar from './../Avatar';
 
@@ -30,6 +31,10 @@ const PostHeader = ({post}) => {
     });
   }
 
+  const handleDelete = () => {
+    dispatch(deletePost({id: post._id, auth}));
+  }
+
   return (
     <>
     <div className='postHeader'>
@@ -47,7 +52,7 @@ const PostHeader = ({post}) => {
                 <AiFillEdit />
                 Edit
               </div>
-              <div className="postHeader__menuDropdown--single">
+              <div className="postHeader__menuDropdown--single" onClick={handleDelete}>
                 <FaTrash />
                 Delete
               </div>

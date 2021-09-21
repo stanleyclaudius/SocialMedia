@@ -109,9 +109,12 @@ const postCtrl = {
   deletePost: async(req, res) => {
     try {
       await Comment.deleteMany({postId: req.params.id});
-      await Post.findOneAndDelete({_id: req.params.id, user: req.user._id});
+      const post = await Post.findOneAndDelete({_id: req.params.id, user: req.user._id});
 
-      res.status(200).json({msg: 'Post deleted'});
+      res.status(200).json({
+        msg: 'Post deleted',
+        post
+      });
     } catch (err) {
       return res.status(500).json({msg: err.message});
     }
