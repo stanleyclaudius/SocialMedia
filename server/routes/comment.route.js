@@ -4,5 +4,7 @@ const commentCtrl = require('./../controllers/commentCtrl');
 
 router.route('/comment').post(isAuthenticated, commentCtrl.createComment);
 router.route('/comment/:id').patch(isAuthenticated, commentCtrl.editComment);
+router.route('/comment/like/:id').patch(isAuthenticated, commentCtrl.likeComment);
+router.route('/comment/unlike/:id').patch(isAuthenticated, commentCtrl.unlikeComment);
 
 module.exports = router;

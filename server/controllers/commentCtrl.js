@@ -44,6 +44,40 @@ const commentCtrl = {
     } catch (err) {
       return res.status(500).json({msg: err.message});
     }
+  },
+  likeComment: async(req, res) => {
+    try {
+      const isLike = await Comment.find({_id: req.params.id, likes: req.user._id});
+      if (isLike.length > 0)
+        return res.status(400).json({msg: 'You have liked this comment.'});
+
+      await Comment.findOneAndUpdate({_id: req.params.id}, {
+        $push: {
+          likes: req.user._id
+        }
+      }, {new: true});
+
+      res.status(200).json({
+        msg: 'Comment liked.'
+      });
+    } catch (err) {
+      return res.status(500).json({msg: err.message});
+    }
+  },
+  unlikeComment: async(req, res) => {
+    try {
+      await Comment.findOneAndUpdate({_id: req.params.id}, {
+        $pull: {
+          likes: req.user._id
+        }
+      }, {new: true});
+
+      res.status(200).json({
+        msg: 'Comment unliked.'
+      });
+    } catch (err) {
+      return res.status(500).json({msg: err.message});
+    }
   }
 };
 
