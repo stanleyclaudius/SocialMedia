@@ -47,7 +47,7 @@ export const createComment = ({comment, post, auth}) => async(dispatch) => {
 export const editComment = ({comment, post, auth}) => async(dispatch) => {
   const newPost = {
     ...post,
-    comments: post.comments.map(comm => comm._id === comment._id ? comment : post)
+    comments: post.comments.map(comm => comm._id === comment._id ? comment : comm)
   };
 
   dispatch({
