@@ -36,7 +36,10 @@ const commentCtrl = {
   editComment: async(req, res) => {
     try {
       const {content} = req.body;
-      const newComment = await Comment.findOneAndUpdate({_id: req.params.id}, {content});
+      const newComment = await Comment.findOneAndUpdate({_id: req.params.id, user: req.user._id}, {content});
+      if (!newComment)
+        return res.status(400).json({msg: 'Can\'t edit comment that not own by current authenticated user.'})
+
       res.status(200).json({newComment});
     } catch (err) {
       return res.status(500).json({msg: err.message});

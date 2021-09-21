@@ -107,7 +107,7 @@ const PostBody = ({post}) => {
           </div>
           {
             post.comments.map(comm => (
-              <Comment comment={comm} />
+              <Comment comment={comm} post={post} />
             ))
           }
         </div>
