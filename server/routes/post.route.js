@@ -6,9 +6,12 @@ router.route('/post')
   .post(isAuthenticated, postCtrl.createPost)
   .get(isAuthenticated, postCtrl.getPosts);
 
-router.route('/post/:id').patch(isAuthenticated, postCtrl.editPost);
+router.route('/post/:id')
+  .patch(isAuthenticated, postCtrl.editPost)
+  .delete(isAuthenticated, postCtrl.deletePost);
 
 router.route('/post/like/:id').patch(isAuthenticated, postCtrl.likePost);
 router.route('/post/unlike/:id').patch(isAuthenticated, postCtrl.unlikePost);
+
 
 module.exports = router;

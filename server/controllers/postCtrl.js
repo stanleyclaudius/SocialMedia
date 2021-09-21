@@ -1,5 +1,6 @@
 const { findOneAndUpdate } = require('./../models/Post');
 const Post = require('./../models/Post');
+const Comment = require('./../models/Comment');
 
 const postCtrl = {
   getPosts: async(req, res) => {
@@ -101,6 +102,16 @@ const postCtrl = {
       }, {new: true});
 
       res.status(200).json({msg: 'Post unliked.'});
+    } catch (err) {
+      return res.status(500).json({msg: err.message});
+    }
+  },
+  deletePost: async(req, res) => {
+    try {
+      await Comment.deleteMany({postId: req.params.id});
+      await Post.findOneAndDelete({_id: req.params.id, user: req.user._id});
+
+      res.status(200).json({msg: 'Post deleted'});
     } catch (err) {
       return res.status(500).json({msg: err.message});
     }
