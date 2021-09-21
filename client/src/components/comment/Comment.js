@@ -82,6 +82,8 @@ const Comment = ({post, comment}) => {
         </div>
         <div className="comment--right">
           <CommentMenu
+            post={post}
+            comment={comment}
             isOpenMenu={isOpenMenu}
             setIsOpenMenu={setIsOpenMenu}
             setOnEdit={setOnEdit}
