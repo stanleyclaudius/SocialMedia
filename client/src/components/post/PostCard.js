@@ -5,7 +5,7 @@ import PostFooter from './PostFooter';
 const PostCard = ({post}) => {
   return (
     <div className='postCard'>
-      <PostHeader user={post.user} />
+      <PostHeader post={post} />
       <PostBody post={post} />
       <PostFooter />
     </div>
