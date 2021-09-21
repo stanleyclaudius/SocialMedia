@@ -6,7 +6,9 @@ export const POST_TYPES = {
   LOADING: 'POST_LOADING',
   CREATE_POST: 'CREATE_POST',
   GET_POSTS: 'GET_POSTS',
-  EDIT_POST: 'EDIT_POST'
+  EDIT_POST: 'EDIT_POST',
+  LIKE_POST: 'LIKE_POST',
+  UNLIKE_POST: 'UNLIKE_POST'
 };
 
 export const getPosts = (token) => async(dispatch) => {
@@ -113,6 +115,52 @@ export const editPost = ({content, images, post, auth}) => async(dispatch) => {
         success: res.data.msg
       }
     });
+  } catch (err) {
+    dispatch({
+      type: GLOBALTYPES.ALERT,
+      payload: {
+        error: err.response.data.msg
+      }
+    });
+  }
+}
+
+export const likePost = ({post, auth}) => async(dispatch) => {
+  const newPost = {
+    ...post,
+    likes: [...post.likes, auth.user]
+  };
+
+  dispatch({
+    type: POST_TYPES.LIKE_POST,
+    payload: newPost
+  });
+
+  try {
+
+  } catch (err) {
+    dispatch({
+      type: GLOBALTYPES.ALERT,
+      payload: {
+        error: err.response.data.msg
+      }
+    });
+  }
+}
+
+export const unlikePost = ({post, auth}) => async(dispatch) => {
+  const newPost = {
+    ...post,
+    likes: post.likes.filter(like => like._id !== auth.user._id)
+  }
+
+  dispatch({
+    type: POST_TYPES.UNLIKE_POST,
+    payload: newPost
+  });
+
+  try {
+
   } catch (err) {
     dispatch({
       type: GLOBALTYPES.ALERT,

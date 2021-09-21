@@ -1,14 +1,20 @@
 import { useState, useEffect } from 'react';
-import { AiOutlineHeart } from 'react-icons/ai';
+import { useDispatch, useSelector } from 'react-redux';
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { IoPaperPlaneOutline, IoChatbubbleOutline } from 'react-icons/io5';
 import { BsBookmark } from 'react-icons/bs';
 import { RiArrowLeftCircleFill, RiArrowRightCircleFill } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
+import { likePost, unlikePost } from './../../redux/actions/postActions';
 import Comment from './../comment/Comment';
 
 const PostBody = ({post}) => {
   const [images, setImages] = useState([]);
   const [curImage, setCurImage] = useState(0);
+  const [isLike, setIsLike] = useState(false);
+
+  const dispatch = useDispatch();
+  const {auth} = useSelector(state => state);
 
   const imageToLeft = () => {
     const newPos = curImage - 1;
@@ -21,6 +27,16 @@ const PostBody = ({post}) => {
     const newPos = curImage + 1;
     if (newPos >= (length - 1)) setCurImage(length - 1);
     else setCurImage(newPos)
+  }
+
+  const handleLikePost = () => {
+    setIsLike(true);
+    dispatch(likePost({post, auth}));
+  }
+
+  const handleUnlikePost = () => {
+    setIsLike(false);
+    dispatch(unlikePost({post, auth}));
   }
 
   useEffect(() => {
@@ -60,7 +76,9 @@ const PostBody = ({post}) => {
       </div>
       <div className="postBody__menu">
         <div className="postBody__menu--left" style={{marginLeft: '9px'}}>
-          <AiOutlineHeart />
+          {
+            isLike ? <AiFillHeart style={{color: 'red'}} onClick={handleUnlikePost} /> : <AiOutlineHeart onClick={handleLikePost} />
+          }
           <Link to='/post/fdsf' style={{color: '#000'}}>
             <IoChatbubbleOutline />
           </Link>
