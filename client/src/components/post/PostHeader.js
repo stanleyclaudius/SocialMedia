@@ -5,12 +5,14 @@ import { FaTrash, FaCopy } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
 import { GLOBALTYPES } from './../../redux/actions/globalTypes';
 import { deletePost } from './../../redux/actions/postActions';
+import ConfirmAlert from './../ConfirmAlert';
 import PostModal from './PostModal';
 import Avatar from './../Avatar';
 
 const PostHeader = ({post}) => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [openConfirm, setOpenConfirm] = useState(false);
 
   const dispatch = useDispatch();
   const {auth} = useSelector(state => state);
@@ -32,41 +34,53 @@ const PostHeader = ({post}) => {
   }
 
   const handleDelete = () => {
-    dispatch(deletePost({id: post._id, auth}));
+    setOpenConfirm(true);
   }
 
   return (
     <>
-    <div className='postHeader'>
-      <div className="postHeader__user">
-        <Avatar src={post.user.avatar} size='small' />
-        <p>{post.user.username}</p>
-      </div>
-      <div className="postHeader__menu">
-        <FiMoreHorizontal onClick={() => setIsOpenMenu(!isOpenMenu)} />
-        <div className={`postHeader__menuDropdown ${isOpenMenu ? 'active' : ''}`}>
-          {
-            auth.user?._id === post.user._id &&
-            <>
-              <div className="postHeader__menuDropdown--single" onClick={() => setIsOpenModal(true)}>
-                <AiFillEdit />
-                Edit
-              </div>
-              <div className="postHeader__menuDropdown--single" onClick={handleDelete}>
-                <FaTrash />
-                Delete
-              </div>
-            </>
-          }
-          <div className="postHeader__menuDropdown--single" onClick={handleCopyLink}>
-            <FaCopy />
-            Copy Link
+      <div className='postHeader'>
+        <div className="postHeader__user">
+          <Avatar src={post.user.avatar} size='small' />
+          <p>{post.user.username}</p>
+        </div>
+        <div className="postHeader__menu">
+          <FiMoreHorizontal onClick={() => setIsOpenMenu(!isOpenMenu)} />
+          <div className={`postHeader__menuDropdown ${isOpenMenu ? 'active' : ''}`}>
+            {
+              auth.user?._id === post.user._id &&
+              <>
+                <div className="postHeader__menuDropdown--single" onClick={() => setIsOpenModal(true)}>
+                  <AiFillEdit />
+                  Edit
+                </div>
+                <div className="postHeader__menuDropdown--single" onClick={handleDelete}>
+                  <FaTrash />
+                  Delete
+                </div>
+              </>
+            }
+            <div className="postHeader__menuDropdown--single" onClick={handleCopyLink}>
+              <FaCopy />
+              Copy Link
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    {isOpenModal && <PostModal setIsOpenModal={setIsOpenModal} setIsOpenMenu={setIsOpenMenu} post={post} />}
+      {isOpenModal && <PostModal setIsOpenModal={setIsOpenModal} setIsOpenMenu={setIsOpenMenu} post={post} />}
+
+      <ConfirmAlert
+        active={openConfirm}
+        title='Delete Post?'
+        text="Once you confirm, there's no way to recover it." 
+        onConfirm={() => {
+          dispatch(deletePost({id: post._id, auth}));
+        }}
+        onCancel={() => {
+          setOpenConfirm(false);
+        }}
+      />
     </>
   )
 }
