@@ -7,7 +7,7 @@ const PostCard = ({post}) => {
     <div className='postCard'>
       <PostHeader post={post} />
       <PostBody post={post} />
-      <PostFooter />
+      <PostFooter post={post} />
     </div>
   )
 }
