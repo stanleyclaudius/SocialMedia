@@ -4,7 +4,7 @@ const Post = require('./../models/Post');
 const postCtrl = {
   getPosts: async(req, res) => {
     try {
-      const posts = await Post.find({user: [req.user._id, ...req.user.followings]}).sort('-createdAt').populate('user', 'avatar username name');
+      const posts = await Post.find({user: [req.user._id, ...req.user.followings]}).sort('-createdAt').populate('user likes', 'avatar username name');
       res.status(200).json({
         posts,
         result: posts.length
@@ -49,7 +49,7 @@ const postCtrl = {
       const post = await Post.findOneAndUpdate({_id: req.params.id, user: req.user._id}, {
         content,
         images
-      }).populate('user', 'avatar username name');
+      }).populate('user likes', 'avatar username name');
 
       if (!post)
         return res.status(404).json({msg: 'Post not found.'});
@@ -69,7 +69,7 @@ const postCtrl = {
   likePost: async(req, res) => {
     try {
       const isLike = await Post.find({_id: req.params.id, likes: req.user._id});
-      if (isLike)
+      if (isLike.length > 0)
         return res.status(400).json({msg: 'You have liked this post.'});
 
       await Post.findOneAndUpdate({_id: req.params.id}, {

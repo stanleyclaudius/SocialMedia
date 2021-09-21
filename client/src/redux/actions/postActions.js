@@ -128,7 +128,15 @@ export const editPost = ({content, images, post, auth}) => async(dispatch) => {
 export const likePost = ({post, auth}) => async(dispatch) => {
   const newPost = {
     ...post,
-    likes: [...post.likes, auth.user]
+    likes: [
+      ...post.likes,
+      {
+        _id: auth.user._id,
+        name: auth.user.name,
+        username: auth.user.username,
+        avatar: auth.user.avatar
+      }
+    ]
   };
 
   dispatch({
@@ -137,7 +145,7 @@ export const likePost = ({post, auth}) => async(dispatch) => {
   });
 
   try {
-
+    await patchDataAPI(`post/like/${post._id}`, null, auth.token);
   } catch (err) {
     dispatch({
       type: GLOBALTYPES.ALERT,
@@ -160,7 +168,7 @@ export const unlikePost = ({post, auth}) => async(dispatch) => {
   });
 
   try {
-
+    await patchDataAPI(`post/unlike/${post._id}`, null, auth.token);
   } catch (err) {
     dispatch({
       type: GLOBALTYPES.ALERT,

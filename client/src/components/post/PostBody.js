@@ -43,6 +43,14 @@ const PostBody = ({post}) => {
     setImages(post.images);
   }, [post]);
 
+  useEffect(() => {
+    if (post.likes.find(like => like._id === auth.user._id)) {
+      setIsLike(true);
+    } else {
+      setIsLike(false);
+    }
+  }, [post.likes, auth.user]);
+
   return (
     <div className='postBody'>
       <div className="postBody__image">
