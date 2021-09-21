@@ -34,9 +34,21 @@ const Home = () => {
             : (
               <>
                 {
-                  homePost.posts.map(post => (
-                    <PostCard key={post._id} post={post} />
-                  ))
+                  homePost.result === 0
+                  ? (
+                    <div style={{textAlign: 'center', color: 'red'}}>
+                      <h2>No Post</h2>
+                    </div>
+                  )
+                  : (
+                    <>
+                      {
+                        homePost.posts.map(post => (
+                          <PostCard key={post._id} post={post} />
+                        ))
+                      }
+                    </>
+                  )
                 }
               </>
             )
