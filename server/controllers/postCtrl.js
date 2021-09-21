@@ -48,13 +48,18 @@ const postCtrl = {
       const post = await Post.findOneAndUpdate({_id: req.params.id, user: req.user._id}, {
         content,
         images
-      });
+      }).populate('user', 'avatar username name');
 
       if (!post)
         return res.status(404).json({msg: 'Post not found.'});
 
       res.status(200).json({
-        msg: 'Post edited.'
+        msg: 'Post edited.',
+        post: {
+          ...post._doc,
+          content,
+          images
+        }
       })
     } catch (err) {
       return res.status(500).json({msg: err.message});

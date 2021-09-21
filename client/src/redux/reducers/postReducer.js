@@ -25,6 +25,11 @@ const postReducer = (state = initialState, action) => {
         result: action.payload.result,
         posts: action.payload.posts
       }
+    case POST_TYPES.EDIT_POST:
+      return {
+        ...state,
+        posts: state.posts.map(post => post._id === action.payload._id ? action.payload : post)
+      }
     default:
       return state;
   }

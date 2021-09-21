@@ -61,7 +61,7 @@ const PostHeader = ({post}) => {
       </div>
     </div>
 
-    {isOpenModal && <PostModal setIsOpenModal={setIsOpenModal} post={post} />}
+    {isOpenModal && <PostModal setIsOpenModal={setIsOpenModal} setIsOpenMenu={setIsOpenMenu} post={post} />}
     </>
   )
 }

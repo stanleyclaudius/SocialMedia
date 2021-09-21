@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { AiOutlineClose, AiFillCamera, AiFillPicture } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import { GLOBALTYPES } from './../../redux/actions/globalTypes';
-import { createPost } from './../../redux/actions/postActions';
+import { createPost, editPost } from './../../redux/actions/postActions';
 import ConfirmAlert from './../ConfirmAlert';
 
 const checkErr = ({content, images}) => {
@@ -21,7 +21,7 @@ const checkErr = ({content, images}) => {
   return err;
 }
 
-const PostModal = ({post, setIsOpenModal}) => {
+const PostModal = ({post, setIsOpenMenu, setIsOpenModal}) => {
   const [content, setContent] = useState('');
   const [images, setImages] = useState([]);
   const [stream, setStream] = useState(false);
@@ -115,7 +115,12 @@ const PostModal = ({post, setIsOpenModal}) => {
         payload: err
       })
     } else {
-      await dispatch(createPost({content, images, auth}));
+      if (post) {
+        setIsOpenMenu(false);
+        await dispatch(editPost({content, images, post, auth}));
+      } else {
+        await dispatch(createPost({content, images, auth}));
+      }
       setIsOpenModal(false);
       tracks && tracks.stop();
     }
@@ -133,7 +138,7 @@ const PostModal = ({post, setIsOpenModal}) => {
       <div className='postModal'>
         <div className="postModal__box">
           <div className="postModal__box--header">
-            <h3>Create Post</h3>
+            <h3>{post ? 'Edit' : 'Create'} Post</h3>
             {!alert.loading && <AiOutlineClose onClick={handleCloseModal} />}
           </div>
           <div className="postModal__box--content">

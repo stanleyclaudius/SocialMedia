@@ -28,7 +28,7 @@
       transition: transform 150ms;
       transform: scaleY(0);
       transform-origin: top;
-      z-index: 999;
+      z-index: 99;
 
       &.active {
         transform: scaleY(1);

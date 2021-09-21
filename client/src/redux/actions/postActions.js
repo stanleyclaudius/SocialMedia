@@ -1,11 +1,12 @@
 import { GLOBALTYPES } from './globalTypes';
-import { getDataAPI, postDataAPI } from './../../utils/fetchData';
+import { getDataAPI, patchDataAPI, postDataAPI } from './../../utils/fetchData';
 import { uploadImage } from './../../utils/imageHelper';
 
 export const POST_TYPES = {
   LOADING: 'POST_LOADING',
   CREATE_POST: 'CREATE_POST',
-  GET_POSTS: 'GET_POSTS'
+  GET_POSTS: 'GET_POSTS',
+  EDIT_POST: 'EDIT_POST'
 };
 
 export const getPosts = (token) => async(dispatch) => {
@@ -61,6 +62,49 @@ export const createPost = ({content, images, auth}) => async(dispatch) => {
           avatar: auth.user.avatar
         }
       }
+    });
+
+    dispatch({
+      type: GLOBALTYPES.ALERT,
+      payload: {
+        success: res.data.msg
+      }
+    });
+  } catch (err) {
+    dispatch({
+      type: GLOBALTYPES.ALERT,
+      payload: {
+        error: err.response.data.msg
+      }
+    });
+  }
+}
+
+export const editPost = ({content, images, post, auth}) => async(dispatch) => {
+  const oldImages = images.filter(img => img.secure_url);
+  const newImages = images.filter(img => !img.secure_url);
+  
+  if ((content === post.content) && (newImages.length === 0) && (oldImages.length === post.images.length)) return;
+
+  try {
+    dispatch({
+      type: GLOBALTYPES.ALERT,
+      payload: {
+        loading: true
+      }
+    });
+
+    let media = [];
+    if (newImages.length > 0) media = await uploadImage(newImages, 'post');
+
+    const res = await patchDataAPI(`post/${post._id}`, {
+      content,
+      images: [...oldImages, ...media]
+    }, auth.token);
+
+    dispatch({
+      type: POST_TYPES.EDIT_POST,
+      payload: res.data.post
     });
 
     dispatch({
