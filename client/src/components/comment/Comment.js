@@ -1,21 +1,22 @@
 import { useState } from 'react';
 import { AiOutlineHeart } from 'react-icons/ai';
+import moment from 'moment';
 import CommentMenu from './CommentMenu';
 import PostFooter from './../post/PostFooter';
 
-const Comment = () => {
+const Comment = ({comment}) => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [onReply, setOnReply] = useState(false);
 
   return (
     <>
-      <div className="comment">
+      <div className="comment" style={{opacity: comment._id ? '1' : '.5', pointerEvents: comment._id ? 'all' : 'none'}}>
         <div className="comment--left">
           <p>
-            <span>username02</span>
-            lorem ipsum dolor.
+            <span>{comment.user.username}</span>
+            {comment.content}
           </p>
-          <small style={{fontWeight: 'normal'}}>1d ago</small>
+          <small style={{fontWeight: 'normal'}}>{moment(comment.createdAt).fromNow()}</small>
           <small>1 like</small>
           <small style={{cursor: 'pointer'}} onClick={() => setOnReply(!onReply)}>{onReply ? 'Cancel' : 'Reply'}</small>
         </div>

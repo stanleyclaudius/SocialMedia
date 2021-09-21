@@ -105,9 +105,11 @@ const PostBody = ({post}) => {
               {post.content}
             </p>
           </div>
-          <Comment />
-          <Comment />
-          <Comment />
+          {
+            post.comments.map(comm => (
+              <Comment comment={comm} />
+            ))
+          }
         </div>
       </div>
     </div>
