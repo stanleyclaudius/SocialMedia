@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { AiOutlineHeart } from 'react-icons/ai';
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
-import { editComment } from './../../redux/actions/commentActions';
+import { editComment, likeComment, unlikeComment } from './../../redux/actions/commentActions';
 import moment from 'moment';
 import CommentMenu from './CommentMenu';
 import PostFooter from './../post/PostFooter';
@@ -11,6 +11,7 @@ const Comment = ({post, comment}) => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [onReply, setOnReply] = useState(false);
   const [onEdit, setOnEdit] = useState(false);
+  const [isLike, setIsLike] = useState(false);
 
   const dispatch = useDispatch();
   const {auth} = useSelector(state => state);
@@ -24,9 +25,27 @@ const Comment = ({post, comment}) => {
     setOnEdit(false);
   }
 
+  const handleLikeComment = () => {
+    setIsLike(true);
+    dispatch(likeComment({comment, post, auth}));
+  }
+
+  const handleUnlikeComment = () => {
+    setIsLike(false);
+    dispatch(unlikeComment({comment, post, auth}));
+  }
+
   useEffect(() => {
     setContent(comment.content);
   }, [comment.content]);
+
+  useEffect(() => {
+    if (comment.likes.find(like => like._id === auth.user._id)) {
+      setIsLike(true);
+    } else {
+      setIsLike(false);
+    }
+  }, [comment.likes, auth]);
 
   return (
     <>
@@ -47,7 +66,7 @@ const Comment = ({post, comment}) => {
             )
           }
           <small style={{fontWeight: 'normal'}}>{moment(comment.createdAt).fromNow()}</small>
-          <small>1 like</small>
+          <small>{comment.likes.length} {comment.likes.length > 1 ? 'likes' : 'like'}</small>
 
           {
             onEdit
@@ -68,7 +87,7 @@ const Comment = ({post, comment}) => {
             setOnEdit={setOnEdit}
           />
           <div>
-            <AiOutlineHeart />
+            {isLike ? <AiFillHeart style={{color: 'red'}} onClick={handleUnlikeComment} /> : <AiOutlineHeart onClick={handleLikeComment} />}
           </div>
         </div>
       </div>
