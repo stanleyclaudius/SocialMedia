@@ -1,3 +1,4 @@
+const { findOneAndUpdate } = require('./../models/Post');
 const Post = require('./../models/Post');
 
 const postCtrl = {
@@ -61,6 +62,36 @@ const postCtrl = {
           images
         }
       })
+    } catch (err) {
+      return res.status(500).json({msg: err.message});
+    }
+  },
+  likePost: async(req, res) => {
+    try {
+      const isLike = await Post.find({_id: req.params.id, likes: req.user._id});
+      if (isLike)
+        return res.status(400).json({msg: 'You have liked this post.'});
+
+      await Post.findOneAndUpdate({_id: req.params.id}, {
+        $push: {
+          likes: req.user._id
+        }
+      }, {new: true});
+
+      res.status(200).json({msg: 'Post liked.'});
+    } catch (err) {
+      return res.status(500).json({msg: err.message});
+    }
+  },
+  unlikePost: async(req, res) => {
+    try {
+      await Post.findOneAndUpdate({_id: req.params.id}, {
+        $pull: {
+          likes: req.user._id
+        }
+      }, {new: true});
+
+      res.status(200).json({msg: 'Post unliked.'});
     } catch (err) {
       return res.status(500).json({msg: err.message});
     }
