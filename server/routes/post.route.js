@@ -6,4 +6,6 @@ router.route('/post')
   .post(isAuthenticated, postCtrl.createPost)
   .get(isAuthenticated, postCtrl.getPosts);
 
+router.route('/post/:id').patch(isAuthenticated, postCtrl.editPost);
+
 module.exports = router;

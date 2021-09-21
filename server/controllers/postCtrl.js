@@ -35,6 +35,30 @@ const postCtrl = {
     } catch (err) {
       return res.status(500).json({msg: err.message});
     }
+  },
+  editPost: async(req, res) => {
+    try {
+      const {content, images} = req.body;
+      if (!content)
+        return res.status(400).json({msg: 'Content can\'t be empty.'});
+      
+      if (images.length === 0) 
+        return res.status(400).json({msg: 'Please provide post images.'});
+
+      const post = await Post.findOneAndUpdate({_id: req.params.id, user: req.user._id}, {
+        content,
+        images
+      });
+
+      if (!post)
+        return res.status(404).json({msg: 'Post not found.'});
+
+      res.status(200).json({
+        msg: 'Post edited.'
+      })
+    } catch (err) {
+      return res.status(500).json({msg: err.message});
+    }
   }
 };
 
