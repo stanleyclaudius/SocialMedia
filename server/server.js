@@ -13,6 +13,7 @@ app.use(cookieParser());
 app.use('/api', require('./routes/auth.route'));
 app.use('/api', require('./routes/user.route'));
 app.use('/api', require('./routes/post.route'));
+app.use('/api', require('./routes/comment.route'));
 
 dotenv.config({
   path: './config/.env'
