@@ -32,6 +32,15 @@ const commentCtrl = {
     } catch (err) {
       return res.status(500).json({msg: err.message});
     }
+  },
+  editComment: async(req, res) => {
+    try {
+      const {content} = req.body;
+      const newComment = await Comment.findOneAndUpdate({_id: req.params.id}, {content});
+      res.status(200).json({newComment});
+    } catch (err) {
+      return res.status(500).json({msg: err.message});
+    }
   }
 };
 
