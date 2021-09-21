@@ -6,12 +6,14 @@ import { BsBookmark } from 'react-icons/bs';
 import { RiArrowLeftCircleFill, RiArrowRightCircleFill } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
 import { likePost, unlikePost } from './../../redux/actions/postActions';
-import Comment from './../comment/Comment';
+import CommentDisplay from './../comment/CommentDisplay';
 
 const PostBody = ({post}) => {
   const [images, setImages] = useState([]);
   const [curImage, setCurImage] = useState(0);
   const [isLike, setIsLike] = useState(false);
+  const [filteredComments, setFilteredComments] = useState([]);
+  const [replyComment, setReplyComment] = useState([]);
 
   const dispatch = useDispatch();
   const {auth} = useSelector(state => state);
@@ -50,6 +52,16 @@ const PostBody = ({post}) => {
       setIsLike(false);
     }
   }, [post.likes, auth.user]);
+
+  useEffect(() => {
+    const newComments = post.comments.filter(comm => !comm.reply);
+    setFilteredComments(newComments);
+  }, [post.comments]);
+
+  useEffect(() => {
+    const newComments = post.comments.filter(comm => comm.reply);
+    setReplyComment(newComments);
+  }, [post.comments]);
 
   return (
     <div className='postBody'>
@@ -105,9 +117,10 @@ const PostBody = ({post}) => {
               {post.content}
             </p>
           </div>
+          
           {
-            post.comments.map(comm => (
-              <Comment key={comm._id} comment={comm} post={post} />
+            filteredComments.map(comm => (
+              <CommentDisplay key={comm._id} comment={comm} post={post} replyComment={replyComment.filter(item => item.reply === comm._id)} />
             ))
           }
         </div>

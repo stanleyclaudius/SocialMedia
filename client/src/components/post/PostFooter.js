@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createComment } from './../../redux/actions/commentActions';
 
-const PostFooter = ({post, onReply, children}) => {
+const PostFooter = ({post, setOnReply, onReply, children, commentId, tag}) => {
   const [content, setContent] = useState('');
 
   const dispatch = useDispatch();
@@ -14,10 +14,13 @@ const PostFooter = ({post, onReply, children}) => {
       content,
       user: auth.user,
       likes: [],
-      createdAt: new Date().toISOString()
+      createdAt: new Date().toISOString(),
+      reply: onReply && commentId,
+      tag: onReply && tag
     };
     dispatch(createComment({comment, post, auth}));
     setContent('');
+    if (setOnReply) setOnReply(false);
   }
 
   return (

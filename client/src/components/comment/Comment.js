@@ -6,7 +6,7 @@ import moment from 'moment';
 import CommentMenu from './CommentMenu';
 import PostFooter from './../post/PostFooter';
 
-const Comment = ({post, comment}) => {
+const Comment = ({post, comment, children}) => {
   const [content, setContent] = useState('');
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [onReply, setOnReply] = useState(false);
@@ -96,11 +96,13 @@ const Comment = ({post, comment}) => {
 
       {
         onReply && (
-          <PostFooter onReply={onReply}>
-            <small>@test</small>
+          <PostFooter onReply={onReply} setOnReply={setOnReply} commentId={comment._id} tag={comment.user._id} post={post}>
+            <small>@{comment.user.username}</small>
           </PostFooter>
         )
       }
+
+      {children}
     </>
   )
 }
