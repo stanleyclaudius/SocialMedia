@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { FiMoreHorizontal } from 'react-icons/fi';
 import { AiFillEdit } from 'react-icons/ai';
 import { FaTrash, FaCopy } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { GLOBALTYPES } from './../../redux/actions/globalTypes';
 import { deletePost } from './../../redux/actions/postActions';
@@ -40,10 +41,10 @@ const PostHeader = ({post}) => {
   return (
     <>
       <div className='postHeader'>
-        <div className="postHeader__user">
+        <Link to={`/profile/${post.user._id}`} className="postHeader__user" style={{textDecoration: 'none', color: '#000'}}>
           <Avatar src={post.user.avatar} size='small' />
           <p>{post.user.username}</p>
-        </div>
+        </Link>
         <div className="postHeader__menu">
           <FiMoreHorizontal onClick={() => setIsOpenMenu(!isOpenMenu)} />
           <div className={`postHeader__menuDropdown ${isOpenMenu ? 'active' : ''}`}>
