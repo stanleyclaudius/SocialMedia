@@ -23,42 +23,45 @@ const Profile = () => {
 
   useEffect(() => {
     const findUserPost = profile.posts.find(post => post._id === id);
-    setUserPost(findUserPost.userPosts);
+    if (findUserPost)
+      setUserPost(findUserPost.userPosts);
   }, [profile.posts, id]);
 
   return (
     <>
       <HeadInfo title='SR Social - Profile' />
       <div className='container userProfile'>
-        <div className="userProfile__top">
-          {
-            profile.loading
-            ? (
-              <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', marginBottom: '15px'}}>
-                <Loading />
+        {
+          profile.loading
+          ? (
+            <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+              <Loading />
+            </div>
+          )
+          : (
+            <>
+              <div className="userProfile__top">
+                <Info id={id} auth={auth} profile={profile} />
               </div>
-            )
-            : <Info id={id} auth={auth} profile={profile} />
-          }
-        </div>
-      
-        <div className="userProfile__bottom">
-          <div className="userProfile__bottom--header">
-            <div onClick={() => setIsOpenSaved(false)} className={`${isOpenSaved ? '' : 'active'}`}>
-              POSTS
-            </div>
-            <div onClick={() => setIsOpenSaved(true)} className={`${isOpenSaved ? 'active' : ''}`}>
-              SAVED
-            </div>
-          </div>
+            
+              <div className="userProfile__bottom">
+                <div className="userProfile__bottom--header">
+                  <div onClick={() => setIsOpenSaved(false)} className={`${isOpenSaved ? '' : 'active'}`}>
+                    POSTS
+                  </div>
+                  <div onClick={() => setIsOpenSaved(true)} className={`${isOpenSaved ? 'active' : ''}`}>
+                    SAVED
+                  </div>
+                </div>
 
-          <div className="userProfile__bottom--content">
-            <Post userPost={userPost} />
-          </div>
-        </div>
+                <div className="userProfile__bottom--content">
+                  <Post userPost={userPost} />
+                </div>
+              </div>
+            </>
+          )
+        }
       </div>
-
-      
     </>
   )
 }
