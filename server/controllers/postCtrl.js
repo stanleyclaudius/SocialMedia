@@ -126,7 +126,10 @@ const postCtrl = {
         {$match: {user: {$nin: excluded}}},
         {$sample: {size: 9}}
       ]);
-      res.status(200).json({posts});
+      res.status(200).json({
+        posts,
+        result: posts.length
+      });
     } catch (err) {
       return res.status(500).json({msg: err.message});
     }

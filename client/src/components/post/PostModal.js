@@ -86,7 +86,7 @@ const PostModal = ({post, setIsOpenMenu, setIsOpenModal}) => {
 
   const handleStopStream = () => {
     setStream(false);
-    tracks.stop();
+    tracks && tracks.stop();
   }
 
   const handleCapture = () => {

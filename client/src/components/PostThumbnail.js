@@ -2,19 +2,19 @@ import { Link } from 'react-router-dom';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { IoChatbubbleOutline } from 'react-icons/io5';
 
-const PostThumbnail = () => {
+const PostThumbnail = ({post}) => {
   return (
     <div className='postThumbnail'>
-      <Link to='/post/fdsf'>
-        <img src='https://militaryspouseafcpe.org/storage/2020/09/kitty.jpg' alt='Post' />
+      <Link to={`/post/${post._id}`}>
+        <img src={post.images[0].secure_url} alt='Post' />
         <div className="postThumbnail--overlay">
           <div>
             <AiOutlineHeart />
-            101
+            {post.likes.length}
           </div>
           <div>
             <IoChatbubbleOutline />
-            101
+            {post.comments.length}
           </div>
         </div>
       </Link>
