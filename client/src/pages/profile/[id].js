@@ -9,6 +9,7 @@ import Info from './../../components/profile/Info';
 
 const Profile = () => {
   const [isOpenSaved, setIsOpenSaved] = useState(false);
+  const [userPost, setUserPost] = useState([]);
 
   const {id} = useParams();
   const dispatch = useDispatch();
@@ -19,6 +20,11 @@ const Profile = () => {
       dispatch(getUserProfile({id, token: auth.token}));
     }
   }, [dispatch, id, profile.users, auth.token]);
+
+  useEffect(() => {
+    const findUserPost = profile.posts.find(post => post._id === id);
+    setUserPost(findUserPost.userPosts);
+  }, [profile.posts, id]);
 
   return (
     <>
@@ -47,7 +53,7 @@ const Profile = () => {
           </div>
 
           <div className="userProfile__bottom--content">
-            <Post />
+            <Post userPost={userPost} />
           </div>
         </div>
       </div>

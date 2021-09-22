@@ -6,7 +6,8 @@ export const PROFILE_TYPES = {
   LOADING: 'PROFILE_LOADING',
   GET_USER_PROFILE: 'GET_USER_PROFILE',
   FOLLOW: 'FOLLOW',
-  UNFOLLOW: 'UNFOLLOW'
+  UNFOLLOW: 'UNFOLLOW',
+  GET_POST: 'GET_PROFILE_POST'
 };
 
 export const getUserProfile = ({id, token}) => async(dispatch) => {
@@ -16,11 +17,20 @@ export const getUserProfile = ({id, token}) => async(dispatch) => {
       payload: true
     });
 
-    const res = await getDataAPI(`profile/${id}`, token);
+    const infoRes = await getDataAPI(`profile/${id}`, token);
     dispatch({
       type: PROFILE_TYPES.GET_USER_PROFILE,
-      payload: res.data.user
+      payload: infoRes.data.user
     });
+
+    const postRes = await getDataAPI(`post/user/${id}`, token);
+    dispatch({
+      type: PROFILE_TYPES.GET_POST,
+      payload: {
+        userPosts: postRes.data.posts,
+        _id: id
+      }
+    })
 
     dispatch({
       type: PROFILE_TYPES.LOADING,

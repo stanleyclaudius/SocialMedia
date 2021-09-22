@@ -28,6 +28,11 @@ const profileReducer = (state = initialState, action) => {
         ...state,
         users: state.users.map(user => user._id === action.payload._id ? action.payload : user)
       }
+    case PROFILE_TYPES.GET_POST:
+      return {
+        ...state,
+        posts: [...state.posts, action.payload]
+      }
     default:
       return state;
   }
