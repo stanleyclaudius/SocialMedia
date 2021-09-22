@@ -9,14 +9,16 @@ const UserCard = ({user, message, setIsOpenFollowers, setIsOpenFollowings}) => {
   }
 
   return (
-    <Link style={{color: '#000', textDecoration: 'none'}} to={`/profile/${user?._id}`} className='userCard' onClick={handleCloseAll}>
-      <div className="userCard__left">
-        <Avatar src={user?.avatar} size='small' />
-        <div>
-          <p>{user?.username}</p>
-          <small>{message}</small>
+    <div className='userCard' onClick={handleCloseAll}>
+      <Link style={{color: '#000', textDecoration: 'none'}} to={`/profile/${user?._id}`}>
+        <div className="userCard__left">
+          <Avatar src={user?.avatar} size='small' />
+          <div>
+            <p>{user?.username}</p>
+            <small>{message}</small>
+          </div>
         </div>
-      </div>
+      </Link>
       
       {
         !message && (
@@ -25,7 +27,7 @@ const UserCard = ({user, message, setIsOpenFollowers, setIsOpenFollowings}) => {
           </div>
         )
       }
-    </Link>
+    </div>
   )
 }
 

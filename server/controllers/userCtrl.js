@@ -85,7 +85,7 @@ const userCtrl = {
       const users = await User.aggregate([
         {$match: {_id: {$nin: excludedUser}}},
         {$sample: {size: 9}},
-        {$lookup: {from: 'user', localFiedl: 'followers', foreignField: '_id', as: 'followers'}},
+        {$lookup: {from: 'user', localField: 'followers', foreignField: '_id', as: 'followers'}},
         {$lookup: {from: 'user', localField: 'followings', foreignField: '_id', as: 'followings'}}
       ]).project('-password');
 

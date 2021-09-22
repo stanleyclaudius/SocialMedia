@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { MdRefresh } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPosts } from './../redux/actions/postActions';
+import { getSuggestion } from './../redux/actions/suggestionActions';
 import PostCard from './../components/post/PostCard';
 import Avatar from './../components/Avatar';
 import UserCard from '../components/UserCard';
@@ -13,10 +14,14 @@ const Home = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   const dispatch = useDispatch();
-  const {homePost, auth} = useSelector(state => state);
+  const {homePost, auth, suggestion} = useSelector(state => state);
 
   useEffect(() => {
     dispatch(getPosts(auth.token));
+  }, [dispatch, auth.token]);
+
+  useEffect(() => {
+    dispatch(getSuggestion(auth.token));
   }, [dispatch, auth.token]);
 
   return (
@@ -69,12 +74,26 @@ const Home = () => {
           </div>
           <div className='reloadGroup'>
             <h4>Suggestions For You</h4>
-            <MdRefresh />
+            <MdRefresh onClick={() => dispatch(getSuggestion(auth.token))} />
           </div>
           <div className="homeRight__suggestions">
-            <UserCard />
-            <UserCard />
-            <UserCard />
+            {
+              suggestion.loading
+              ? (
+                <div style={{display: 'flex', justifyContent: 'center'}}>
+                  <Loading />
+                </div>
+              )
+              : (
+                <>
+                  {
+                    suggestion.users.map(user => (
+                      <UserCard key={user._id} user={user} />
+                    ))
+                  }
+                </>
+              )
+            }
           </div>
         </div>
       </div>
