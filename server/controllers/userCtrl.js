@@ -78,6 +78,21 @@ const userCtrl = {
     } catch (err) {
       return res.status(500).json({msg: err.messgae});
     }
+  },
+  userSuggestion: async(req, res) => {
+    try {
+      const excludedUser = [req.user._id, ...req.user.followings];
+      const users = await User.aggregate([
+        {$match: {_id: {$nin: excludedUser}}},
+        {$sample: {size: 9}},
+        {$lookup: {from: 'user', localFiedl: 'followers', foreignField: '_id', as: 'followers'}},
+        {$lookup: {from: 'user', localField: 'followings', foreignField: '_id', as: 'followings'}}
+      ]).project('-password');
+
+      res.status(200).json({users});
+    } catch (err) {
+      return res.status(500).json({msg: err.message});
+    }
   }
 };
 
