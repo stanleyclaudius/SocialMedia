@@ -776,6 +776,15 @@
   background: transparent;
 }
 
+.shareModal {
+  display: flex;
+  justify-content: space-around;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  padding: 10px 0;
+  margin: 10px 0;
+}
+
 .comment {
   display: flex;
   align-items: center;

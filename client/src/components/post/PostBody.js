@@ -7,11 +7,13 @@ import { RiArrowLeftCircleFill, RiArrowRightCircleFill } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
 import { likePost, unlikePost } from './../../redux/actions/postActions';
 import CommentDisplay from './../comment/CommentDisplay';
+import ShareModal from './ShareModal';
 
 const PostBody = ({post}) => {
   const [images, setImages] = useState([]);
   const [curImage, setCurImage] = useState(0);
   const [isLike, setIsLike] = useState(false);
+  const [isOpenShareModal, setIsOpenShareModal] = useState(false);
   const [filteredComments, setFilteredComments] = useState([]);
   const [replyComment, setReplyComment] = useState([]);
 
@@ -102,12 +104,13 @@ const PostBody = ({post}) => {
           <Link to={`/post/${post._id}`} style={{color: '#000'}}>
             <IoChatbubbleOutline />
           </Link>
-          <IoPaperPlaneOutline />
+          <IoPaperPlaneOutline onClick={() => setIsOpenShareModal(!isOpenShareModal)} />
         </div>
         <div className="postBody__menu--right">
           <BsBookmark />
         </div>
       </div>
+      {isOpenShareModal && <ShareModal url={`http://localhost:3000/post/${post._id}`} />}
       <div className="postBody__info">
         <p className='likeCount' style={{paddingLeft: '10px'}}>{post.likes?.length} {post.likes?.length > 1 ? 'likes' : 'like'}</p>
         <div className="postBody__info--comments">
