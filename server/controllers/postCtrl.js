@@ -118,6 +118,18 @@ const postCtrl = {
     } catch (err) {
       return res.status(500).json({msg: err.message});
     }
+  },
+  getDiscoverPost: async(req, res) => {
+    try {
+      const excluded = [req.user._id, ...req.user.followings];
+      const posts = await Post.aggregate([
+        {$match: {user: {$nin: excluded}}},
+        {$sample: {size: 9}}
+      ]);
+      res.status(200).json({posts});
+    } catch (err) {
+      return res.status(500).json({msg: err.message});
+    }
   }
 };
 
