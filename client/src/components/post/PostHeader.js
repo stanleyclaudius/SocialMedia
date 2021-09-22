@@ -41,15 +41,15 @@ const PostHeader = ({post}) => {
   return (
     <>
       <div className='postHeader'>
-        <Link to={`/profile/${post.user._id}`} className="postHeader__user" style={{textDecoration: 'none', color: '#000'}}>
-          <Avatar src={post.user.avatar} size='small' />
-          <p>{post.user.username}</p>
+        <Link to={`/profile/${post.user?._id}`} className="postHeader__user" style={{textDecoration: 'none', color: '#000'}}>
+          <Avatar src={post.user?.avatar} size='small' />
+          <p>{post.user?.username}</p>
         </Link>
         <div className="postHeader__menu">
           <FiMoreHorizontal onClick={() => setIsOpenMenu(!isOpenMenu)} />
           <div className={`postHeader__menuDropdown ${isOpenMenu ? 'active' : ''}`}>
             {
-              auth.user?._id === post.user._id &&
+              auth.user?._id === post.user?._id &&
               <>
                 <div className="postHeader__menuDropdown--single" onClick={() => setIsOpenModal(true)}>
                   <AiFillEdit />

@@ -99,7 +99,7 @@ const PostBody = ({post}) => {
           {
             isLike ? <AiFillHeart style={{color: 'red'}} onClick={handleUnlikePost} /> : <AiOutlineHeart onClick={handleLikePost} />
           }
-          <Link to='/post/fdsf' style={{color: '#000'}}>
+          <Link to={`/post/${post._id}`} style={{color: '#000'}}>
             <IoChatbubbleOutline />
           </Link>
           <IoPaperPlaneOutline />
@@ -109,11 +109,11 @@ const PostBody = ({post}) => {
         </div>
       </div>
       <div className="postBody__info">
-        <p className='likeCount' style={{paddingLeft: '10px'}}>{post.likes.length} {post.likes.length > 1 ? 'likes' : 'like'}</p>
+        <p className='likeCount' style={{paddingLeft: '10px'}}>{post.likes?.length} {post.likes?.length > 1 ? 'likes' : 'like'}</p>
         <div className="postBody__info--comments">
           <div className="caption">
             <p>
-              <span>{post.user.username}</span>
+              <span>{post.user?.username}</span>
               {post.content}
             </p>
           </div>

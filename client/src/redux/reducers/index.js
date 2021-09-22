@@ -5,6 +5,7 @@ import profile from './profileReducer';
 import homePost from './postReducer';
 import suggestion from './suggestionReducer';
 import discover from './discoverReducer';
+import postDetail from './postDetailReducer';
 
 export default combineReducers({
   alert,
@@ -12,5 +13,6 @@ export default combineReducers({
   profile,
   homePost,
   suggestion,
-  discover
+  discover,
+  postDetail
 });

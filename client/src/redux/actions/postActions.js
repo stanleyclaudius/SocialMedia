@@ -7,9 +7,8 @@ export const POST_TYPES = {
   CREATE_POST: 'CREATE_POST',
   GET_POSTS: 'GET_POSTS',
   EDIT_POST: 'EDIT_POST',
-  LIKE_POST: 'LIKE_POST',
-  UNLIKE_POST: 'UNLIKE_POST',
-  DELETE_POST: 'DELETE_POST'
+  DELETE_POST: 'DELETE_POST',
+  GET_POST: 'GET_POST'
 };
 
 export const getPosts = (token) => async(dispatch) => {
@@ -141,7 +140,7 @@ export const likePost = ({post, auth}) => async(dispatch) => {
   };
 
   dispatch({
-    type: POST_TYPES.LIKE_POST,
+    type: POST_TYPES.EDIT_POST,
     payload: newPost
   });
 
@@ -164,7 +163,7 @@ export const unlikePost = ({post, auth}) => async(dispatch) => {
   }
 
   dispatch({
-    type: POST_TYPES.UNLIKE_POST,
+    type: POST_TYPES.EDIT_POST,
     payload: newPost
   });
 
@@ -192,6 +191,35 @@ export const deletePost = ({id, auth}) => async(dispatch) => {
       type: GLOBALTYPES.ALERT,
       payload: {
         error: err.response.data.msg
+      }
+    });
+  }
+}
+
+export const getPost = ({postDetail, id, auth}) => async(dispatch) => {
+  try {
+    if (postDetail.every(item => item._id !== id)) {
+      dispatch({
+        type: POST_TYPES.LOADING,
+        payload: true
+      });
+
+      const res = await getDataAPI(`post/${id}`, auth.token);
+      dispatch({
+        type: POST_TYPES.GET_POST,
+        payload: res.data.post
+      });
+
+      dispatch({
+        type: POST_TYPES.LOADING,
+        payload: false
+      });
+    }
+  } catch (err) {
+    dispatch({
+      type: GLOBALTYPES.ALERT,
+      payload: {
+        error: err.stack
       }
     });
   }
