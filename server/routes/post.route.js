@@ -15,4 +15,6 @@ router.route('/post/unlike/:id').patch(isAuthenticated, postCtrl.unlikePost);
 
 router.route('/post/discover').get(isAuthenticated, postCtrl.getDiscoverPost);
 
+router.route('/post/user/:id').get(isAuthenticated, postCtrl.getUserPost);
+
 module.exports = router;

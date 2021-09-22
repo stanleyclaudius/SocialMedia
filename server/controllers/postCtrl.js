@@ -133,6 +133,20 @@ const postCtrl = {
     } catch (err) {
       return res.status(500).json({msg: err.message});
     }
+  },
+  getUserPost: async(req, res) => {
+    try {
+      const posts = await Post.find({user: req.params.id});
+      if (!posts)
+        return res.status(404).json({msg: 'Posts not found.'});
+
+      res.status(200).json({
+        posts,
+        result: posts.length
+      });
+    } catch (err) {
+      return res.status(500).json({msg: err.message});
+    }
   }
 };
 
