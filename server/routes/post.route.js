@@ -7,6 +7,7 @@ router.route('/post')
   .get(isAuthenticated, postCtrl.getPosts);
 
 router.route('/post/:id')
+  .get(isAuthenticated, postCtrl.getPost)
   .patch(isAuthenticated, postCtrl.editPost)
   .delete(isAuthenticated, postCtrl.deletePost);
 

@@ -147,6 +147,28 @@ const postCtrl = {
     } catch (err) {
       return res.status(500).json({msg: err.message});
     }
+  },
+  getPost: async(req, res) => {
+    try {
+      const post = await Post.findById(req.params.id)
+        .populate('likes user', 'avatar name username')
+        .populate({
+          path: 'comments',
+          populate: {
+            path: 'user likes',
+            select: '-password'
+          }
+        });
+
+      if (!post)
+        return res.status(404).json({msg: 'Post not found.'});
+
+      res.status(200).json({
+        post
+      })
+    } catch (err) {
+      return res.status(500).json({msg: err.message});
+    }
   }
 };
 
