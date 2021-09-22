@@ -57,8 +57,11 @@ const Home = () => {
         <div className="homeRight">
           <div className="homeRight__user">
             <div>
-              <Avatar size='medium' />
-              <p>username01</p>
+              <Avatar src={auth.user.avatar} size='medium' />
+              <div>
+                <p style={{marginBottom: '5px'}}><strong>{auth.user.username}</strong></p>
+                <p>{auth.user.name}</p>
+              </div>
             </div>
             <div>
               <button onClick={() => setIsOpenModal(true)}>Create Post</button>
