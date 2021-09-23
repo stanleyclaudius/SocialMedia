@@ -1,9 +1,11 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { FiMoreVertical } from 'react-icons/fi';
 import { AiFillEdit } from 'react-icons/ai';
 import { FaTrash } from 'react-icons/fa';
+import { deleteComment } from './../../redux/actions/commentActions';
 
 const CommentMenu = ({post, comment, isOpenMenu, setIsOpenMenu, setOnEdit}) => {
+  const dispatch = useDispatch();
   const {auth} = useSelector(state => state);
 
   const showMenu = () => {
@@ -13,7 +15,7 @@ const CommentMenu = ({post, comment, isOpenMenu, setIsOpenMenu, setOnEdit}) => {
           <AiFillEdit />
           Edit
         </span>
-        <span>
+        <span onClick={handleDelete}>
           <FaTrash />
           Delete
         </span>
@@ -24,6 +26,10 @@ const CommentMenu = ({post, comment, isOpenMenu, setIsOpenMenu, setOnEdit}) => {
   const handleOnEdit = () => {
     setOnEdit(true);
     setIsOpenMenu(false);
+  }
+  
+  const handleDelete = () => {
+    dispatch(deleteComment({post, comment, auth}));
   }
 
   return (
@@ -38,7 +44,7 @@ const CommentMenu = ({post, comment, isOpenMenu, setIsOpenMenu, setOnEdit}) => {
                 && (comment.user?._id === auth.user?._id)
                   ? showMenu()
                   : auth.user?._id === post.user?._id && (
-                    <span>
+                    <span onClick={handleDelete}>
                       <FaTrash />
                       Delete
                     </span>

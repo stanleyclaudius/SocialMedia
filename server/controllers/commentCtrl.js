@@ -78,6 +78,17 @@ const commentCtrl = {
     } catch (err) {
       return res.status(500).json({msg: err.message});
     }
+  },
+  deleteComment: async(req, res) => {
+    try {
+      await Comment.findOneAndDelete({_id: req.params.id});
+
+      res.status(200).json({
+        msg: 'Comment deleted'
+      });
+    } catch (err) {
+      return res.status(500).json({msg: err.message});
+    }
   }
 };
 

@@ -1,6 +1,6 @@
 import { GLOBALTYPES } from './globalTypes';
 import { POST_TYPES } from './postActions';
-import { postDataAPI, patchDataAPI } from './../../utils/fetchData';
+import { postDataAPI, patchDataAPI, deleteDataAPI } from './../../utils/fetchData';
 
 export const createComment = ({comment, post, auth}) => async(dispatch) => {
   const newPost = {
@@ -121,4 +121,44 @@ export const unlikeComment = ({comment, post, auth}) => async(dispatch) => {
       }
     });
   }
+}
+
+export const deleteComment = ({post, comment, auth}) => async(dispatch) => {
+  const deletedId = findAllRelatedComment(post.comments, comment._id, [comment._id]);
+  const newComments = post.comments.filter(comm => !deletedId.includes(comm._id));
+
+  const newPost = {
+    ...post,
+    comments: newComments
+  }
+
+  dispatch({
+    type: POST_TYPES.EDIT_POST,
+    payload: newPost
+  });
+
+  try {
+    deletedId.forEach(async item => {
+      await deleteDataAPI(`/comment/${item}`, auth.token);
+    })
+  } catch (err) {
+    dispatch({
+      type: GLOBALTYPES.ALERT,
+      payload: {
+        error: err.response.data.msg
+      }
+    });
+  }
+}
+
+const findAllRelatedComment = (data, id, result) => {
+  const arr = data.filter(item => item.reply === id);
+  if (arr.length === 0) return result;
+
+  arr.forEach(item => {
+    result.push(item._id);
+    findAllRelatedComment(data, item._id, result);
+  })
+
+  return result;
 }
