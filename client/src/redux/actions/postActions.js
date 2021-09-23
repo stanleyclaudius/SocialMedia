@@ -224,3 +224,55 @@ export const getPost = ({postDetail, id, auth}) => async(dispatch) => {
     });
   }
 }
+
+export const savedPost = ({post, auth}) => async(dispatch) => {
+  const newUser = {
+    ...auth.user,
+    saved: [...auth.user.saved, post._id]
+  };
+
+  dispatch({
+    type: GLOBALTYPES.AUTH,
+    payload: {
+      ...auth,
+      user: newUser
+    }
+  });
+
+  try {
+    await patchDataAPI(`user/saved/${post._id}`, null, auth.token);
+  } catch (err) {
+    dispatch({
+      type: GLOBALTYPES.ALERT,
+      payload: {
+        error: err.response.data.msg
+      }
+    });
+  }
+}
+
+export const unsavedPost = ({post, auth}) => async(dispatch) => {
+  const newUser = {
+    ...auth.user,
+    saved: auth.user.saved.filter(item => item !== post._id)
+  }
+
+  dispatch({
+    type: GLOBALTYPES.AUTH,
+    payload: {
+    ...auth,
+    user: newUser
+    }
+  });
+
+  try {
+    await patchDataAPI(`user/unsaved/${post._id}`, null, auth.token);
+  } catch (err) {
+    dispatch({
+      type: GLOBALTYPES.ALERT,
+      payload: {
+        error: err.response.data.msg
+      }
+    });
+  }
+}

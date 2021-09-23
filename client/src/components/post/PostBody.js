@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { IoPaperPlaneOutline, IoChatbubbleOutline } from 'react-icons/io5';
-import { BsBookmark } from 'react-icons/bs';
+import { BsBookmark, BsBookmarkFill } from 'react-icons/bs';
 import { RiArrowLeftCircleFill, RiArrowRightCircleFill } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
-import { likePost, unlikePost } from './../../redux/actions/postActions';
+import { likePost, unlikePost, savedPost, unsavedPost } from './../../redux/actions/postActions';
 import CommentDisplay from './../comment/CommentDisplay';
 import ShareModal from './ShareModal';
 
@@ -16,6 +16,7 @@ const PostBody = ({post}) => {
   const [isOpenShareModal, setIsOpenShareModal] = useState(false);
   const [filteredComments, setFilteredComments] = useState([]);
   const [replyComment, setReplyComment] = useState([]);
+  const [isSaved, setIsSaved] = useState(false);
 
   const dispatch = useDispatch();
   const {auth} = useSelector(state => state);
@@ -43,6 +44,16 @@ const PostBody = ({post}) => {
     dispatch(unlikePost({post, auth}));
   }
 
+  const handleSavedPost = () => {
+    setIsSaved(true);
+    dispatch(savedPost({post, auth}));
+  }
+
+  const handleUnsavedPost = () => {
+    setIsSaved(false);
+    dispatch(unsavedPost({post, auth}));
+  }
+
   useEffect(() => {
     setImages(post.images);
   }, [post]);
@@ -65,6 +76,15 @@ const PostBody = ({post}) => {
     setReplyComment(newComments);
   }, [post.comments]);
 
+  useEffect(() => {
+    const findSaved = auth.user.saved.find(savePost => savePost === post._id);
+    if (findSaved) {
+      setIsSaved(true);
+    } else {
+      setIsSaved(false);
+    }
+  }, [auth.user.saved, post]);
+  
   return (
     <div className='postBody'>
       <div className="postBody__image">
@@ -107,7 +127,7 @@ const PostBody = ({post}) => {
           <IoPaperPlaneOutline onClick={() => setIsOpenShareModal(!isOpenShareModal)} />
         </div>
         <div className="postBody__menu--right">
-          <BsBookmark />
+          {isSaved ? <BsBookmarkFill onClick={handleUnsavedPost} style={{color: 'rgb(53, 167, 255)'}} /> : <BsBookmark onClick={handleSavedPost} />}
         </div>
       </div>
       {isOpenShareModal && <ShareModal url={`http://localhost:3000/post/${post._id}`} />}
