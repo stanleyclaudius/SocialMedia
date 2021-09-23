@@ -93,6 +93,36 @@ const userCtrl = {
     } catch (err) {
       return res.status(500).json({msg: err.message});
     }
+  },
+  savedPost: async(req, res) => {
+    try {
+      await User.findOneAndUpdate({_id: req.user._id}, {
+        $push: {
+          saved: req.params.id
+        }
+      }, {new: true});
+
+      res.status(200).json({
+        msg: 'Post saved.'
+      });
+    } catch (err) {
+      return res.status(500).json({msg: err.message});
+    }
+  },
+  unsavedPost: async(req, res) => {
+    try {
+      await User.findOneAndUpdate({_id: req.user._id}, {
+        $pull: {
+          saved: req.params.id
+        }
+      }, {new: true});
+
+      res.status(200).json({
+        msg: 'Post unsaved.'
+      });
+    } catch (err) {
+      return res.status(500).json({msg: err.message});
+    }
   }
 };
 
