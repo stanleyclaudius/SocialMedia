@@ -6,6 +6,7 @@ import Post from './../../components/profile/Post';
 import HeadInfo from './../../utils/HeadInfo';
 import Loading from './../../components/Loading';
 import Info from './../../components/profile/Info';
+import Saved from './../../components/profile/Saved';
 
 const Profile = () => {
   const [isOpenSaved, setIsOpenSaved] = useState(false);
@@ -43,19 +44,28 @@ const Profile = () => {
               <div className="userProfile__top">
                 <Info id={id} auth={auth} profile={profile} />
               </div>
-            
+
               <div className="userProfile__bottom">
-                <div className="userProfile__bottom--header">
-                  <div onClick={() => setIsOpenSaved(false)} className={`${isOpenSaved ? '' : 'active'}`}>
-                    POSTS
-                  </div>
-                  <div onClick={() => setIsOpenSaved(true)} className={`${isOpenSaved ? 'active' : ''}`}>
-                    SAVED
-                  </div>
-                </div>
+                {
+                  auth.user._id === id &&
+                  <>
+                    <div className="userProfile__bottom--header">
+                      <div onClick={() => setIsOpenSaved(false)} className={`${isOpenSaved ? '' : 'active'}`}>
+                        POSTS
+                      </div>
+                      <div onClick={() => setIsOpenSaved(true)} className={`${isOpenSaved ? 'active' : ''}`}>
+                        SAVED
+                      </div>
+                    </div>
+                  </>
+                }
 
                 <div className="userProfile__bottom--content">
-                  <Post userPost={userPost} />
+                  {
+                    isOpenSaved 
+                    ? <Saved />
+                    : <Post userPost={userPost} />
+                  }
                 </div>
               </div>
             </>

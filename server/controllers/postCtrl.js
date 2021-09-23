@@ -168,6 +168,18 @@ const postCtrl = {
     } catch (err) {
       return res.status(500).json({msg: err.message});
     }
+  },
+  getSavedPost: async(req, res) => {
+    try {
+      const posts = await Post.find({_id: {$in: req.user.saved}}).sort('-createdAt');
+
+      res.status(200).json({
+        posts,
+        result: posts.length
+      })
+    } catch (err) {
+      return res.status(500).json({msg: err.message});
+    }
   }
 };
 

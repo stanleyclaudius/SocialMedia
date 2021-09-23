@@ -7,6 +7,7 @@ router.route('/post')
   .get(isAuthenticated, postCtrl.getPosts);
 
 router.route('/post/discover').get(isAuthenticated, postCtrl.getDiscoverPost);
+router.route('/post/saved').get(isAuthenticated, postCtrl.getSavedPost);
 
 router.route('/post/:id')
   .get(isAuthenticated, postCtrl.getPost)
