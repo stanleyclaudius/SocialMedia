@@ -6,6 +6,8 @@ router.route('/post')
   .post(isAuthenticated, postCtrl.createPost)
   .get(isAuthenticated, postCtrl.getPosts);
 
+router.route('/post/discover').get(isAuthenticated, postCtrl.getDiscoverPost);
+
 router.route('/post/:id')
   .get(isAuthenticated, postCtrl.getPost)
   .patch(isAuthenticated, postCtrl.editPost)
@@ -13,8 +15,6 @@ router.route('/post/:id')
 
 router.route('/post/like/:id').patch(isAuthenticated, postCtrl.likePost);
 router.route('/post/unlike/:id').patch(isAuthenticated, postCtrl.unlikePost);
-
-router.route('/post/discover').get(isAuthenticated, postCtrl.getDiscoverPost);
 
 router.route('/post/user/:id').get(isAuthenticated, postCtrl.getUserPost);
 
