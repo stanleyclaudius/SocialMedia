@@ -613,6 +613,12 @@
   margin-bottom: 70px;
 }
 
+@media (min-width: 850px) {
+  .postCard {
+    margin-bottom: 30px;
+  }
+}
+
 .postHeader {
   display: flex;
   align-items: center;

@@ -3,7 +3,8 @@ import { POST_TYPES } from "./../actions/postActions";
 const initialState = {
   loading: false,
   posts: [],
-  result: 0
+  result: 0,
+  page: 2
 }
 
 const postReducer = (state = initialState, action) => {
@@ -23,7 +24,8 @@ const postReducer = (state = initialState, action) => {
       return {
         ...state,
         result: action.payload.result,
-        posts: action.payload.posts
+        posts: action.payload.posts,
+        page: action.payload.page
       }
     case POST_TYPES.EDIT_POST:
       return {

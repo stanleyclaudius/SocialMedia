@@ -2,3 +2,9 @@
   border: 1px solid #ccc;
   margin-bottom: 70px;
 }
+
+@include mediaDesktop {
+  .postCard {
+    margin-bottom: 30px;
+  }
+}
