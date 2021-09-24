@@ -6,7 +6,7 @@ import { deleteComment } from './../../redux/actions/commentActions';
 
 const CommentMenu = ({post, comment, isOpenMenu, setIsOpenMenu, setOnEdit}) => {
   const dispatch = useDispatch();
-  const {auth} = useSelector(state => state);
+  const {auth, socket} = useSelector(state => state);
 
   const showMenu = () => {
     return (
@@ -29,7 +29,7 @@ const CommentMenu = ({post, comment, isOpenMenu, setIsOpenMenu, setOnEdit}) => {
   }
   
   const handleDelete = () => {
-    dispatch(deleteComment({post, comment, auth}));
+    dispatch(deleteComment({post, comment, auth, socket}));
   }
 
   return (

@@ -14,25 +14,25 @@ const Comment = ({post, comment, children}) => {
   const [isLike, setIsLike] = useState(false);
 
   const dispatch = useDispatch();
-  const {auth} = useSelector(state => state);
+  const {auth, socket} = useSelector(state => state);
 
   const handleEditComment = () => {
     const newComment = {
       ...comment,
       content
     }
-    dispatch(editComment({comment: newComment, post, auth}));
+    dispatch(editComment({comment: newComment, post, auth, socket}));
     setOnEdit(false);
   }
 
   const handleLikeComment = () => {
     setIsLike(true);
-    dispatch(likeComment({comment, post, auth}));
+    dispatch(likeComment({comment, post, auth, socket}));
   }
 
   const handleUnlikeComment = () => {
     setIsLike(false);
-    dispatch(unlikeComment({comment, post, auth}));
+    dispatch(unlikeComment({comment, post, auth, socket}));
   }
 
   useEffect(() => {

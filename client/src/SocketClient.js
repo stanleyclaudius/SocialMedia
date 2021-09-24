@@ -31,6 +31,68 @@ const SocketClient = () => {
         payload: data
       })
     });
+
+    return () => socket.off('unlikePostToClient');
+  }, [dispatch, socket]);
+
+  // Create Comment
+  useEffect(() => {
+    socket.on('createCommentToClient', data => {
+      dispatch({
+        type: POST_TYPES.EDIT_POST,
+        payload: data
+      });
+    });
+
+    return () => socket.off('createCommentToClient');
+  }, [dispatch, socket]);
+
+  // Delete Comment
+  useEffect(() => {
+    socket.on('deleteCommentToClient', data => {
+      dispatch({
+        type: POST_TYPES.EDIT_POST,
+        payload: data
+      })
+    });
+    
+    return () => socket.off('deleteCommentToClient');
+  }, [dispatch, socket]);
+
+  // Like Comment
+  useEffect(() => {
+    socket.on('likeCommentToClient', data => {
+      dispatch({
+        type: POST_TYPES.EDIT_POST,
+        payload: data
+      })
+    });
+
+    return () => socket.off('likeCommentToClient');
+  }, [dispatch, socket]);
+
+  // Unlike Comment
+  useEffect(() => {
+    socket.on('unlikeCommentToClient', data => {
+      dispatch({
+        type: POST_TYPES.EDIT_POST,
+        payload: data
+      })
+    });
+
+    return () => socket.off('unlikeCommentToClient');
+  }, [dispatch, socket]);
+
+  // Edit Comment
+  useEffect(() => {
+    socket.on('editCommentToClient', data => {
+      dispatch({
+        type: POST_TYPES.EDIT_POST,
+        payload: data
+      })
+    });
+
+    return () => socket.off('editCommentToClient');
   }, [dispatch, socket]);
 
   return (

@@ -6,7 +6,7 @@ const PostFooter = ({post, setOnReply, onReply, children, commentId, tag}) => {
   const [content, setContent] = useState('');
 
   const dispatch = useDispatch();
-  const {auth} = useSelector(state => state);
+  const {auth, socket} = useSelector(state => state);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -18,7 +18,7 @@ const PostFooter = ({post, setOnReply, onReply, children, commentId, tag}) => {
       reply: onReply && commentId,
       tag: onReply && tag
     };
-    dispatch(createComment({comment, post, auth}));
+    dispatch(createComment({comment, post, auth, socket}));
     setContent('');
     if (setOnReply) setOnReply(false);
   }
