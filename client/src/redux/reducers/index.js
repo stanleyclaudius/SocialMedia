@@ -6,6 +6,7 @@ import homePost from './postReducer';
 import suggestion from './suggestionReducer';
 import discover from './discoverReducer';
 import postDetail from './postDetailReducer';
+import socket from './socketReducer';
 
 export default combineReducers({
   alert,
@@ -14,5 +15,6 @@ export default combineReducers({
   homePost,
   suggestion,
   discover,
-  postDetail
+  postDetail,
+  socket
 });
