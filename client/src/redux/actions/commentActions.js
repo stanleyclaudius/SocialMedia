@@ -1,6 +1,7 @@
 import { GLOBALTYPES } from './globalTypes';
 import { POST_TYPES } from './postActions';
 import { postDataAPI, patchDataAPI, deleteDataAPI } from './../../utils/fetchData';
+import { createNotification, deleteNotification } from './notificationActions';
 
 export const createComment = ({comment, post, auth, socket}) => async(dispatch) => {
   const newPost = {
@@ -36,6 +37,15 @@ export const createComment = ({comment, post, auth, socket}) => async(dispatch) 
       type: POST_TYPES.EDIT_POST,
       payload: newPost
     });
+
+    const msg = {
+      content: comment.reply ? `${auth.user.username} reply your comment"` : `${auth.user.username} commented on your post "${comment.content}".`,
+      url: `/post/${post._id}`,
+      image: post.images[0].secure_url,
+      recipients: comment.reply ? [{user: comment.tag}] : [{user: post.user._id}]
+    };
+
+    dispatch(createNotification({msg, auth}));
   } catch (err) {
     dispatch({
       type: GLOBALTYPES.ALERT,
