@@ -230,6 +230,14 @@ export const deletePost = ({id, auth}) => async(dispatch) => {
       type: POST_TYPES.DELETE_POST,
       payload: res.data.post
     })
+
+    // Create Notification
+    const msg = {
+      user: auth.user._id,
+      url: `/post/${id}`
+    };
+
+    dispatch(deleteNotification({msg, auth}));
   } catch (err) {
     dispatch({
       type: GLOBALTYPES.ALERT,
