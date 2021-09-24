@@ -5,6 +5,9 @@ const notificationCtrl = {
     try {
       const {content, recipients, url, image} = req.body;
 
+      const authenticatedRecipient = recipients.find(rec => rec.user === req.user._id.toString());
+      if (authenticatedRecipient) return;
+
       const newNotification = new Notification({
         content,
         recipients,
@@ -16,7 +19,8 @@ const notificationCtrl = {
       await newNotification.save();
 
       res.status(200).json({
-        msg: 'Notifcation created.'
+        msg: 'Notifcation created.',
+        notification: newNotification
       });
     } catch (err) {
       return res.status(500).json({msg: err.message});
