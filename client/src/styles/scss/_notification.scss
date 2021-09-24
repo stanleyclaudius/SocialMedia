@@ -3,6 +3,7 @@
   text-align: left;
   display: flex;
   align-items: center;
+  width: 100%;
 
   & > * + * {
     margin-left: 15px;
@@ -15,7 +16,7 @@
   &__left {
     position: relative;
 
-    div:last-child {
+    .readIcon{
       width: 10px;
       height: 10px;
       background-color: $follow-blue;

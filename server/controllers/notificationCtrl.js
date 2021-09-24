@@ -6,7 +6,7 @@ const notificationCtrl = {
       const {content, recipients, url, image} = req.body;
 
       const authenticatedRecipient = recipients.find(rec => rec.user === req.user._id.toString());
-      if (authenticatedRecipient) return;
+      if (authenticatedRecipient) return res.status(200).json({msg: 'Notification won\'t pass to yourself.'});
 
       const newNotification = new Notification({
         content,
@@ -21,6 +21,16 @@ const notificationCtrl = {
       res.status(200).json({
         msg: 'Notifcation created.',
         notification: newNotification
+      });
+    } catch (err) {
+      return res.status(500).json({msg: err.message});
+    }
+  },
+  getNotification: async(req, res) => {
+    try {
+      const notifications = await Notification.find({'recipients.user': req.user._id}).sort('-createdAt').populate('user', 'avatar username');
+      res.status(200).json({
+        notifications
       });
     } catch (err) {
       return res.status(500).json({msg: err.message});
