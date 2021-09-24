@@ -22,6 +22,7 @@ app.use('/api', require('./routes/auth.route'));
 app.use('/api', require('./routes/user.route'));
 app.use('/api', require('./routes/post.route'));
 app.use('/api', require('./routes/comment.route'));
+app.use('/api', require('./routes/notification.route'));
 
 dotenv.config({
   path: './config/.env'
