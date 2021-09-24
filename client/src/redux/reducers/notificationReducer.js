@@ -17,6 +17,10 @@ const notificationReducer = (state=initialState, action) => {
         ...state,
         data: [action.payload, ...state.data]
       }
+    case NOTIFICATION_TYPES.DELETE_NOTIFICATION:
+      return {
+        ...state,
+      }
     default:
       return state;
   }

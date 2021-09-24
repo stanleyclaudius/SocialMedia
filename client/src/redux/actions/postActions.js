@@ -1,7 +1,7 @@
 import { GLOBALTYPES } from './globalTypes';
 import { deleteDataAPI, getDataAPI, patchDataAPI, postDataAPI } from './../../utils/fetchData';
 import { uploadImage } from './../../utils/imageHelper';
-import { createNotification } from './notificationActions';
+import { createNotification, deleteNotification } from './notificationActions';
 
 export const POST_TYPES = {
   LOADING: 'POST_LOADING',
@@ -189,6 +189,12 @@ export const unlikePost = ({post, auth, socket}) => async(dispatch) => {
 
   try {
     await patchDataAPI(`post/unlike/${post._id}`, null, auth.token);
+
+    const msg = {
+      user: auth.user._id,
+      url: `/post/${post._id}`
+    };
+    dispatch(deleteNotification({msg, auth}));
   } catch (err) {
     dispatch({
       type: GLOBALTYPES.ALERT,

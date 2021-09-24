@@ -1,9 +1,10 @@
 import { GLOBALTYPES } from './globalTypes';
-import { getDataAPI, postDataAPI } from './../../utils/fetchData';
+import { getDataAPI, postDataAPI, deleteDataAPI } from './../../utils/fetchData';
 
 export const NOTIFICATION_TYPES = {
   GET_NOTIFICATION: 'GET_NOTIFICATION',
-  CREATE_NOTIFICATION: 'CREATE_NOTIFICATION'
+  CREATE_NOTIFICATION: 'CREATE_NOTIFICATION',
+  DELETE_NOTIFICATION: 'DELETE_NOTIFICATION'
 };
 
 export const createNotification = ({msg, auth}) => async(dispatch) => {
@@ -26,6 +27,19 @@ export const getNotification = (token) => async(dispatch) => {
       type: NOTIFICATION_TYPES.GET_NOTIFICATION,
       payload: res.data.notifications
     })
+  } catch (err) {
+    dispatch({
+      type: GLOBALTYPES.ALERT,
+      payload: {
+        error: err.response.data.msg
+      }
+    });
+  }
+}
+
+export const deleteNotification = ({msg, auth}) => async(dispatch) => {
+  try {
+    await deleteDataAPI(`notification/${msg.user}?url=${msg.url}`, auth.token);
   } catch (err) {
     dispatch({
       type: GLOBALTYPES.ALERT,
