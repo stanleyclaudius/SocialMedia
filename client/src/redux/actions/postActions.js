@@ -57,6 +57,24 @@ export const createPost = ({content, images, auth}) => async(dispatch) => {
       images: media
     }, auth.token);
 
+    // Create Notification
+    const recipientArr = [];
+
+    auth.user.followers.forEach(item => {
+      recipientArr.push({
+        user: item._id
+      })
+    });
+
+    const msg = {
+      content: `${auth.user.username} just created a new post.`,
+      url: `/post/${res.data.post._id}`,
+      image: res.data.post.images[0].secure_url,
+      recipients: recipientArr
+    };
+    
+    dispatch(createNotification({msg, auth}));
+
     dispatch({
       type: POST_TYPES.CREATE_POST,
       payload: {
