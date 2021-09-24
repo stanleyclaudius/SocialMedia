@@ -154,7 +154,12 @@ const postCtrl = {
   },
   getUserPost: async(req, res) => {
     try {
-      const posts = await Post.find({user: req.params.id});
+      const features = new APIFeatures(
+        Post.find({user: req.params.id}),
+        req.query
+      ).paginate();
+
+      const posts = await features.query;
       if (!posts)
         return res.status(404).json({msg: 'Posts not found.'});
 

@@ -7,7 +7,8 @@ export const PROFILE_TYPES = {
   GET_USER_PROFILE: 'GET_USER_PROFILE',
   FOLLOW: 'FOLLOW',
   UNFOLLOW: 'UNFOLLOW',
-  GET_POST: 'GET_PROFILE_POST'
+  GET_POST: 'GET_PROFILE_POST',
+  EDIT_POST: 'EDIT_PROFILE_POST'
 };
 
 export const getUserProfile = ({id, token}) => async(dispatch) => {
@@ -28,7 +29,9 @@ export const getUserProfile = ({id, token}) => async(dispatch) => {
       type: PROFILE_TYPES.GET_POST,
       payload: {
         userPosts: postRes.data.posts,
-        _id: id
+        result:  postRes.data.result,
+        _id: id,
+        page: 2
       }
     })
 

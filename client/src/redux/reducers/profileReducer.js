@@ -33,6 +33,11 @@ const profileReducer = (state = initialState, action) => {
         ...state,
         posts: [...state.posts, action.payload]
       }
+    case PROFILE_TYPES.EDIT_POST:
+      return {
+        ...state,
+        posts: state.posts.map(post => post._id === action.payload._id ? action.payload : post)
+      }
     default:
       return state;
   }
