@@ -19,7 +19,7 @@ const PostBody = ({post}) => {
   const [isSaved, setIsSaved] = useState(false);
 
   const dispatch = useDispatch();
-  const {auth} = useSelector(state => state);
+  const {auth, socket} = useSelector(state => state);
 
   const imageToLeft = () => {
     const newPos = curImage - 1;
@@ -36,12 +36,12 @@ const PostBody = ({post}) => {
 
   const handleLikePost = () => {
     setIsLike(true);
-    dispatch(likePost({post, auth}));
+    dispatch(likePost({post, auth, socket}));
   }
 
   const handleUnlikePost = () => {
     setIsLike(false);
-    dispatch(unlikePost({post, auth}));
+    dispatch(unlikePost({post, auth, socket}));
   }
 
   const handleSavedPost = () => {

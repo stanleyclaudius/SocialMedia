@@ -128,7 +128,7 @@ export const editPost = ({content, images, post, auth}) => async(dispatch) => {
   }
 }
 
-export const likePost = ({post, auth}) => async(dispatch) => {
+export const likePost = ({post, auth, socket}) => async(dispatch) => {
   const newPost = {
     ...post,
     likes: [
@@ -147,6 +147,8 @@ export const likePost = ({post, auth}) => async(dispatch) => {
     payload: newPost
   });
 
+  socket.emit('likePost', newPost);
+
   try {
     await patchDataAPI(`post/like/${post._id}`, null, auth.token);
   } catch (err) {
@@ -159,7 +161,7 @@ export const likePost = ({post, auth}) => async(dispatch) => {
   }
 }
 
-export const unlikePost = ({post, auth}) => async(dispatch) => {
+export const unlikePost = ({post, auth, socket}) => async(dispatch) => {
   const newPost = {
     ...post,
     likes: post.likes.filter(like => like._id !== auth.user._id)
@@ -169,6 +171,8 @@ export const unlikePost = ({post, auth}) => async(dispatch) => {
     type: POST_TYPES.EDIT_POST,
     payload: newPost
   });
+
+  socket.emit('unlikePost', newPost);
 
   try {
     await patchDataAPI(`post/unlike/${post._id}`, null, auth.token);
