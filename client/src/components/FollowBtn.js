@@ -6,16 +6,16 @@ const FollowBtn = ({user}) => {
   const [isFollowed, setIsFollowed] = useState(false);
 
   const dispatch = useDispatch();
-  const {auth} = useSelector(state => state);
+  const {auth, socket} = useSelector(state => state);
 
   const handleFollow = () => {
     setIsFollowed(true);
-    dispatch(followUser({user, auth}));
+    dispatch(followUser({user, auth, socket}));
   }
 
   const handleUnfollow = () => {
     setIsFollowed(false);
-    dispatch(unfollowUser({user, auth}));
+    dispatch(unfollowUser({user, auth, socket}));
   }
 
   useEffect(() => {

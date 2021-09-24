@@ -59,6 +59,18 @@ const socketServer = (socket) => {
       socket.to(`${client.socketId}`).emit('editCommentToClient', data);
     })
   });
+
+  // Follow User
+  socket.on('follow', data => {
+    const user = users.find(item => item.id === data._id);
+    user && socket.to(`${user.socketId}`).emit('followToClient', data);
+  });
+
+  // Unfollow User
+  socket.on('unfollow', data => {
+    const user = users.find(item => item.id === data._id);
+    user && socket.to(`${user.socketId}`).emit('unfollowToClient', data);
+  });
 };
 
 module.exports = socketServer;

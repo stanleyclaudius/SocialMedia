@@ -43,11 +43,11 @@ const userCtrl = {
       if (findUser)
         return res.status(400).json({msg: 'You have followed this user.'});
 
-      await User.findOneAndUpdate({_id: req.params.id}, {
+      const newUser = await User.findOneAndUpdate({_id: req.params.id}, {
         $push: {
           followers: req.user._id
         }
-      }, {new: true});
+      }, {new: true}).populate('followers followings', 'avatar fullname username');
 
       await User.findOneAndUpdate({_id: req.user._id}, {
         $push: {
@@ -55,18 +55,21 @@ const userCtrl = {
         }
       }, {new: true});
 
-      res.status(200).json({msg: 'User followed.'});
+      res.status(200).json({
+        msg: 'User followed.',
+        newUser
+      });
     } catch (err) {
       return res.status(500).json({msg: err.message});
     }
   },
   unfollowUser: async(req, res) => {
     try {
-      await User.findOneAndUpdate({_id: req.params.id}, {
+      const newUser = await User.findOneAndUpdate({_id: req.params.id}, {
         $pull: {
           followers: req.user._id
         }
-      }, {new: true});
+      }, {new: true}).populate('followers followings', 'avatar fullname username');
 
       await User.findOneAndUpdate({_id: req.user._id}, {
         $pull: {
@@ -74,7 +77,10 @@ const userCtrl = {
         }
       }, {new: true});
 
-      res.status(200).json({msg: 'User unfollowed.'});
+      res.status(200).json({
+        msg: 'User unfollowed.',
+        newUser
+      });
     } catch (err) {
       return res.status(500).json({msg: err.messgae});
     }
