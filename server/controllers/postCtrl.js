@@ -159,7 +159,7 @@ const postCtrl = {
         req.query
       ).paginate();
 
-      const posts = await features.query;
+      const posts = await features.query.sort('-createdAt');
       if (!posts)
         return res.status(404).json({msg: 'Posts not found.'});
 
@@ -195,7 +195,11 @@ const postCtrl = {
   },
   getSavedPost: async(req, res) => {
     try {
-      const posts = await Post.find({_id: {$in: req.user.saved}}).sort('-createdAt');
+      const features = new APIFeatures(
+        Post.find({_id: {$in: req.user.saved}}),
+        req.query
+      ).paginate();
+      const posts = await features.query.sort('-createdAt');
 
       res.status(200).json({
         posts,
