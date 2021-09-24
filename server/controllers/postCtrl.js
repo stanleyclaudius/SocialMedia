@@ -137,10 +137,13 @@ const postCtrl = {
   getDiscoverPost: async(req, res) => {
     try {
       const excluded = [req.user._id, ...req.user.followings];
+
+      const num = req.query.num || 9;
       const posts = await Post.aggregate([
         {$match: {user: {$nin: excluded}}},
-        {$sample: {size: 9}}
+        {$sample: {size: Number(num)}}
       ]);
+
       res.status(200).json({
         posts,
         result: posts.length
