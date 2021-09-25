@@ -1,15 +1,31 @@
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { IoPaperPlaneOutline, IoVideocam } from 'react-icons/io5';
 import { MdCall } from 'react-icons/md';
 import { FaTrash } from 'react-icons/fa';
+import { createMessage } from './../../redux/actions/messageActions';
 import SingleMessage from './SingleMessage';
 import Avatar from './../Avatar';
 
-const ChatView = () => {
-  const [message, setMessage] = useState('');
+const ChatView = ({id}) => {
+  const [text, setText] = useState('');
+
+  const dispatch = useDispatch();
+  const {auth, message} = useSelector(state => state);
 
   const handleSubmit = e => {
     e.preventDefault();
+
+    const msg = {
+      sender: auth.user._id,
+      recipient: id,
+      text,
+      media: [],
+      createdAt: new Date().toISOString()
+    };
+
+    dispatch(createMessage({msg, auth}));
+    setText('');
   }
 
   return (
@@ -26,40 +42,23 @@ const ChatView = () => {
         </div>
       </div>
       <div className="chatView__body">
-        <div className="chatView__body--message chatView__body--otherMessage">
-          <SingleMessage otherMessage={true} text='Lorem ipsum dolor sit amet.' />
-        </div>
-        <div className="chatView__body--message chatView__body--yourMessage">
-          <SingleMessage text='Dolor ipsum lorem amtet sit test lorem.' />
-        </div>
-        <div className="clear"></div>
-        <div className="chatView__body--message chatView__body--yourMessage">
-          <SingleMessage text='Dolor ipsum lorem.' />
-        </div>
-        <div className="clear"></div>
-        <div className="chatView__body--message chatView__body--yourMessage">
-          <SingleMessage text='Hi' />
-        </div>
-        <div className="clear"></div>
-        <div className="chatView__body--message chatView__body--otherMessage">
-          <SingleMessage otherMessage={true} text='Hi.' />
-        </div>
-        <div className="chatView__body--message chatView__body--otherMessage">
-          <SingleMessage otherMessage={true} text='Hi.' />
-        </div>
-        <div className="chatView__body--message chatView__body--otherMessage">
-          <SingleMessage otherMessage={true} text='Hi.' />
-        </div>
-        <div className="chatView__body--message chatView__body--otherMessage">
-          <SingleMessage otherMessage={true} text='Hi.' />
-        </div>
-        <div className="chatView__body--message chatView__body--otherMessage">
-          <SingleMessage otherMessage={true} text='Hi.' />
-        </div>
+        {
+          message.data.map(chat => (
+            <>
+              <div className={`chatView__body--message chatView__body--${chat.sender === auth.user._id ? 'yourMessage' : 'otherMessage'}`}>
+                <SingleMessage otherMessage={chat.sender === auth.user._id ? false : true} text={chat.text} />
+              </div>
+              {
+                chat.sender === auth.user._id &&
+                <div className="clear"></div>
+              }
+            </>
+          ))
+        }
       </div>
       <div className="chatView__footer">
         <form onSubmit={handleSubmit}>
-          <input type="text" value={message} onChange={e => setMessage(e.target.value)} placeholder='Your message here ...' />
+          <input type="text" value={text} onChange={e => setText(e.target.value)} placeholder='Your message here ...' />
           <button type='submit'>
             <IoPaperPlaneOutline />
           </button>

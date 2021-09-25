@@ -83,7 +83,7 @@ const PeopleList = () => {
               <div className='searchResult'>
                 {
                   users.map(user => (
-                    <div style={{cursor: 'pointer'}} key={user._id} to={`/profile/${user._id}`} className='searchResult__single' onClick={() => handleAddUser(user)}>
+                    <div style={{cursor: 'pointer'}} key={user._id} className='searchResult__single' onClick={() => handleAddUser(user)}>
                       <Avatar src={user.avatar} size='small' />
                       <div className='searchResult__single--right'>
                         <p>{user.name}</p>
@@ -106,6 +106,7 @@ const PeopleList = () => {
               message.users.map(user => (
                 <Link to={`/message/${user._id}`} style={{color: '#000', textDecoration: 'none'}}>
                   <UserCard
+                    onMessage={true}
                     user={user}
                     message='Hello'
                   />
