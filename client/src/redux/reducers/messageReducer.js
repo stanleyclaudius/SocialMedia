@@ -20,7 +20,7 @@ const messageReducer = (state = initialState, action) => {
         ...state,
         data: [...state.data, action.payload],
         users: state.users.map(item => 
-          item.user._id === action.payload.recipient.user._id
+          item.user._id === action.payload.recipient.user._id || item.user._id === action.payload.sender._id
           ? {
             ...item,
             text: action.payload.text,

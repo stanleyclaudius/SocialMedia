@@ -8,8 +8,10 @@ export const MESSAGE_TYPES = {
   GET_MESSAGE: 'GET_MESSAGE'
 };
 
-export const createMessage = ({msg, auth}) => async(dispatch) => {
+export const createMessage = ({msg, auth, socket}) => async(dispatch) => {
   dispatch({type: MESSAGE_TYPES.ADD_MESSAGE, payload: msg});
+
+  socket.emit('createMessage', msg);
   
   try {
     await postDataAPI('message', {

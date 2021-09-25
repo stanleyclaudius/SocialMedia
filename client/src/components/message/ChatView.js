@@ -15,7 +15,7 @@ const ChatView = ({id}) => {
   const [load, setLoad] = useState(false);
 
   const dispatch = useDispatch();
-  const {auth, message} = useSelector(state => state);
+  const {auth, message, socket} = useSelector(state => state);
 
   const handleImageChange = e => {
     const newImages = [...e.target.files];
@@ -43,7 +43,7 @@ const ChatView = ({id}) => {
     setText('');
     images.length > 0 && setImages([]);
 
-    dispatch(createMessage({msg, auth}));
+    dispatch(createMessage({msg, auth, socket}));
     setLoad(false);
   }
 

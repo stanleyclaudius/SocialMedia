@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { POST_TYPES } from './redux/actions/postActions';
+import { MESSAGE_TYPES } from './redux/actions/messageActions';
 import { NOTIFICATION_TYPES } from './redux/actions/notificationActions';
 import { GLOBALTYPES } from './redux/actions/globalTypes';
 import notificationSound from './audio/got-it-done-613.mp3'
@@ -174,6 +175,27 @@ const SocketClient = () => {
     });
 
     return () => socket.off('deleteNotificationToClient');
+  }, [dispatch, socket]);
+
+  // Create Message
+  useEffect(() => {
+    socket.on('createMessageToClient', data => {
+      dispatch({
+        type: MESSAGE_TYPES.ADD_MESSAGE,
+        payload: data
+      });
+
+      dispatch({
+        type: MESSAGE_TYPES.ADD_USER,
+        payload: {
+          text: data.text,
+          media: data.media,
+          user: data.sender
+        }
+      })
+    });
+
+    return () => socket.off('createMessageToClient');
   }, [dispatch, socket]);
 
   return (

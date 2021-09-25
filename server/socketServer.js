@@ -93,6 +93,12 @@ const socketServer = (socket) => {
       socket.to(`${client.socketId}`).emit('deleteNotificationToClient', data);
     })
   });
+
+  // Create Message
+  socket.on('createMessage', data => {
+    const user = users.find(user => user.id === data.recipient.user._id);
+    user && socket.to(`${user.socketId}`).emit('createMessageToClient', data);
+  });
 };
 
 module.exports = socketServer;
