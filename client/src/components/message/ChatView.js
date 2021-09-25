@@ -1,14 +1,15 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { IoPaperPlaneOutline, IoVideocam } from 'react-icons/io5';
 import { MdCall } from 'react-icons/md';
 import { FaTrash } from 'react-icons/fa';
-import { createMessage } from './../../redux/actions/messageActions';
+import { createMessage, getMessage } from './../../redux/actions/messageActions';
 import SingleMessage from './SingleMessage';
 import Avatar from './../Avatar';
 
 const ChatView = ({id}) => {
   const [text, setText] = useState('');
+  const [info, setInfo] = useState({});
 
   const dispatch = useDispatch();
   const {auth, message} = useSelector(state => state);
@@ -17,8 +18,8 @@ const ChatView = ({id}) => {
     e.preventDefault();
 
     const msg = {
-      sender: auth.user._id,
-      recipient: id,
+      sender: auth.user,
+      recipient: info,
       text,
       media: [],
       createdAt: new Date().toISOString()
@@ -28,29 +29,48 @@ const ChatView = ({id}) => {
     setText('');
   }
 
+  useEffect(() => {
+    dispatch(getMessage({id, auth}));
+  }, [dispatch, id, auth]);
+
+  useEffect(() => {
+    const findUser = message.users.find(user => user.user._id === id);
+    if (findUser)
+      setInfo(findUser);
+  }, [message.users, id]);
+
   return (
     <div className='chatView'>
       <div className="chatView__header">
         <div className="chatView__header--left">
-          <Avatar size='small' />
-          <p>username01</p>
+          <Avatar size='small' src={info.user?.avatar} />
+          <p>{info.user?.username}</p>
         </div>
         <div className="chatView__header--right">
           <MdCall />
           <IoVideocam />
-          <FaTrash />
+          <FaTrash style={{color: 'red'}} />
         </div>
       </div>
       <div className="chatView__body">
         {
           message.data.map((chat, index) => (
             <div key={index}>
-              <div className={`chatView__body--message chatView__body--${chat.sender === auth.user._id ? 'yourMessage' : 'otherMessage'}`}>
-                <SingleMessage otherMessage={chat.sender === auth.user._id ? false : true} text={chat.text} />
-              </div>
               {
-                chat.sender === auth.user._id &&
-                <div className="clear"></div>
+                chat.sender._id === auth.user._id ? (
+                  <>
+                    <div className={`chatView__body--message chatView__body--yourMessage`}>
+                      <SingleMessage otherMessage={false} text={chat.text} avatar={auth.user.avatar} />
+                    </div>
+                    <div className="clear"></div>
+                  </>
+                ) : (
+                  <>
+                    <div className={`chatView__body--message chatView__body--otherMessage`} style={{marginTop: '8px'}}>
+                      <SingleMessage otherMessage={true} text={chat.text} avatar={info.user?.avatar} />
+                    </div>
+                  </>
+                )
               }
             </div>
           ))

@@ -2,7 +2,6 @@ import { MESSAGE_TYPES } from "./../actions/messageActions";
 
 const initialState = {
   users: [],
-  userResult: 0,
   data: []
 };
 
@@ -19,12 +18,26 @@ const messageReducer = (state = initialState, action) => {
     case MESSAGE_TYPES.ADD_MESSAGE:
       return {
         ...state,
-        data: [...state.data, action.payload]
+        data: [...state.data, action.payload],
+        users: state.users.map(item => 
+          item.user._id === action.payload.recipient.user._id
+          ? {
+            ...item,
+            text: action.payload.text,
+            media: action.payload.media
+          }
+          : item
+        )
       };
     case MESSAGE_TYPES.GET_CONVERSATION:
       return {
         ...state,
         users: action.payload
+      }
+    case MESSAGE_TYPES.GET_MESSAGE:
+      return {
+        ...state,
+        data: action.payload
       }
     default:
       return state;

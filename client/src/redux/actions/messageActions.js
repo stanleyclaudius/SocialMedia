@@ -12,7 +12,11 @@ export const createMessage = ({msg, auth}) => async(dispatch) => {
   dispatch({type: MESSAGE_TYPES.ADD_MESSAGE, payload: msg});
   
   try {
-    await postDataAPI('message', msg, auth.token);
+    await postDataAPI('message', {
+      ...msg,
+      sender: auth.user._id,
+      recipient: msg.recipient.user._id
+    }, auth.token);
   } catch (err) {
     dispatch({
       type: GLOBALTYPES.ALERT,
@@ -40,6 +44,24 @@ export const getConversation = ({auth}) => async(dispatch) => {
       type: MESSAGE_TYPES.GET_CONVERSATION,
       payload: newArr
     })
+  } catch (err) {
+    dispatch({
+      type: GLOBALTYPES.ALERT,
+      payload: {
+        error: err.response.data.msg
+      }
+    });
+  }
+}
+
+export const getMessage = ({id, auth}) => async(dispatch) => {
+  try {
+    const res = await getDataAPI(`message/${id}`, auth.token);
+
+    dispatch({
+      type: MESSAGE_TYPES.GET_MESSAGE,
+      payload: res.data.message
+    });
   } catch (err) {
     dispatch({
       type: GLOBALTYPES.ALERT,

@@ -10,7 +10,7 @@ import Avatar from './../Avatar';
 import UserCard from './../UserCard';
 import Loading from './../../images/loading.gif';
 
-const PeopleList = () => {
+const PeopleList = ({id}) => {
   const [load, setLoad] = useState(false);
   const [search, setSearch] = useState('');
   const [users, setUsers] = useState([]);
@@ -104,20 +104,20 @@ const PeopleList = () => {
 
       {
         users.length === 0 && 
-        (
-          <div className="peopleList__container">
-            {
-              message.users.map(item => (
-                <Link key={item._id} to={`/message/${item.user._id}`} style={{color: '#000', textDecoration: 'none'}}>
+        <>
+          {
+            message.users.map(item => (
+              <div className="peopleList__container"  key={item._id} style={{background: item.user._id === id ? 'rgb(242, 242, 242)' : ''}}>
+                <Link to={`/message/${item.user._id}`} style={{color: '#000', textDecoration: 'none'}}>
                   <UserCard
                     onMessage={true}
                     msg={item}
                   />
                 </Link>
-              ))
-            }
-          </div>
-        )
+              </div>
+            ))
+          }
+        </>
       }
     </div>
   )

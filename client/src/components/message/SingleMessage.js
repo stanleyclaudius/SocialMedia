@@ -1,9 +1,9 @@
 
-const SingleMessage = ({otherMessage, text}) => {
+const SingleMessage = ({otherMessage, avatar, text}) => {
   return (
     <div className='singleMessage'>
       <div className="singleMessage__left">
-        <img src='' alt='User' />
+        <img src={avatar} alt='User' />
       </div>
       <div className="singleMessage__right">
         <p className={`${otherMessage ? 'otherMessage' : 'yourMessage'}`}>
