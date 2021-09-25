@@ -43,8 +43,8 @@ const ChatView = ({id}) => {
       </div>
       <div className="chatView__body">
         {
-          message.data.map(chat => (
-            <>
+          message.data.map((chat, index) => (
+            <div key={index}>
               <div className={`chatView__body--message chatView__body--${chat.sender === auth.user._id ? 'yourMessage' : 'otherMessage'}`}>
                 <SingleMessage otherMessage={chat.sender === auth.user._id ? false : true} text={chat.text} />
               </div>
@@ -52,7 +52,7 @@ const ChatView = ({id}) => {
                 chat.sender === auth.user._id &&
                 <div className="clear"></div>
               }
-            </>
+            </div>
           ))
         }
       </div>

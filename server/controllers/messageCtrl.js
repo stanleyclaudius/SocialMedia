@@ -30,6 +30,15 @@ const messageCtrl = {
     } catch (err) {
       return res.status(500).json({msg: err.message});
     }
+  },
+  getConversation: async(req, res) => {
+    try {
+      const conversation = await Conversation.find({recipients: req.user._id}).populate('recipients', 'avatar username name').sort('-updatedAt');
+
+      res.status(200).json({conversation});
+    } catch (err) {
+      return res.status(500).json({msg: err.message});
+    }
   }
 };
 

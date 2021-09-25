@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AiOutlineClose } from 'react-icons/ai';
 import { getDataAPI } from './../../utils/fetchData';
 import { GLOBALTYPES } from './../../redux/actions/globalTypes';
-import { MESSAGE_TYPES } from './../../redux/actions/messageActions';
+import { getConversation, MESSAGE_TYPES } from './../../redux/actions/messageActions';
 import Avatar from './../Avatar';
 import UserCard from './../UserCard';
 import Loading from './../../images/loading.gif';
@@ -43,6 +43,10 @@ const PeopleList = () => {
       payload: user
     });
   }
+
+  useEffect(() => {
+    dispatch(getConversation({auth}));
+  }, [dispatch, auth]);
 
   useEffect(() => {
     if (!search)
@@ -103,12 +107,11 @@ const PeopleList = () => {
         (
           <div className="peopleList__container">
             {
-              message.users.map(user => (
-                <Link to={`/message/${user._id}`} style={{color: '#000', textDecoration: 'none'}}>
+              message.users.map(item => (
+                <Link key={item._id} to={`/message/${item.user._id}`} style={{color: '#000', textDecoration: 'none'}}>
                   <UserCard
                     onMessage={true}
-                    user={user}
-                    message='Hello'
+                    msg={item}
                   />
                 </Link>
               ))

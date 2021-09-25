@@ -1,5 +1,5 @@
 import { GLOBALTYPES } from "./globalTypes";
-import { postDataAPI } from './../../utils/fetchData';
+import { getDataAPI, postDataAPI } from './../../utils/fetchData';
 
 export const MESSAGE_TYPES = {
   ADD_USER: 'ADD_USER',
@@ -13,6 +13,33 @@ export const createMessage = ({msg, auth}) => async(dispatch) => {
   
   try {
     await postDataAPI('message', msg, auth.token);
+  } catch (err) {
+    dispatch({
+      type: GLOBALTYPES.ALERT,
+      payload: {
+        error: err.response.data.msg
+      }
+    });
+  }
+}
+
+export const getConversation = ({auth}) => async(dispatch) => {
+  try {
+    const res = await getDataAPI('conversation', auth.token);
+
+    const newArr = [];
+    res.data.conversation.forEach(item => {
+      item.recipients.forEach(user => {
+        if (user._id !== auth.user._id) {
+          newArr.push({...item, user})
+        }
+      })
+    });
+
+    dispatch({
+      type: MESSAGE_TYPES.GET_CONVERSATION,
+      payload: newArr
+    })
   } catch (err) {
     dispatch({
       type: GLOBALTYPES.ALERT,
