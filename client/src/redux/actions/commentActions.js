@@ -46,7 +46,7 @@ export const createComment = ({comment, post, auth, socket}) => async(dispatch) 
       recipients: comment.reply ? [{user: comment.tag}] : [{user: post.user._id}]
     };
 
-    dispatch(createNotification({msg, auth}));
+    dispatch(createNotification({msg, auth, socket}));
   } catch (err) {
     dispatch({
       type: GLOBALTYPES.ALERT,
@@ -168,7 +168,7 @@ export const deleteComment = ({post, comment, auth, socket}) => async(dispatch) 
       url: `/post/${post._id}`,
     };
 
-    dispatch(deleteNotification({msg, auth}));
+    dispatch(deleteNotification({msg, auth, socket}));
   } catch (err) {
     dispatch({
       type: GLOBALTYPES.ALERT,

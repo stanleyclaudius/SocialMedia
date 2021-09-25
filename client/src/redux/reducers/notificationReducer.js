@@ -20,6 +20,7 @@ const notificationReducer = (state=initialState, action) => {
     case NOTIFICATION_TYPES.DELETE_NOTIFICATION:
       return {
         ...state,
+        data: state.data.filter(item => item.id !== action.payload.id || item.url !== action.payload.url)
       }
     default:
       return state;

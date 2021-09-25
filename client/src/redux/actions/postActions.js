@@ -42,7 +42,7 @@ export const getPosts = (token) => async(dispatch) => {
   }
 }
 
-export const createPost = ({content, images, auth}) => async(dispatch) => {
+export const createPost = ({content, images, auth, socket}) => async(dispatch) => {
   try {
     dispatch({
       type: GLOBALTYPES.ALERT,
@@ -74,7 +74,7 @@ export const createPost = ({content, images, auth}) => async(dispatch) => {
       recipients: recipientArr
     };
     
-    dispatch(createNotification({msg, auth}));
+    dispatch(createNotification({msg, auth, socket}));
 
     dispatch({
       type: POST_TYPES.CREATE_POST,
@@ -183,7 +183,7 @@ export const likePost = ({post, auth, socket}) => async(dispatch) => {
       ]
     };
 
-    dispatch(createNotification({msg, auth}));
+    dispatch(createNotification({msg, auth, socket}));
   } catch (err) {
     dispatch({
       type: GLOBALTYPES.ALERT,
@@ -214,7 +214,7 @@ export const unlikePost = ({post, auth, socket}) => async(dispatch) => {
       id: auth.user._id,
       url: `/post/${post._id}`
     };
-    dispatch(deleteNotification({msg, auth}));
+    dispatch(deleteNotification({msg, auth, socket}));
   } catch (err) {
     dispatch({
       type: GLOBALTYPES.ALERT,
@@ -225,7 +225,7 @@ export const unlikePost = ({post, auth, socket}) => async(dispatch) => {
   }
 }
 
-export const deletePost = ({id, auth}) => async(dispatch) => {
+export const deletePost = ({id, auth, socket}) => async(dispatch) => {
   try {
     const res = await deleteDataAPI(`post/${id}`, auth.token);
     dispatch({
@@ -239,7 +239,7 @@ export const deletePost = ({id, auth}) => async(dispatch) => {
       url: `/post/${id}`
     };
 
-    dispatch(deleteNotification({msg, auth}));
+    dispatch(deleteNotification({msg, auth, socket}));
   } catch (err) {
     dispatch({
       type: GLOBALTYPES.ALERT,

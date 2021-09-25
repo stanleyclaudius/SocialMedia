@@ -16,7 +16,7 @@ const PostHeader = ({post}) => {
   const [openConfirm, setOpenConfirm] = useState(false);
 
   const dispatch = useDispatch();
-  const {auth} = useSelector(state => state);
+  const {auth, socket} = useSelector(state => state);
 
   const handleCopyLink = async () => {
     setIsOpenMenu(false);
@@ -76,7 +76,7 @@ const PostHeader = ({post}) => {
         title='Delete Post?'
         text="Once you confirm, there's no way to recover it." 
         onConfirm={() => {
-          dispatch(deletePost({id: post._id, auth}));
+          dispatch(deletePost({id: post._id, auth, socket}));
         }}
         onCancel={() => {
           setOpenConfirm(false);

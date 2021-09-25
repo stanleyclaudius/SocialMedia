@@ -32,7 +32,7 @@ const PostModal = ({post, setIsOpenMenu, setIsOpenModal}) => {
   const canvasRef = useRef();
 
   const dispatch = useDispatch();
-  const {auth, alert} = useSelector(state => state);
+  const {auth, alert, socket} = useSelector(state => state);
 
   const handleCloseModal = () => {
     if (post) {
@@ -119,7 +119,7 @@ const PostModal = ({post, setIsOpenMenu, setIsOpenModal}) => {
         setIsOpenMenu(false);
         await dispatch(editPost({content, images, post, auth}));
       } else {
-        await dispatch(createPost({content, images, auth}));
+        await dispatch(createPost({content, images, auth, socket}));
       }
       setIsOpenModal(false);
       tracks && tracks.stop();

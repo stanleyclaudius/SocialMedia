@@ -1,5 +1,5 @@
 import { GLOBALTYPES } from './globalTypes';
-import { getDataAPI, postDataAPI, deleteDataAPI, patchDataAPI } from './../../utils/fetchData';
+import { getDataAPI, postDataAPI, deleteDataAPI } from './../../utils/fetchData';
 
 export const NOTIFICATION_TYPES = {
   GET_NOTIFICATION: 'GET_NOTIFICATION',
@@ -8,9 +8,16 @@ export const NOTIFICATION_TYPES = {
   EDIT_NOTIFICATION: 'EDIT_NOTIFICATION'
 };
 
-export const createNotification = ({msg, auth}) => async(dispatch) => {
+export const createNotification = ({msg, auth, socket}) => async(dispatch) => {
   try {
-    await postDataAPI('notification', msg, auth.token);
+    const res = await postDataAPI('notification', msg, auth.token);
+
+    const data = {
+      ...res.data.notification,
+      user: auth.user
+    };
+
+    socket.emit('createNotification', data);
   } catch (err) {
     dispatch({
       type: GLOBALTYPES.ALERT,
@@ -38,9 +45,11 @@ export const getNotification = (token) => async(dispatch) => {
   }
 }
 
-export const deleteNotification = ({msg, auth}) => async(dispatch) => {
+export const deleteNotification = ({msg, auth, socket}) => async(dispatch) => {
   try {
-    await deleteDataAPI(`notification/${msg.id}?url=${msg.url}`, auth.token);
+    const res = await deleteDataAPI(`notification/${msg.id}?url=${msg.url}`, auth.token);
+
+    socket.emit('deleteNotification', res.data.notification);
   } catch (err) {
     dispatch({
       type: GLOBALTYPES.ALERT,
