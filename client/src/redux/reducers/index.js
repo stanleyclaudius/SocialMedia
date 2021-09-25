@@ -8,6 +8,7 @@ import discover from './discoverReducer';
 import postDetail from './postDetailReducer';
 import socket from './socketReducer';
 import notification from './notificationReducer';
+import message from './messageReducer';
 
 export default combineReducers({
   alert,
@@ -18,5 +19,6 @@ export default combineReducers({
   discover,
   postDetail,
   socket,
-  notification
+  notification,
+  message
 });

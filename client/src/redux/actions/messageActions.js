@@ -1,0 +1,8 @@
+import { GLOBALTYPES } from "./globalTypes";
+
+export const MESSAGE_TYPES = {
+  ADD_USER: 'ADD_USER',
+  ADD_MESSAGE: 'ADD_MESSAGE',
+  GET_CONVERSATION: 'GET_CONVERSATION',
+  GET_MESSAGE: 'GET_MESSAGE'
+};
