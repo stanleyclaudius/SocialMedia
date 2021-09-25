@@ -39,7 +39,8 @@ export const createComment = ({comment, post, auth, socket}) => async(dispatch) 
     });
 
     const msg = {
-      content: comment.reply ? `${auth.user.username} reply your comment"` : `${auth.user.username} commented on your post "${comment.content}".`,
+      id: res.data.newComment._id,
+      content: comment.reply ? `${auth.user.username} reply your comment "${comment.content}"` : `${auth.user.username} commented on your post "${comment.content}".`,
       url: `/post/${post._id}`,
       image: post.images[0].secure_url,
       recipients: comment.reply ? [{user: comment.tag}] : [{user: post.user._id}]
@@ -161,6 +162,13 @@ export const deleteComment = ({post, comment, auth, socket}) => async(dispatch) 
     deletedId.forEach(async item => {
       await deleteDataAPI(`/comment/${item}`, auth.token);
     })
+    
+    const msg = {
+      id: comment._id,
+      url: `/post/${post._id}`,
+    };
+
+    dispatch(deleteNotification({msg, auth}));
   } catch (err) {
     dispatch({
       type: GLOBALTYPES.ALERT,

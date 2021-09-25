@@ -3,12 +3,13 @@ const Notification = require('./../models/Notification');
 const notificationCtrl = {
   createNotification: async(req, res) => {
     try {
-      const {content, recipients, url, image} = req.body;
+      const {id, content, recipients, url, image} = req.body;
 
       const authenticatedRecipient = recipients.find(rec => rec.user === req.user._id.toString());
       if (authenticatedRecipient) return res.status(200).json({msg: 'Notification won\'t pass to yourself.'});
 
       const newNotification = new Notification({
+        id,
         content,
         recipients,
         url,
@@ -39,7 +40,7 @@ const notificationCtrl = {
   deleteNotification: async(req, res) => {
     try {
       const notification = await Notification.findOneAndDelete({
-        user: req.params.user, url: req.query.url
+        id: req.params.id, url: req.query.url
       });
 
       res.status(200).json({notification});

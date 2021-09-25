@@ -67,6 +67,7 @@ export const createPost = ({content, images, auth}) => async(dispatch) => {
     });
 
     const msg = {
+      id: res.data.post._id,
       content: `${auth.user.username} just created a new post.`,
       url: `/post/${res.data.post._id}`,
       image: res.data.post.images[0].secure_url,
@@ -173,6 +174,7 @@ export const likePost = ({post, auth, socket}) => async(dispatch) => {
 
     // Create Notification
     const msg = {
+      id: auth.user._id,
       content: `${auth.user.username} just liked your post.`,
       url: `/post/${post._id}`,
       image: post.images[0].secure_url,
@@ -209,7 +211,7 @@ export const unlikePost = ({post, auth, socket}) => async(dispatch) => {
     await patchDataAPI(`post/unlike/${post._id}`, null, auth.token);
 
     const msg = {
-      user: auth.user._id,
+      id: auth.user._id,
       url: `/post/${post._id}`
     };
     dispatch(deleteNotification({msg, auth}));
@@ -233,7 +235,7 @@ export const deletePost = ({id, auth}) => async(dispatch) => {
 
     // Create Notification
     const msg = {
-      user: auth.user._id,
+      id,
       url: `/post/${id}`
     };
 
