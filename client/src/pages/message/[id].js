@@ -12,7 +12,7 @@ const Message = () => {
   const {message} = useSelector(state => state);
 
   useEffect(() => {
-    const findUser = message.users.find(user => user.user._id === id);
+    const findUser = message.users.find(user => user.user?._id === id);
     if (findUser)
       setCurrentUser(findUser);
   }, [message.users, id]);

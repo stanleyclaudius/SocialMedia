@@ -1,6 +1,7 @@
 import Avatar from './Avatar';
 import FollowBtn from './FollowBtn';
 import { Link } from 'react-router-dom';
+import { MdPhotoSizeSelectActual } from 'react-icons/md';
 
 const UserCard = ({user, msg, setIsOpenFollowers, setIsOpenFollowings, onMessage}) => {
   const handleCloseAll = () => {
@@ -18,7 +19,16 @@ const UserCard = ({user, msg, setIsOpenFollowers, setIsOpenFollowings, onMessage
               <Avatar src={msg.user?.avatar} size='small' />
               <div>
                 <p>{msg.user?.username}</p>
-                <small>{msg.text}</small>
+                {
+                  msg.media.length > 0 
+                  ? (
+                    <small style={{display: 'flex', marginTop: '4px', alignItems: 'center'}}>
+                      {msg.media.length}
+                      <MdPhotoSizeSelectActual style={{marginLeft: '5px', transform: 'translateY(-1px)'}} />
+                    </small>
+                  )
+                  : <small>{msg.text}</small>
+                }
               </div>
             </div>
           </div>

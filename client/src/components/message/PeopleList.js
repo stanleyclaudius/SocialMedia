@@ -38,9 +38,15 @@ const PeopleList = ({id}) => {
   const handleAddUser = user => {
     setSearch('');
     setUsers([]);
+    const newItem = {
+      text: '',
+      media: [],
+      user
+    }
+    console.log(newItem)
     dispatch({
       type: MESSAGE_TYPES.ADD_USER,
-      payload: user
+      payload: newItem
     });
   }
 
@@ -107,8 +113,8 @@ const PeopleList = ({id}) => {
         <>
           {
             message.users.map(item => (
-              <div className="peopleList__container"  key={item._id} style={{background: item.user._id === id ? 'rgb(242, 242, 242)' : ''}}>
-                <Link to={`/message/${item.user._id}`} style={{color: '#000', textDecoration: 'none'}}>
+              <div className="peopleList__container"  key={item._id} style={{background: item.user?._id === id ? 'rgb(242, 242, 242)' : ''}}>
+                <Link to={`/message/${item.user?._id}`} style={{color: '#000', textDecoration: 'none'}}>
                   <UserCard
                     onMessage={true}
                     msg={item}

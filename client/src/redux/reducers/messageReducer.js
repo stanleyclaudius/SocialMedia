@@ -8,7 +8,7 @@ const initialState = {
 const messageReducer = (state = initialState, action) => {
   switch (action.type) {
     case MESSAGE_TYPES.ADD_USER:
-      if (state.users.every(item => item._id !== action.payload._id)) {
+      if (state.users.every(item => item.user._id !== action.payload.user._id)) {
         return {
           ...state,
           users: [action.payload, ...state.users]

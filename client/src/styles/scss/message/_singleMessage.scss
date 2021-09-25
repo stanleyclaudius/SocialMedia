@@ -24,6 +24,27 @@
       padding: 10px;
     }
 
+    &Image {
+      margin-left: 7px;
+      display: flex;
+      flex-direction: column;
+
+      img,
+      video {
+        width: 150px;
+        height: 150px;
+        border-radius: 5px;
+
+        &:first-child {
+          margin-top: 7px;
+        }
+
+        &:not(:last-child) {
+          margin-bottom: 5px;
+        }
+      }
+    }
+
     .otherMessage {
       background: rgb(240, 240, 240);
       border-radius: 0 10px 10px 10px;
