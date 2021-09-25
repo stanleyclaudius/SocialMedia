@@ -1,12 +1,28 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { POST_TYPES } from './redux/actions/postActions';
 import { NOTIFICATION_TYPES } from './redux/actions/notificationActions';
 import { GLOBALTYPES } from './redux/actions/globalTypes';
+import notificationSound from './audio/got-it-done-613.mp3'
+
+const spawnNotification = (body, icon, url, title) => {
+  let options = {
+    body, icon
+  };
+
+  let n = new Notification(title, options);
+
+  n.onClick = e => {
+    e.preventDefault();
+    window.open(url, '_blank');
+  }
+};
 
 const SocketClient = () => {
   const dispatch = useDispatch();
   const {auth, socket} = useSelector(state => state);
+
+  const audioRef = useRef();
 
   // Connect
   useEffect(() => {
@@ -134,11 +150,21 @@ const SocketClient = () => {
         type: NOTIFICATION_TYPES.CREATE_NOTIFICATION,
         payload: data
       });
+
+      audioRef.current.play();
+      spawnNotification(
+        data.content,
+        data.user.avatar,
+        data.url,
+        'SR-Social'
+      );
     });
 
     return () => socket.off('createNotificationToClient');
   }, [dispatch, socket]);
 
+
+  // Delete Notification
   useEffect(() => {
     socket.on('deleteNotificationToClient', data => {
       dispatch({
@@ -151,7 +177,11 @@ const SocketClient = () => {
   }, [dispatch, socket]);
 
   return (
-    <></>
+    <div>
+      <audio controls ref={audioRef} style={{display: 'none'}}>
+        <source src={notificationSound} type='audio/mp3' />
+      </audio>
+    </div>
   );
 }
 
