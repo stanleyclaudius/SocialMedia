@@ -8,6 +8,7 @@ import HeadInfo from './../../utils/HeadInfo';
 import Loading from './../../components/Loading';
 import Info from './../../components/profile/Info';
 import Saved from './../../components/profile/Saved';
+import NotFoundId from './../../components/NotFoundId';
 
 const Profile = () => {
   const [isOpenSaved, setIsOpenSaved] = useState(false);
@@ -142,9 +143,11 @@ const Profile = () => {
                     </div>
                   </>
                 ) : (
-                  <>
-                    not found
-                  </>
+                  <NotFoundId
+                    info='User'
+                    url='/'
+                    link='Home'
+                  />
                 )
               }
             </>
