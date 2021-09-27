@@ -11,6 +11,7 @@ import Saved from './../../components/profile/Saved';
 
 const Profile = () => {
   const [isOpenSaved, setIsOpenSaved] = useState(false);
+  const [foundUser, setFoundUser] = useState(false);
   const [userPost, setUserPost] = useState([]);
   const [load, setLoad] = useState(false);
   const [result, setResult] = useState(0);
@@ -61,10 +62,22 @@ const Profile = () => {
       threshold: 1
     });
 
-    if (!profile.loading && !load && result === 9 * (page - 1)) {
+    if (foundUser && !profile.loading && !load && result === 9 * (page - 1)) {
       observer.observe(pageEnd.current);
     }
-  }, [profile.loading, load, result, page, handleLoadMorePost]);
+  }, [profile.loading, load, result, page, handleLoadMorePost, foundUser]);
+
+  useEffect(() => {
+    const validateId = async() => {
+      const res = await getDataAPI(`/profile/${id}`, auth.token);
+      if (!res.data.user)
+        setFoundUser(false);
+      else
+        setFoundUser(true);
+    }
+
+    validateId();
+  }, [id, auth.token]);
 
   return (
     <>
@@ -79,50 +92,61 @@ const Profile = () => {
           )
           : (
             <>
-              <div className="userProfile__top">
-                <Info id={id} auth={auth} profile={profile} />
-              </div>
-
-              <div className="userProfile__bottom">
-                {
-                  auth.user._id === id &&
+              {
+                foundUser
+                ? (
                   <>
-                    <div className="userProfile__bottom--header">
-                      <div onClick={() => setIsOpenSaved(false)} className={`${isOpenSaved ? '' : 'active'}`}>
-                        POSTS
-                      </div>
-                      <div onClick={() => setIsOpenSaved(true)} className={`${isOpenSaved ? 'active' : ''}`}>
-                        SAVED
+                    <div className="userProfile__top">
+                      <Info id={id} auth={auth} profile={profile} />
+                    </div>
+
+                    <div className="userProfile__bottom">
+                      {
+                        auth.user._id === id &&
+                        <>
+                          <div className="userProfile__bottom--header">
+                            <div onClick={() => setIsOpenSaved(false)} className={`${isOpenSaved ? '' : 'active'}`}>
+                              POSTS
+                            </div>
+                            <div onClick={() => setIsOpenSaved(true)} className={`${isOpenSaved ? 'active' : ''}`}>
+                              SAVED
+                            </div>
+                          </div>
+                        </>
+                      }
+
+                      <div className="userProfile__bottom--content">
+                        {
+                          isOpenSaved 
+                          ? <Saved />
+                          : (
+                            <>
+                              <Post userPost={userPost} />
+                              
+                              {
+                                load && 
+                                <div style={{display: 'flex', justifyContent: 'center', marginTop: '20px'}}>
+                                  <Loading />
+                                </div>
+                              }
+                              
+                              {
+                                result < 9 * (page - 1)
+                                ? ''
+                                : !load && <button style={{opacity: '0'}} ref={pageEnd} onClick={handleLoadMorePost}>Load More</button>
+                              }
+                            </>
+                          )
+                        }
                       </div>
                     </div>
                   </>
-                }
-
-                <div className="userProfile__bottom--content">
-                  {
-                    isOpenSaved 
-                    ? <Saved />
-                    : (
-                      <>
-                        <Post userPost={userPost} />
-                        
-                        {
-                          load && 
-                          <div style={{display: 'flex', justifyContent: 'center', marginTop: '20px'}}>
-                            <Loading />
-                          </div>
-                        }
-                        
-                        {
-                          result < 9 * (page - 1)
-                          ? ''
-                          : !load && <button style={{opacity: '0'}} ref={pageEnd} onClick={handleLoadMorePost}>Load More</button>
-                        }
-                      </>
-                    )
-                  }
-                </div>
-              </div>
+                ) : (
+                  <>
+                    not found
+                  </>
+                )
+              }
             </>
           )
         }

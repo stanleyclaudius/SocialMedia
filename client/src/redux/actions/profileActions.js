@@ -41,10 +41,8 @@ export const getUserProfile = ({id, token}) => async(dispatch) => {
     });
   } catch (err) {
     dispatch({
-      type: GLOBALTYPES.ALERT,
-      payload: {
-        error: err.response.data.msg
-      }
+      type: PROFILE_TYPES.LOADING,
+      payload: false
     });
   }
 }
