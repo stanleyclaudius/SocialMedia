@@ -56,13 +56,23 @@ const Discover = () => {
           )
           : (
             <>
-              <div className='container discover'>
-                {
-                  discover?.posts.map(post => (
-                    <PostThumbnail key={post._id} post={post} />
-                  ))
-                }
-              </div>
+              {
+                discover.posts.length === 0
+                ? (
+                  <div style={{color: 'red', textAlign: 'center', marginTop: '50px'}}>
+                    <h2>No Post</h2>
+                  </div>
+                )
+                : (
+                  <div className='container discover'>
+                    {
+                      discover?.posts.map(post => (
+                        <PostThumbnail key={post._id} post={post} />
+                      ))
+                    }
+                  </div>
+                )
+              }
 
               {
                 load &&
