@@ -122,7 +122,17 @@ const Profile = () => {
                           ? <Saved />
                           : (
                             <>
-                              <Post userPost={userPost} />
+                              {
+                                userPost.length === 0
+                                ? (
+                                  <div style={{color: 'red', textAlign: 'center', marginTop: '30px'}}>
+                                    <h2>No Post</h2>
+                                  </div>
+                                )
+                                : (
+                                  <Post userPost={userPost} />
+                                )
+                              }
                               
                               {
                                 load && 

@@ -76,13 +76,23 @@ const Saved = () => {
         )
         : (
           <>
-            <div className='profilePost'>
-              {
-                savedPost.map(post => (
-                  <PostThumbnail key={post._id} post={post} />
-                ))
-              }
-            </div>
+            {
+              savedPost.length === 0
+              ? (
+                <div style={{color: 'red', textAlign: 'center', marginTop: '30px'}}>
+                  <h2>No Post</h2>
+                </div>
+              )
+              : (
+                <div className='profilePost'>
+                  {
+                    savedPost.map(post => (
+                      <PostThumbnail key={post._id} post={post} />
+                    ))
+                  }
+                </div>
+              )
+            }
 
             {
               loadMoreIcon &&
