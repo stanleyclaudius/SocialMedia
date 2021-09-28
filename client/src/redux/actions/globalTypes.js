@@ -1,5 +1,7 @@
 export const GLOBALTYPES = {
   ALERT: 'ALERT',
   AUTH: 'AUTH',
-  SOCKET: 'SOCKET'
+  SOCKET: 'SOCKET',
+  ONLINE: 'ONLINE',
+  OFFLINE: 'OFFLINE'
 };

@@ -99,6 +99,19 @@ const socketServer = (socket) => {
     const user = users.find(user => user.id === data.recipient.user._id);
     user && socket.to(`${user.socketId}`).emit('createMessageToClient', data);
   });
+
+  // Check User Online
+  socket.on('checkUserOnline', data => {
+    const followings = users.filter(item => data.followings.find(user => user._id === item.id));
+    socket.emit('checkUserOnlineToMe', followings);
+
+    const followers = users.filter(item => data.followers.find(user => user._id === item.id));
+    if (followers.length > 0) {
+      followers.forEach(client => {
+        socket.to(`${client.socketId}`).emit('checkUserOnlineToClient', data._id);
+      })
+    }
+  })
 };
 
 module.exports = socketServer;

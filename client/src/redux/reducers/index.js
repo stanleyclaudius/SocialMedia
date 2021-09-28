@@ -9,6 +9,7 @@ import postDetail from './postDetailReducer';
 import socket from './socketReducer';
 import notification from './notificationReducer';
 import message from './messageReducer';
+import status from './statusReducer';
 
 export default combineReducers({
   alert,
@@ -20,5 +21,6 @@ export default combineReducers({
   postDetail,
   socket,
   notification,
-  message
+  message,
+  status
 });

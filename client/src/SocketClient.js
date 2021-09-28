@@ -21,7 +21,7 @@ const spawnNotification = (body, icon, url, title) => {
 
 const SocketClient = () => {
   const dispatch = useDispatch();
-  const {auth, socket} = useSelector(state => state);
+  const {auth, socket, status} = useSelector(state => state);
 
   const audioRef = useRef();
 
@@ -197,6 +197,39 @@ const SocketClient = () => {
 
     return () => socket.off('createMessageToClient');
   }, [dispatch, socket]);
+
+  // Check User Online
+  useEffect(() => {
+    socket.emit('checkUserOnline', auth.user);
+  }, [socket, auth.user]);
+
+  useEffect(() => {
+    socket.on('checkUserOnlineToMe', data => {
+      data.forEach(item => {
+        if (!status.includes(item.id)) {
+          dispatch({
+            type: GLOBALTYPES.ONLINE,
+            payload: item.id
+          })
+        }
+      })
+    });
+    
+    return () => socket.off('checkUserOnlineToMe');
+  }, [socket, dispatch, status]);
+
+  useEffect(() => {
+    socket.on('checkUserOnlineToClient', id => {
+      if (!status.includes(id)) {
+        dispatch({
+          type: GLOBALTYPES.ONLINE,
+          payload: id
+        })
+      }
+    });
+
+    return () => socket.off('chekUserOnlineToClient');
+  }, [socket, dispatch, status]);
 
   return (
     <div>
