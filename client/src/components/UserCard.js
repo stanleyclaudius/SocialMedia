@@ -51,7 +51,7 @@ const UserCard = ({user, msg, setIsOpenFollowers, setIsOpenFollowings, onMessage
           {
             status === 'online'
             ? <BsCircleFill style={{color: 'green', fontSize: '11px'}} />
-            : <BsCircleFill style={{color: '#aaa', fontSize: '11px'}} />
+            : status === 'offline' && <BsCircleFill style={{color: '#aaa', fontSize: '11px'}} />
           }
         </div>
       }
