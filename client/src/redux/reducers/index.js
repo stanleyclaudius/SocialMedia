@@ -10,6 +10,7 @@ import socket from './socketReducer';
 import notification from './notificationReducer';
 import message from './messageReducer';
 import status from './statusReducer';
+import call from './callReducer';
 
 export default combineReducers({
   alert,
@@ -22,5 +23,6 @@ export default combineReducers({
   socket,
   notification,
   message,
-  status
+  status,
+  call
 });

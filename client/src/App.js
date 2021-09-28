@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { refreshToken } from './redux/actions/authActions';
 import { getNotification } from './redux/actions/notificationActions';
 import { GLOBALTYPES } from './redux/actions/globalTypes';
+import io from 'socket.io-client';
 import PageRender from './custom_routes/PageRender';
 import SocketClient from './SocketClient';
 import PrivateRoute from './custom_routes/PrivateRoute';
@@ -12,11 +13,11 @@ import Login from './pages/login';
 import Register from './pages/register';
 import Header from './components/header/Header';
 import Alert from './components/Alert';
-import io from 'socket.io-client';
+import CallModal from './components/message/CallModal';
 
 function App() {
   const dispatch = useDispatch();
-  const {auth} = useSelector(state => state);
+  const {auth, call} = useSelector(state => state);
 
   useEffect(() => {
     dispatch(refreshToken());
@@ -47,6 +48,7 @@ function App() {
     <Router>
       {auth.token && <Header />}
       {auth.token && <SocketClient />}
+      {call && <CallModal />}
       <Alert />
       <Switch>
         <Route exact path='/' component={auth.token ? Home : Login} />

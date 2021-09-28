@@ -4,6 +4,7 @@ import { IoPaperPlaneOutline, IoVideocam } from 'react-icons/io5';
 import { MdCall, MdPhotoSizeSelectActual } from 'react-icons/md';
 import { FaTrash } from 'react-icons/fa';
 import { uploadImage } from './../../utils/imageHelper';
+import { GLOBALTYPES } from './../../redux/actions/globalTypes';
 import { createMessage, getMessage } from './../../redux/actions/messageActions';
 import SingleMessage from './SingleMessage';
 import Avatar from './../Avatar';
@@ -49,6 +50,31 @@ const ChatView = ({id}) => {
     setLoad(false);
   }
 
+  const caller = ({video}) => {
+    const {_id, avatar, username, name} = info.user;
+    const msg = {
+      sender: auth.user._id,
+      recipient: _id,
+      avatar,
+      username,
+      name,
+      video
+    };
+
+    dispatch({
+      type: GLOBALTYPES.CALL,
+      payload: msg
+    });
+  }
+
+  const handleAudioCall = () => {
+    caller({video: false});
+  }
+
+  const handleVideoCall = () => {
+    caller({video: true});
+  }
+
   useEffect(() => {
     dispatch(getMessage({id, auth}));
   }, [dispatch, id, auth]);
@@ -67,8 +93,8 @@ const ChatView = ({id}) => {
           <p>{info.user?.username}</p>
         </div>
         <div className="chatView__header--right">
-          <MdCall />
-          <IoVideocam />
+          <MdCall onClick={handleAudioCall} />
+          <IoVideocam onClick={handleVideoCall} />
           <FaTrash style={{color: 'red'}} />
         </div>
       </div>

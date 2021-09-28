@@ -3,5 +3,6 @@ export const GLOBALTYPES = {
   AUTH: 'AUTH',
   SOCKET: 'SOCKET',
   ONLINE: 'ONLINE',
-  OFFLINE: 'OFFLINE'
+  OFFLINE: 'OFFLINE',
+  CALL: 'CALL',
 };
