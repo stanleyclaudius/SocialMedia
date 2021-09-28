@@ -2,7 +2,8 @@ import { MESSAGE_TYPES } from "./../actions/messageActions";
 
 const initialState = {
   users: [],
-  data: []
+  data: [],
+  firstLoad: false
 };
 
 const messageReducer = (state = initialState, action) => {
@@ -32,7 +33,8 @@ const messageReducer = (state = initialState, action) => {
     case MESSAGE_TYPES.GET_CONVERSATION:
       return {
         ...state,
-        users: action.payload
+        users: action.payload,
+        firstLoad: true
       }
     case MESSAGE_TYPES.GET_MESSAGE:
       return {

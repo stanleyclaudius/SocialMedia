@@ -43,7 +43,6 @@ const PeopleList = ({id}) => {
       media: [],
       user
     }
-    console.log(newItem)
     dispatch({
       type: MESSAGE_TYPES.ADD_USER,
       payload: newItem
@@ -51,13 +50,9 @@ const PeopleList = ({id}) => {
   }
 
   useEffect(() => {
-    dispatch(getConversation({auth}));
-  }, [dispatch, auth]);
-
-  useEffect(() => {
-    if (!search)
-      setUsers([]);
-  }, [search]);
+    if (!message.firstLoad)
+      dispatch(getConversation({auth}));
+  }, [dispatch, message.firstLoad, auth]);
 
   return (
     <div className='peopleList'>
