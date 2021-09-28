@@ -7,6 +7,7 @@ import { uploadImage } from './../../utils/imageHelper';
 import { createMessage, getMessage } from './../../redux/actions/messageActions';
 import SingleMessage from './SingleMessage';
 import Avatar from './../Avatar';
+import LoadingGif from './../../images/loading.gif';
 
 const ChatView = ({id}) => {
   const [text, setText] = useState('');
@@ -25,6 +26,8 @@ const ChatView = ({id}) => {
 
   const handleSubmit = async e => {
     e.preventDefault();
+    setText('');
+    setImages([]);
 
     setLoad(true);
     let newMedia = [];
@@ -39,9 +42,6 @@ const ChatView = ({id}) => {
       media: newMedia,
       createdAt: new Date().toISOString()
     };
-
-    setText('');
-    images.length > 0 && setImages([]);
 
     dispatch(createMessage({msg, auth, socket}));
     setLoad(false);
@@ -92,6 +92,13 @@ const ChatView = ({id}) => {
               }
             </div>
           ))
+        }
+
+        {
+          load &&
+          <div className='chatView__body--message chatView__body--yourMessage'>
+            <img src={LoadingGif} alt='loading' />
+          </div>
         }
       </div>
 
