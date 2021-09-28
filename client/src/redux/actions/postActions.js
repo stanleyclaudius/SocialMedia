@@ -271,10 +271,8 @@ export const getPost = ({postDetail, id, auth}) => async(dispatch) => {
     }
   } catch (err) {
     dispatch({
-      type: GLOBALTYPES.ALERT,
-      payload: {
-        error: err.stack
-      }
+      type: POST_TYPES.LOADING,
+      payload: false
     });
   }
 }

@@ -5,6 +5,7 @@ import { getPost } from './../../redux/actions/postActions';
 import PostCard from './../../components/post/PostCard';
 import Loading from './../../components/Loading';
 import HeadInfo from './../../utils/HeadInfo';
+import NotFoundId from './../../components/NotFoundId';
 
 const Post = () => {
   const [postInfo, setPostInfo] = useState([]);
@@ -37,9 +38,23 @@ const Post = () => {
           : (
             <>
               {
-                postInfo.map(post => (
-                  <PostCard key={post._id} post={post} />
-                ))
+                postInfo.length === 0
+                ? (
+                  <NotFoundId
+                    info='Post'
+                    url='/'
+                    link='Home'
+                  />
+                )
+                : (
+                  <>
+                    {
+                      postInfo.map(post => (
+                        <PostCard key={post._id} post={post} />
+                      ))
+                    }
+                  </>
+                )
               }
             </>
           )
