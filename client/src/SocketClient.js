@@ -231,6 +231,18 @@ const SocketClient = () => {
     return () => socket.off('chekUserOnlineToClient');
   }, [socket, dispatch, status]);
 
+  // Check User Offline
+  useEffect(() => {
+    socket.on('checkUserOffline', id => {
+      dispatch({
+        type: GLOBALTYPES.OFFLINE,
+        payload: id
+      })
+    });
+
+    return () => socket.off('checkUserOffline');
+  }, [socket, dispatch]);
+
   return (
     <div>
       <audio controls ref={audioRef} style={{display: 'none'}}>

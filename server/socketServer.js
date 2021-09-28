@@ -3,11 +3,20 @@ let users = [];
 const socketServer = (socket) => {
   // Connect
   socket.on('joinUser', user => {
-    users.push({id: user._id, socketId: socket.id});
+    users.push({id: user._id, socketId: socket.id, followers: user.followers});
   });
 
   // Disconnect
   socket.on('disconnect', () => {
+    const data = users.find(item => item.socketId === socket.id);
+    if (data) {
+      const client = users.filter(item => data.followers.find(user => user._id === item.id));
+      if (client.length > 0) {
+        client.forEach(item => {
+          socket.to(`${item.socketId}`).emit('checkUserOffline', data.id);
+        })
+      }
+    }
     users = users.filter(user => user.socketId !== socket.id);
   });
 
