@@ -1,10 +1,13 @@
 import Avatar from './Avatar';
 import FollowBtn from './FollowBtn';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { MdPhotoSizeSelectActual } from 'react-icons/md';
 import { BsCircleFill } from 'react-icons/bs';
 
 const UserCard = ({user, msg, setIsOpenFollowers, setIsOpenFollowings, onMessage, status}) => {
+  const {auth} = useSelector(state => state);
+  
   const handleCloseAll = () => {
     if (setIsOpenFollowings) setIsOpenFollowings(false);
     if (setIsOpenFollowers) setIsOpenFollowers(false);
@@ -51,7 +54,7 @@ const UserCard = ({user, msg, setIsOpenFollowers, setIsOpenFollowings, onMessage
           {
             status === 'online'
             ? <BsCircleFill style={{color: 'green', fontSize: '11px'}} />
-            : status === 'offline' && <BsCircleFill style={{color: '#aaa', fontSize: '11px'}} />
+            : (status === 'offline' && auth.user.followings.find(item => item._id === user?._id)) && <BsCircleFill style={{color: '#aaa', fontSize: '11px'}} />
           }
         </div>
       }
