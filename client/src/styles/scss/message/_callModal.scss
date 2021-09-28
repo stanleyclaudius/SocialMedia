@@ -1,0 +1,74 @@
+.callModal {
+  @include flexCenter(center);
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, .6);
+  z-index: 999;
+  padding: 0 30px;
+
+  &__box {
+    width: 100%;
+    background: #fff;
+    border-radius: 5px;
+    text-align: center;
+    padding: 60px 0;
+
+    div:first-child {
+      margin: 0 auto  30px auto;
+    }
+
+    .username {
+      font-weight: 500;
+      font-size: 20px;
+      margin-bottom: 5px;
+    }
+
+    .name {
+      margin-bottom: 10px;
+    }
+
+    small {
+      font-size: 20px;
+      margin-right: 5px;
+    }
+
+    .calling {
+      margin: 20px 0;
+    }
+  }
+
+  &__icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & > * +* {
+      margin-left: 40px;
+    }
+
+    svg {
+      font-size: 35px;
+      cursor: pointer;
+
+      &:first-child {
+        color: green;
+      }
+
+      &:last-child {
+        color: red;
+      }
+    }
+  }
+}
+
+@include mediaDesktop {
+  .callModal {
+
+    &__box {
+      width: 300px;
+    }
+  }
+}

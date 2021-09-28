@@ -1622,6 +1622,80 @@
   border-bottom-right-radius: 3px;
 }
 
+.callModal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 999;
+  padding: 0 30px;
+}
+
+.callModal__box {
+  width: 100%;
+  background: #fff;
+  border-radius: 5px;
+  text-align: center;
+  padding: 60px 0;
+}
+
+.callModal__box div:first-child {
+  margin: 0 auto  30px auto;
+}
+
+.callModal__box .username {
+  font-weight: 500;
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.callModal__box .name {
+  margin-bottom: 10px;
+}
+
+.callModal__box small {
+  font-size: 20px;
+  margin-right: 5px;
+}
+
+.callModal__box .calling {
+  margin: 20px 0;
+}
+
+.callModal__icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.callModal__icon > * + * {
+  margin-left: 40px;
+}
+
+.callModal__icon svg {
+  font-size: 35px;
+  cursor: pointer;
+}
+
+.callModal__icon svg:first-child {
+  color: green;
+}
+
+.callModal__icon svg:last-child {
+  color: red;
+}
+
+@media (min-width: 850px) {
+  .callModal__box {
+    width: 300px;
+  }
+}
+
 .clear {
   clear: both;
 }
