@@ -26,6 +26,8 @@ const ChatView = ({id}) => {
 
   const handleSubmit = async e => {
     e.preventDefault();
+    if (!text.trim() && images.length === 0) return;
+
     setText('');
     setImages([]);
 

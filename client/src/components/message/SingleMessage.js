@@ -6,9 +6,12 @@ const SingleMessage = ({otherMessage, avatar, text, media}) => {
         <img src={avatar} alt='User' />
       </div>
       <div className="singleMessage__right">
-        <p className={`${otherMessage ? 'otherMessage' : 'yourMessage'}`}>
-          {text}
-        </p>
+        {
+          text &&
+          <p className={`${otherMessage ? 'otherMessage' : 'yourMessage'}`}>
+            {text}
+          </p>
+        }
         <div className='singleMessage__rightImage'>
           {
             media.length > 0 &&
