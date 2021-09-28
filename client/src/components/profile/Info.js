@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { BiFemaleSign, BiMaleSign } from 'react-icons/bi';
+import { getDataAPI } from './../../utils/fetchData';
 import Avatar from './../../components/Avatar';
 import FollowBtn from './../../components/FollowBtn';
 import EditProfile from './../../components/profile/EditProfile';
@@ -12,6 +13,7 @@ const Info = ({id, auth, profile}) => {
   const [isOpenFollowings, setIsOpenFollowings] = useState(false);
   const [isShowStoryMore, setIsShowStoryMore] = useState(false);
   const [isEditProfile, setIsEditProfile] = useState(false);
+  const [totalPost, setTotalPost] = useState(0);
   
   useEffect(() => {
     if (auth.user?._id === id) {
@@ -21,6 +23,15 @@ const Info = ({id, auth, profile}) => {
       setUserData(user);
     }
   }, [profile.users, id, auth.user]);
+
+  useEffect(() => {
+    const fetchTotalPost = async() => {
+      const res = await getDataAPI(`post/total/${id}`, auth.token);
+      setTotalPost(res.data.result);
+    };
+
+    fetchTotalPost();
+  }, [auth.token, id]);
 
   return (
     <>
@@ -39,7 +50,7 @@ const Info = ({id, auth, profile}) => {
         </div>
         <div className="userProfile__right--info">
           <div className='postCount'>
-            101 Post
+            {totalPost} Post
           </div>
           <div className="followerCount" onClick={() => setIsOpenFollowers(true)}>
             {userData.followers?.length} {userData.followers?.length > 1 ? 'Followers' : 'Follower'}

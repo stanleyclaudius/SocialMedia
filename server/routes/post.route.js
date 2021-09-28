@@ -18,5 +18,6 @@ router.route('/post/like/:id').patch(isAuthenticated, postCtrl.likePost);
 router.route('/post/unlike/:id').patch(isAuthenticated, postCtrl.unlikePost);
 
 router.route('/post/user/:id').get(isAuthenticated, postCtrl.getUserPost);
+router.route('/post/total/:id').get(isAuthenticated, postCtrl.getTotalUserPost);
 
 module.exports = router;
