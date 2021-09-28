@@ -57,19 +57,10 @@ export const getConversation = ({auth}) => async(dispatch) => {
 }
 
 export const getMessage = ({id, auth}) => async(dispatch) => {
-  try {
-    const res = await getDataAPI(`message/${id}`, auth.token);
+  const res = await getDataAPI(`message/${id}`, auth.token);
 
-    dispatch({
-      type: MESSAGE_TYPES.GET_MESSAGE,
-      payload: res.data.message
-    });
-  } catch (err) {
-    dispatch({
-      type: GLOBALTYPES.ALERT,
-      payload: {
-        error: err.response.data.msg
-      }
-    });
-  }
+  dispatch({
+    type: MESSAGE_TYPES.GET_MESSAGE,
+    payload: res.data.message
+  });
 }

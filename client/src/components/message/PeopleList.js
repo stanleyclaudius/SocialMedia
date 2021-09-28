@@ -9,11 +9,13 @@ import { getConversation, MESSAGE_TYPES } from './../../redux/actions/messageAct
 import Avatar from './../Avatar';
 import UserCard from './../UserCard';
 import Loading from './../../images/loading.gif';
+import NotFoundId from './../../components/NotFoundId';
 
 const PeopleList = ({id}) => {
   const [load, setLoad] = useState(false);
   const [search, setSearch] = useState('');
   const [users, setUsers] = useState([]);
+  const [foundChat, setFoundChat] = useState(false);
 
   const dispatch = useDispatch();
   const {auth, message} = useSelector(state => state);
@@ -53,6 +55,16 @@ const PeopleList = ({id}) => {
     if (!message.firstLoad)
       dispatch(getConversation({auth}));
   }, [dispatch, message.firstLoad, auth]);
+
+  useEffect(() => {
+    if (id) {
+      const chat = message.users?.find(item => item.user?._id === id);
+      if (chat) setFoundChat(true);
+      else setFoundChat(false);
+    } else {
+      setFoundChat(true);
+    }
+  }, [message.users, id]);
 
   return (
     <div className='peopleList'>
@@ -107,16 +119,30 @@ const PeopleList = ({id}) => {
         users.length === 0 && 
         <>
           {
-            message.users.map(item => (
-              <div className="peopleList__container"  key={item._id} style={{background: item.user?._id === id ? 'rgb(242, 242, 242)' : ''}}>
-                <Link to={`/message/${item.user?._id}`} style={{color: '#000', textDecoration: 'none'}}>
-                  <UserCard
-                    onMessage={true}
-                    msg={item}
-                  />
-                </Link>
-              </div>
-            ))
+            foundChat
+            ? (
+              <>
+                {
+                  message.users.map(item => (
+                    <div className="peopleList__container"  key={item._id} style={{background: item.user?._id === id ? 'rgb(242, 242, 242)' : ''}}>
+                      <Link to={`/message/${item.user?._id}`} style={{color: '#000', textDecoration: 'none'}}>
+                        <UserCard
+                          onMessage={true}
+                          msg={item}
+                        />
+                      </Link>
+                    </div>
+                  ))
+                }
+              </>
+            )
+            : (
+              <NotFoundId
+                info='Chat'
+                url='/message'
+                link='Message'
+              />
+            )
           }
         </>
       }
