@@ -18,7 +18,7 @@ const PeopleList = ({id}) => {
   const [foundChat, setFoundChat] = useState(false);
 
   const dispatch = useDispatch();
-  const {auth, message} = useSelector(state => state);
+  const {auth, message, status} = useSelector(state => state);
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -129,6 +129,7 @@ const PeopleList = ({id}) => {
                         <UserCard
                           onMessage={true}
                           msg={item}
+                          status={status.includes(item.user?._id) ? 'online' : 'offline'}
                         />
                       </Link>
                     </div>

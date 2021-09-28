@@ -2,8 +2,9 @@ import Avatar from './Avatar';
 import FollowBtn from './FollowBtn';
 import { Link } from 'react-router-dom';
 import { MdPhotoSizeSelectActual } from 'react-icons/md';
+import { BsCircleFill } from 'react-icons/bs';
 
-const UserCard = ({user, msg, setIsOpenFollowers, setIsOpenFollowings, onMessage}) => {
+const UserCard = ({user, msg, setIsOpenFollowers, setIsOpenFollowings, onMessage, status}) => {
   const handleCloseAll = () => {
     if (setIsOpenFollowings) setIsOpenFollowings(false);
     if (setIsOpenFollowers) setIsOpenFollowers(false);
@@ -45,6 +46,15 @@ const UserCard = ({user, msg, setIsOpenFollowers, setIsOpenFollowings, onMessage
         )
       }
       
+      {
+        <div className="userCard__right">
+          {
+            status === 'online'
+            ? <BsCircleFill style={{color: 'green', fontSize: '11px'}} />
+            : <BsCircleFill style={{color: '#aaa', fontSize: '11px'}} />
+          }
+        </div>
+      }
       
       {
         !msg && (
