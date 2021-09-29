@@ -21,6 +21,14 @@ const socketServer = (socket) => {
           socket.to(`${item.socketId}`).emit('checkUserOffline', data.id);
         })
       }
+
+      if (data.call) {
+        const callUser = users.find(user => user.id === data.call);
+        if (callUser) {
+          users = EditData(users, callUser.id, null);
+          socket.to(`${callUser.socketId}`).emit('callerDisconnect')
+        }
+      }
     }
     users = users.filter(user => user.socketId !== socket.id);
   });

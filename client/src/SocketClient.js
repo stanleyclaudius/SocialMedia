@@ -269,18 +269,6 @@ const SocketClient = () => {
     return () => socket.off('userBusy');
   }, [socket, dispatch]);
 
-  // End Call
-  useEffect(() => {
-    socket.on('endCallToClient', data => {
-      dispatch({
-        type: GLOBALTYPES.CALL,
-        payload: null
-      })
-    });
-
-    return () => socket.off('endCallToClient');
-  }, [socket, dispatch]);
-
   return (
     <div>
       <audio controls ref={audioRef} style={{display: 'none'}}>

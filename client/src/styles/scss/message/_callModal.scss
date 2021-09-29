@@ -64,11 +64,19 @@
   }
 }
 
+.show__video {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
 @include mediaDesktop {
   .callModal {
+    width: 100vw;
 
     &__box {
       width: 300px;
+      margin: auto;
     }
   }
 }
