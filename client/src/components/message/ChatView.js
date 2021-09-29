@@ -17,7 +17,7 @@ const ChatView = ({id}) => {
   const [load, setLoad] = useState(false);
 
   const dispatch = useDispatch();
-  const {auth, message, socket} = useSelector(state => state);
+  const {auth, message, socket, peer} = useSelector(state => state);
 
   const handleImageChange = e => {
     const newImages = [...e.target.files];
@@ -67,12 +67,29 @@ const ChatView = ({id}) => {
     });
   }
 
+  const callUser = ({video}) => {
+    const {_id, avatar, username, name} = auth.user;
+    const msg = {
+      sender: _id,
+      recipient: info.user._id,
+      avatar, username, name, video
+    };
+
+    if (peer.open) {
+      msg.peerId = peer._id;
+    }
+
+    socket.emit('callUser', msg);
+  }
+
   const handleAudioCall = () => {
     caller({video: false});
+    callUser({video: false});
   }
 
   const handleVideoCall = () => {
     caller({video: true});
+    callUser({video: true});
   }
 
   useEffect(() => {

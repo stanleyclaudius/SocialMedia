@@ -243,6 +243,44 @@ const SocketClient = () => {
     return () => socket.off('checkUserOffline');
   }, [socket, dispatch]);
 
+  // Call User
+  useEffect(() => {
+    socket.on('callUserToClient', data => {
+      dispatch({
+        type: GLOBALTYPES.CALL,
+        payload: data
+      })
+    });
+
+    return () => socket.off('callUserToClient');
+  }, [socket, dispatch]);
+
+  // User Busy
+  useEffect(() => {
+    socket.on('userBusy', data => {
+      dispatch({
+        type: GLOBALTYPES.ALERT,
+        payload: {
+          error: 'User is on another call.'
+        }
+      })
+    });
+
+    return () => socket.off('userBusy');
+  }, [socket, dispatch]);
+
+  // End Call
+  useEffect(() => {
+    socket.on('endCallToClient', data => {
+      dispatch({
+        type: GLOBALTYPES.CALL,
+        payload: null
+      })
+    });
+
+    return () => socket.off('endCallToClient');
+  }, [socket, dispatch]);
+
   return (
     <div>
       <audio controls ref={audioRef} style={{display: 'none'}}>

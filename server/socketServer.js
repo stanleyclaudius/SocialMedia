@@ -1,5 +1,10 @@
 let users = [];
 
+const EditData = (data, id, call) => {
+  const newData = data.map(item => item.id === id ? {...item, call} : item);
+  return newData;
+}
+
 const socketServer = (socket) => {
   // Connect
   socket.on('joinUser', user => {
@@ -121,6 +126,39 @@ const socketServer = (socket) => {
       })
     }
   })
+
+  // Call User
+  socket.on('callUser', data => {
+    users = EditData(users, data.sender, data.recipient);
+
+    const client = users.find(item => item.id === data.recipient);
+    if (client) {
+      if (client.call) {
+        socket.emit('userBusy', data);
+        users = EditData(users, data.sender, null);
+      } else {
+        users = EditData(users, data.recipient, data.sender);
+        socket.to(`${client.socketId}`).emit('callUserToClient', data);
+      }
+    }
+  });
+
+  // End Call
+  socket.on('endCall', data => {
+    const client = users.find(item => item.id === data.sender);
+
+    if (client) {
+      socket.to(`${client.socketId}`).emit('endCallToClient', data);
+      users = EditData(users, client.id, null);
+
+      if (client.call) {
+        const clientCall = users.find(item => item.id === client.call);
+        clientCall && socket.to(`${clientCall.socketId}`).emit('endCallToClient', data);
+
+        users = EditData(users, clientCall.id, null);
+      }
+    }
+  });
 };
 
 module.exports = socketServer;

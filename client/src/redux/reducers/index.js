@@ -11,6 +11,7 @@ import notification from './notificationReducer';
 import message from './messageReducer';
 import status from './statusReducer';
 import call from './callReducer';
+import peer from './peerReducer';
 
 export default combineReducers({
   alert,
@@ -24,5 +25,6 @@ export default combineReducers({
   notification,
   message,
   status,
-  call
+  call,
+  peer
 });

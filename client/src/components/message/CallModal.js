@@ -9,15 +9,24 @@ const CallModal = () => {
   const [mins, setMins] = useState(0);
   const [secs, setSecs] = useState(0);
   const [total, setTotal] = useState(0);
+  const [answer, setAnswer] = useState(false);
 
-  const {call} = useSelector(state => state);
+  const {auth, call, socket} = useSelector(state => state);
   const dispatch = useDispatch();
 
   const handleEndCall = () => {
+    setAnswer(false);
     dispatch({
       type: GLOBALTYPES.CALL,
       payload: null
     });
+
+    socket.emit('endCall', call);
+  }
+
+  const handleAnswerCall = () => {
+    setAnswer(true);
+    setTotal(0);
   }
 
   useEffect(() => {
@@ -32,7 +41,20 @@ const CallModal = () => {
     setSecs(total % 60);
     setMins(parseInt(total / 60));
     setHours(parseInt(total / 3600));
-  }, [total])
+  }, [total]);
+  
+  useEffect(() => {
+    const endCall = setTimeout(() => {
+      if (!answer) {
+        dispatch({
+          type: GLOBALTYPES.CALL,
+          payload: null
+        })
+      }
+    }, 15000);
+
+    return () => clearTimeout(endCall);
+  }, [dispatch, answer]);
 
   return (
     <div className='callModal'>
@@ -41,16 +63,38 @@ const CallModal = () => {
         <p className='username'>{call.username}</p>
         <p className='name'>{call.name}</p>
 
-        <small>{hours.toString().length < 2 ? '0' + hours : hours}</small>
-        <small>:</small>
-        <small>{mins.toString().length < 2 ? '0' + mins : mins}</small>
-        <small>:</small>
-        <small>{secs.toString().length < 2 ? '0' + secs : secs}</small>
+        {
+          !answer &&
+          <>
+            <small>{hours.toString().length < 2 ? '0' + hours : hours}</small>
+            <small>:</small>
+            <small>{mins.toString().length < 2 ? '0' + mins : mins}</small>
+            <small>:</small>
+            <small>{secs.toString().length < 2 ? '0' + secs : secs}</small>
+          </>
+        }
 
-        <p className='calling'>Calling {call.video ? 'video' : 'audio'} ...</p>
+        {
+          answer 
+          ? (
+            <div style={{marginBottom: '25px'}}>
+              <small>{hours.toString().length < 2 ? '0' + hours : hours}</small>
+              <small>:</small>
+              <small>{mins.toString().length < 2 ? '0' + mins : mins}</small>
+              <small>:</small>
+              <small>{secs.toString().length < 2 ? '0' + secs : secs}</small>
+            </div>
+          )
+          : <p className='calling'>Calling {call.video ? 'video' : 'audio'} ...</p>
+        }
 
         <div className='callModal__icon'>
-          {call.video ? <MdVideocam /> : <MdCall />}
+          {
+            (call.recipient === auth.user._id && !answer) &&
+            <>
+              {call.video ? <MdVideocam onClick={handleAnswerCall} /> : <MdCall onClick={handleAnswerCall} />}
+            </>
+          }
           <MdCallEnd onClick={handleEndCall} />
         </div>
       </div>

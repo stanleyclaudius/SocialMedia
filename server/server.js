@@ -4,6 +4,7 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const connectDB = require('./config/db');
 const SocketServer = require('./socketServer');
+const {PeerServer} = require('peer');
 
 const app = express();
 
@@ -13,6 +14,8 @@ const io = require('socket.io')(http);
 io.on('connection', socket => {
   SocketServer(socket);
 });
+
+PeerServer({port: 3001, path: '/'});
 
 app.use(express.json());
 app.use(cors());

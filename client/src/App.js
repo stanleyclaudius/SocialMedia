@@ -14,6 +14,7 @@ import Register from './pages/register';
 import Header from './components/header/Header';
 import Alert from './components/Alert';
 import CallModal from './components/message/CallModal';
+import Peer from 'peerjs';
 
 function App() {
   const dispatch = useDispatch();
@@ -43,6 +44,18 @@ function App() {
       });
     }
   },[]);
+
+  useEffect(() => {
+    const newPeer = new Peer(undefined, {
+      host: '/',
+      port: '3001'
+    });
+
+    dispatch({
+      type: GLOBALTYPES.PEER,
+      payload: newPeer
+    })
+  }, [dispatch]);
 
   return (
     <Router>
