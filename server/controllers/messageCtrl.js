@@ -53,6 +53,22 @@ const messageCtrl = {
     } catch (err) {
       return res.status(500).json({msg: err.message});
     }
+  },
+  deleteConversation: async(req, res) => {
+    try {
+      const conversation = await Conversation.findOneAndDelete({
+        $or: [
+          {recipients: [req.user._id, req.params.id]},
+          {recipients: [req.params.id, req.user._id]}
+        ]
+      });
+
+      await Message.deleteMany({conversation: conversation._id});
+
+      res.status(200).json({msg: 'Conversation deleted.'});
+    } catch (err) {
+      return res.status(500).json({msg: err.message});
+    }
   }
 };
 
