@@ -154,9 +154,9 @@ const CallModal = () => {
           !answer &&
           <>
             <small>{hours.toString().length < 2 ? '0' + hours : hours}</small>
-            <small>:</small>
+            <small> : </small>
             <small>{mins.toString().length < 2 ? '0' + mins : mins}</small>
-            <small>:</small>
+            <small> : </small>
             <small>{secs.toString().length < 2 ? '0' + secs : secs}</small>
           </>
         }
@@ -166,9 +166,9 @@ const CallModal = () => {
           ? (
             <div style={{marginBottom: '25px'}}>
               <small>{hours.toString().length < 2 ? '0' + hours : hours}</small>
-              <small>:</small>
+              <small> : </small>
               <small>{mins.toString().length < 2 ? '0' + mins : mins}</small>
-              <small>:</small>
+              <small> : </small>
               <small>{secs.toString().length < 2 ? '0' + secs : secs}</small>
             </div>
           )
@@ -190,15 +190,15 @@ const CallModal = () => {
         <video ref={yourVideo} className='your__video' />
         <video ref={otherVideo} className='other__video' />
 
-        <div>
+        <div className='videoCallTimespan'>
           <small>{hours.toString().length < 2 ? '0' + hours : hours}</small>
-          <small>:</small>
+          <small> : </small>
           <small>{mins.toString().length < 2 ? '0' + mins : mins}</small>
-          <small>:</small>
+          <small> : </small>
           <small>{secs.toString().length < 2 ? '0' + secs : secs}</small>
-        </div>
 
-        <MdCallEnd onClick={handleEndCall} />
+          <MdCallEnd onClick={handleEndCall} className='endVideoCallButton' />
+        </div>
       </div>
     </div>
   )
