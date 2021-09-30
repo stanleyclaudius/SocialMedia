@@ -22,13 +22,13 @@ const SingleMessage = ({otherMessage, avatar, text, media, datetime}) => {
           <>
             {
               media.map(item => (
-                <>
+                <div key={item.secure_url}>
                   {
                     item.secure_url.match(/video/i)
                     ? <video src={item.secure_url} controls />
                     : <img src={item.secure_url} alt='Message' />
                   }
-                </>
+                </div>
               ))
             }
           </>

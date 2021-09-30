@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { IoPaperPlaneOutline, IoVideocam } from 'react-icons/io5';
 import { MdCall, MdPhotoSizeSelectActual } from 'react-icons/md';
@@ -15,6 +15,8 @@ const ChatView = ({id}) => {
   const [info, setInfo] = useState({});
   const [images, setImages] = useState([]);
   const [load, setLoad] = useState(false);
+
+  const messageEndRef = useRef();
 
   const dispatch = useDispatch();
   const {auth, message, socket, peer} = useSelector(state => state);
@@ -52,8 +54,8 @@ const ChatView = ({id}) => {
       createdAt: new Date().toISOString()
     };
 
-    dispatch(createMessage({msg, auth, socket}));
     setLoad(false);
+    dispatch(createMessage({msg, auth, socket}));
   }
 
   const caller = ({video}) => {
@@ -108,6 +110,15 @@ const ChatView = ({id}) => {
       setInfo(findUser);
   }, [message.users, id]);
 
+  useEffect(() => {
+    if (messageEndRef) {
+      messageEndRef.current.addEventListener('DOMNodeInserted', event => {
+        const {currentTarget: target} = event;
+        target.scroll({top: target.scrollHeight, behavior: 'smooth'});
+      })
+    }
+  }, []);
+
   return (
     <div className='chatView'>
       <div className="chatView__header">
@@ -121,7 +132,7 @@ const ChatView = ({id}) => {
           <FaTrash style={{color: 'red'}} />
         </div>
       </div>
-      <div className="chatView__body">
+      <div className="chatView__body" ref={messageEndRef}>
         {
           message.data.map((chat, index) => (
             <div key={index}>
