@@ -163,7 +163,7 @@ const socketServer = (socket) => {
         const clientCall = users.find(item => item.id === client.call);
         clientCall && socket.to(`${clientCall.socketId}`).emit('endCallToClient', data);
 
-        users = EditData(users, clientCall.id, null);
+        users = EditData(users, client.call, null);
       }
     }
   });
