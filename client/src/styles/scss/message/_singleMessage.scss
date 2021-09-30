@@ -1,5 +1,16 @@
 .singleMessage {
-  display: flex;
+
+  &__upper {
+    display: flex;
+
+    &--reverse {
+      flex-direction: row-reverse;
+
+      .singleMessage__left {
+        margin-left: 15px;
+      }
+    }
+  }
 
   &__left {
     width: 30px;
@@ -7,6 +18,7 @@
     background: #ccc;
     border-radius: 50%;
     margin-right: 10px;
+    flex-shrink: 0;
 
     img {
       width: 100%;
@@ -20,67 +32,53 @@
 
     p {
       font-size: 14px;
-      width: fit-content;
       padding: 10px;
-    }
-
-    &Image {
-      margin-left: 7px;
-      display: flex;
-      flex-direction: column;
-
-      img,
-      video {
-        width: 150px;
-        height: 150px;
-        border-radius: 5px;
-
-        &:first-child {
-          margin-top: 7px;
-        }
-
-        &:not(:last-child) {
-          margin-bottom: 5px;
-        }
-      }
+      word-wrap: break-word;
     }
 
     .otherMessage {
       background: rgb(240, 240, 240);
-      border-radius: 0 10px 10px 10px;
+      border-radius: 10px;
       position: relative;
-
-      &::before {
-        content: '';
-        position: absolute;
-        top: 0px;
-        left: -4px;
-        width: 20px;
-        height: 20px;
-        z-index: -1;
-        background: rgb(240, 240, 240);
-        transform: skew(30deg);
-        border-top-left-radius: 3px;
-      }
     }
 
     .yourMessage {
       background: $follow-blue;
       color: #fff;
-      border-radius: 10px 10px 0 10px;
+      border-radius: 10px;
       position: relative;
+      display: flex;
+      width: fit-content;
+      max-width: 250px;
+    }
+  }
 
-      &::after {
-        content: '';
-        position: absolute;
-        bottom: 0px;
-        right: -4px;
-        width: 20px;
-        height: 20px;
-        z-index: -1;
-        background: $follow-blue;
-        transform: skew(30deg);
-        border-bottom-right-radius: 3px;
+  &__image {
+    margin-left: 7px;
+    display: flex;
+    flex-direction: column;
+
+    &--own {
+      margin-right: 52px;
+    }
+
+    &--other {
+      margin-left: 40px;
+    }
+
+    img,
+    video {
+      width: 150px;
+      height: 150px;
+      border-radius: 5px;
+      object-fit: cover;
+
+      &:first-child {
+        margin-top: 7px;
+      }
+
+      &:not(:last-child) {
+        margin-bottom: 5px;
       }
     }
   }

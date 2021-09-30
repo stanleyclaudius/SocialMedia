@@ -31,7 +31,15 @@ const UserCard = ({user, msg, setIsOpenFollowers, setIsOpenFollowings, onMessage
                       <MdPhotoSizeSelectActual style={{marginLeft: '5px', transform: 'translateY(-1px)'}} />
                     </small>
                   )
-                  : <small>{msg.text}</small>
+                  : (
+                    <small>
+                      {
+                        msg.text.length > 25
+                        ? msg.text.slice(0, 25) + ' ...'
+                        : msg.text
+                      }
+                    </small>
+                  )
                 }
               </div>
             </div>

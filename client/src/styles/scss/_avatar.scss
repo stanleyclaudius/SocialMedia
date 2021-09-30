@@ -1,6 +1,7 @@
 .avatar {
   background: #ccc;
   border-radius: 50%;
+  flex-shrink: 0;
 
   &--xs {
     width: 28px;
