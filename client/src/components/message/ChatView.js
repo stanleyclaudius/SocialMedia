@@ -25,6 +25,12 @@ const ChatView = ({id}) => {
     setImages([...images, ...newImages]);
   }
 
+  const deleteImage = index => {
+    const imgCopy = [...images];
+    imgCopy.splice(index, 1);
+    setImages(imgCopy);
+  }
+
   const handleSubmit = async e => {
     e.preventDefault();
     if (!text.trim() && images.length === 0) return;
@@ -151,14 +157,24 @@ const ChatView = ({id}) => {
         images.length > 0 &&
         <div className='chatView__imageHolder'>
           {
-            images.map(img => (
-              <>
+            images.map((img, index) => (
+              <div key={index}>
                 {
                   img.type.match(/video/i)
-                  ? <video src={URL.createObjectURL(img)} controls />
-                  : <img src={URL.createObjectURL(img)} alt='Message' />
+                  ? (
+                    <div className='chatView__imageHolder--single'>
+                      <video src={URL.createObjectURL(img)} controls />
+                      <p onClick={() => deleteImage(index)}>&times;</p>
+                    </div>
+                  )
+                  : (
+                    <div className='chatView__imageHolder--single'>
+                      <img src={URL.createObjectURL(img)} alt='Message' />
+                      <p onClick={() => deleteImage(index)}>&times;</p>
+                    </div>
+                  )
                 }
-              </>
+              </div>
             ))
           }
         </div>

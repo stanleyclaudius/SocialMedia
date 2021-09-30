@@ -77,6 +77,20 @@
     & > * + * {
       margin-left: 20px;
     }
+
+    &--single {
+      position: relative;
+
+      p {
+        position: absolute;
+        top: -15px;
+        right: -10px;
+        color: red;
+        font-weight: 500;
+        font-size: 26px;
+        cursor: pointer;
+      }
+    }
   }
 
   &__footer {
