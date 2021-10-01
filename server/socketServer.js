@@ -97,7 +97,7 @@ const socketServer = (socket) => {
   // Create Notification
   socket.on('createNotification', data => {
     const recipients = [];
-    data.recipients.forEach(item => recipients.push(item.user));
+    recipients.length && data.recipients.forEach(item => recipients.push(item.user));
 
     const user = users.filter(item => recipients.includes(item.id));
     user.forEach(client => {

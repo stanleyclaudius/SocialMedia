@@ -1022,6 +1022,33 @@
   padding: 12px 15px;
 }
 
+.postFooter__form--left {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.postFooter__form--right {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.postFooter__form--right .emoji {
+  -webkit-transform: translateY(-2px);
+          transform: translateY(-2px);
+  margin-right: 7px;
+}
+
 .postFooter__form input {
   width: 100%;
   border: none;
@@ -2276,6 +2303,55 @@ button:hover {
 
 #__react-alert__ div {
   z-index: 9999 !important;
+}
+
+.emoji {
+  margin-right: 20px;
+  position: relative;
+}
+
+.emoji__first {
+  -webkit-transform: translateY(2px);
+          transform: translateY(2px);
+  cursor: pointer;
+}
+
+.emoji__container {
+  position: absolute;
+  bottom: 100%;
+  right: 0;
+  width: 200px;
+  background: #fff;
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[5];
+      grid-template-columns: repeat(5, 1fr);
+  margin-bottom: 10px;
+  padding: 10px;
+  grid-gap: 5px;
+  -webkit-transform: scaleY(0);
+          transform: scaleY(0);
+  -webkit-transform-origin: bottom;
+          transform-origin: bottom;
+  -webkit-transition: -webkit-transform 150ms;
+  transition: -webkit-transform 150ms;
+  transition: transform 150ms;
+  transition: transform 150ms, -webkit-transform 150ms;
+}
+
+.emoji__container.active {
+  -webkit-transform: scaleY(1);
+          transform: scaleY(1);
+}
+
+.emoji__container p {
+  cursor: pointer;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
 }
 
 @media (min-width: 850px) {
