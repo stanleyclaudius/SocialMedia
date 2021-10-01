@@ -59,8 +59,13 @@ export const getConversation = ({auth}) => async(dispatch) => {
 export const getMessage = ({id, auth}) => async(dispatch) => {
   const res = await getDataAPI(`message/${id}`, auth.token);
 
+
   dispatch({
     type: MESSAGE_TYPES.GET_MESSAGE,
-    payload: res.data.message
+    payload: {
+      ...res.data,
+      messages: res.data.messages,
+      _id: id
+    }
   });
 }

@@ -15,6 +15,8 @@ const ChatView = ({id}) => {
   const [info, setInfo] = useState({});
   const [images, setImages] = useState([]);
   const [load, setLoad] = useState(false);
+  const [messages, setMessages] = useState([]);
+  const [result, setResult] = useState(0);
 
   const messageEndRef = useRef();
 
@@ -101,8 +103,17 @@ const ChatView = ({id}) => {
   }
 
   useEffect(() => {
-    dispatch(getMessage({id, auth}));
-  }, [dispatch, id, auth]);
+    if (message.data.every(item => item._id !== id)) 
+      dispatch(getMessage({id, auth}));
+  }, [dispatch, id, message.data, auth]);
+
+  useEffect(() => {
+    const newMsg = message.data.find(item => item._id === id);
+    if (newMsg) {
+      setMessages(newMsg?.messages);
+      setResult(newMsg?.result);
+    }
+  }, [message, id]);
 
   useEffect(() => {
     const findUser = message.users.find(user => user.user?._id === id);
@@ -134,7 +145,7 @@ const ChatView = ({id}) => {
       </div>
       <div className="chatView__body" ref={messageEndRef}>
         {
-          message.data.map((chat, index) => (
+          messages.map((chat, index) => (
             <div key={index}>
               {
                 chat.sender._id === auth.user._id 
