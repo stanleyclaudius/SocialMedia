@@ -64,9 +64,8 @@ export const getMessage = ({id, auth}) => async(dispatch) => {
     type: MESSAGE_TYPES.GET_MESSAGE,
     payload: {
       ...res.data,
-      messages: res.data.messages.reverse(),
+      messages: res.data.messages,
       _id: id,
-      page: 2
     }
   });
 }

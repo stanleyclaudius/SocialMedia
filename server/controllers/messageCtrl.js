@@ -1,21 +1,6 @@
 const Conversation = require('./../models/Conversation');
 const Message = require('./../models/Message');
 
-class APIFeatures {
-  constructor(query, queryStr) {
-    this.query = query;
-    this.queryStr = queryStr;
-  }
-
-  paginate() {
-    const page = this.queryStr.page * 1 || 1;
-    const limit = this.queryStr.limit * 1 || 9;
-    const skip = (page - 1) * limit;
-    this.query = this.query.skip(skip).limit(limit);
-    return this;
-  }
-}
-
 const messageCtrl = {
   createMessage: async(req, res) => {
     try {
@@ -57,16 +42,12 @@ const messageCtrl = {
   },
   getMessage: async(req, res) => {
     try {
-      const features = new APIFeatures(
-        Message.find({
-          $or: [
-            {sender: req.user._id, recipient: req.params.id},
-            {sender: req.params.id, recipient: req.user._id}
-          ]
-        }),
-        req.query
-      ).paginate();
-      const messages = await features.query.populate('sender recipient', 'avatar username name').sort('-createdAt');
+      const messages = await Message.find({
+        $or: [
+          {sender: req.user._id, recipient: req.params.id},
+          {sender: req.params.id, recipient: req.user._id}
+        ]
+      }).populate('sender recipient', 'avatar username name');
 
       res.status(200).json({
         messages,
