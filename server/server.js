@@ -17,7 +17,7 @@ io.on('connection', socket => {
 
 PeerServer({port: 3001, path: '/'});
 
-app.use(express.json());
+app.use(express.json({limit: '50mb'}));
 app.use(cors());
 app.use(cookieParser());
 
