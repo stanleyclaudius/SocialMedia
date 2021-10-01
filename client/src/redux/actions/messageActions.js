@@ -5,7 +5,8 @@ export const MESSAGE_TYPES = {
   ADD_USER: 'ADD_USER',
   ADD_MESSAGE: 'ADD_MESSAGE',
   GET_CONVERSATION: 'GET_CONVERSATION',
-  GET_MESSAGE: 'GET_MESSAGE'
+  GET_MESSAGE: 'GET_MESSAGE',
+  LOAD_MORE: 'LOAD_MORE_MESSAGES'
 };
 
 export const createMessage = ({msg, auth, socket}) => async(dispatch) => {
@@ -58,14 +59,14 @@ export const getConversation = ({auth}) => async(dispatch) => {
 
 export const getMessage = ({id, auth}) => async(dispatch) => {
   const res = await getDataAPI(`message/${id}`, auth.token);
-
-
+  
   dispatch({
     type: MESSAGE_TYPES.GET_MESSAGE,
     payload: {
       ...res.data,
-      messages: res.data.messages,
-      _id: id
+      messages: res.data.messages.reverse(),
+      _id: id,
+      page: 2
     }
   });
 }

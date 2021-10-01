@@ -5,7 +5,8 @@ import { MdCall, MdPhotoSizeSelectActual } from 'react-icons/md';
 import { FaTrash } from 'react-icons/fa';
 import { uploadImage } from './../../utils/imageHelper';
 import { GLOBALTYPES } from './../../redux/actions/globalTypes';
-import { createMessage, getMessage } from './../../redux/actions/messageActions';
+import { getDataAPI } from './../../utils/fetchData';
+import { MESSAGE_TYPES, createMessage, getMessage } from './../../redux/actions/messageActions';
 import SingleMessage from './SingleMessage';
 import Avatar from './../Avatar';
 import LoadingGif from './../../images/loading.gif';
@@ -17,11 +18,25 @@ const ChatView = ({id}) => {
   const [load, setLoad] = useState(false);
   const [messages, setMessages] = useState([]);
   const [result, setResult] = useState(0);
+  const [page, setPage] = useState(0);
 
   const messageEndRef = useRef();
 
   const dispatch = useDispatch();
   const {auth, message, socket, peer} = useSelector(state => state);
+
+  const loadMoreMessages = async() => {
+    const res = await getDataAPI(`message/${id}?limit=${page * 9}`, auth.token);
+    dispatch({
+      type: MESSAGE_TYPES.LOAD_MORE,
+      payload: {
+        ...res.data,
+        messages: res.data.messages.reverse(),
+        _id: id,
+        page: page + 1
+      }
+    });
+  }
 
   const handleImageChange = e => {
     const newImages = [...e.target.files];
@@ -110,8 +125,9 @@ const ChatView = ({id}) => {
   useEffect(() => {
     const newMsg = message.data.find(item => item._id === id);
     if (newMsg) {
-      setMessages(newMsg?.messages);
-      setResult(newMsg?.result);
+      setMessages(newMsg.messages);
+      setResult(newMsg.result);
+      setPage(newMsg.page);
     }
   }, [message, id]);
 
@@ -144,6 +160,12 @@ const ChatView = ({id}) => {
         </div>
       </div>
       <div className="chatView__body" ref={messageEndRef}>
+        {
+          result < (9 * (page - 1))
+          ? ''
+          : <button onClick={loadMoreMessages}>Load More</button>
+        }
+
         {
           messages.map((chat, index) => (
             <div key={index}>

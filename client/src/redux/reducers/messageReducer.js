@@ -49,6 +49,15 @@ const messageReducer = (state = initialState, action) => {
         ...state,
         data: [...state.data, action.payload]
       }
+    case MESSAGE_TYPES.LOAD_MORE:
+      return {
+        ...state,
+        data: state.data.map(item =>
+          item._id === action.payload._id
+          ? action.payload
+          : item
+        )
+      }
     default:
       return state;
   }
