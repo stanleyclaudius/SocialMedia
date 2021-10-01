@@ -12,10 +12,19 @@ import Avatar from './../Avatar';
 import LoadingGif from './../../images/loading.gif';
 
 const ChatView = ({id}) => {
+  const emojiArr = [
+    '😀', '😫', '😄', '😁', '😆', '😅', '😂', '🤣',
+    '😊', '😇', '🙂', '🙃', '😍', '🥰', '😘', '😗',
+    '😚', '😋', '😛', '😝', '😜', '🤪', '😭', '😤',
+    '😠', '😡', '🥱', '😴', '🤤', '😪', '🤮', '🤧',
+    '😷', '🤒', '👋', '👌', '✌️', '👍', '👎', '🤐'
+  ];
+  
   const [text, setText] = useState('');
   const [info, setInfo] = useState({});
   const [images, setImages] = useState([]);
   const [load, setLoad] = useState(false);
+  const [isOpenEmoji, setIsOpenEmoji] = useState(false);
   const [messages, setMessages] = useState([]);
 
   const history = useHistory();
@@ -23,6 +32,11 @@ const ChatView = ({id}) => {
 
   const dispatch = useDispatch();
   const {auth, message, socket, peer} = useSelector(state => state);
+
+  const handleClickEmoji = emoji => {
+    setText(t => t + emoji);
+    setIsOpenEmoji(false);
+  }
 
   const handleDeleteConversation = () => {
     dispatch(deleteConversation({id, auth}));
@@ -212,7 +226,17 @@ const ChatView = ({id}) => {
         <form onSubmit={handleSubmit}>
           <input type="text" value={text} onChange={e => setText(e.target.value)} placeholder='Your message here ...' />
           <div className='chatView__footerRight'>
-            <div>
+            <div className='emoji'>
+              <p className='emoji__first' onClick={() => setIsOpenEmoji(!isOpenEmoji)}>😀</p>
+              <div className={`emoji__container ${isOpenEmoji ? 'active' : ''}`}>
+                {
+                  emojiArr.map((emoji, index) => (
+                    <p key={index} onClick={() => handleClickEmoji(emoji)}>{emoji}</p>
+                  ))
+                }
+              </div>
+            </div>
+            <div className='fileSelector'>
               <input type="file" accept="image/*,video/*" multiple onChange={handleImageChange} />
               <MdPhotoSizeSelectActual />
             </div>

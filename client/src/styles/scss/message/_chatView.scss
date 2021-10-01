@@ -122,9 +122,46 @@
       display: flex;
       align-items: center;
 
-      div {
-        position: relative;
+      .emoji {
         margin-right: 20px;
+        position: relative;
+        
+        &__first {
+          transform: translateY(2px);
+          cursor: pointer;
+        }
+
+        &__container {
+          position: absolute;
+          bottom: 100%;
+          right: 0;
+          width: 200px;
+          background: #fff;
+          box-shadow: 0 0 10px rgba(0, 0, 0, .5);
+          border-radius: 5px;
+          display: grid;
+          grid-template-columns: repeat(5, 1fr);
+          margin-bottom: 10px;
+          padding: 10px;
+          grid-gap: 5px;
+          transform: scaleY(0);
+          transform-origin: bottom;
+          transition: transform 150ms;
+
+          &.active {
+            transform: scaleY(1);
+          }
+
+          p {
+            cursor: pointer;
+            width: fit-content;
+          }
+        }
+      }
+
+      .fileSelector {
+        position: relative;
+        margin-right: 18px;
         width: 20px;
         height: 20px;
         overflow: hidden;
