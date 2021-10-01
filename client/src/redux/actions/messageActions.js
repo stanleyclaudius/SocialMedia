@@ -1,12 +1,12 @@
 import { GLOBALTYPES } from "./globalTypes";
-import { getDataAPI, postDataAPI } from './../../utils/fetchData';
+import { deleteDataAPI, getDataAPI, postDataAPI } from './../../utils/fetchData';
 
 export const MESSAGE_TYPES = {
   ADD_USER: 'ADD_USER',
   ADD_MESSAGE: 'ADD_MESSAGE',
   GET_CONVERSATION: 'GET_CONVERSATION',
   GET_MESSAGE: 'GET_MESSAGE',
-  LOAD_MORE: 'LOAD_MORE_MESSAGES'
+  DELETE_CONVERSATION: 'DELETE_CONVERSATION'
 };
 
 export const createMessage = ({msg, auth, socket}) => async(dispatch) => {
@@ -68,4 +68,22 @@ export const getMessage = ({id, auth}) => async(dispatch) => {
       _id: id,
     }
   });
+}
+
+export const deleteConversation = ({id, auth}) => async(dispatch) => {
+  dispatch({
+    type: MESSAGE_TYPES.DELETE_CONVERSATION,
+    payload: id
+  })
+  
+  try {
+    await deleteDataAPI(`message/${id}`, auth.token);
+  } catch (err) {
+    dispatch({
+      type: GLOBALTYPES.ALERT,
+      payload: {
+        error: err.response.data.msg
+      }
+    });
+  }
 }

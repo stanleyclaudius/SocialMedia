@@ -3,9 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { IoPaperPlaneOutline, IoVideocam } from 'react-icons/io5';
 import { MdCall, MdPhotoSizeSelectActual } from 'react-icons/md';
 import { FaTrash } from 'react-icons/fa';
+import { useHistory } from 'react-router-dom';
 import { uploadImage } from './../../utils/imageHelper';
 import { GLOBALTYPES } from './../../redux/actions/globalTypes';
-import {createMessage, getMessage } from './../../redux/actions/messageActions';
+import {createMessage, deleteConversation, getMessage } from './../../redux/actions/messageActions';
 import SingleMessage from './SingleMessage';
 import Avatar from './../Avatar';
 import LoadingGif from './../../images/loading.gif';
@@ -17,10 +18,16 @@ const ChatView = ({id}) => {
   const [load, setLoad] = useState(false);
   const [messages, setMessages] = useState([]);
 
+  const history = useHistory();
   const messageEndRef = useRef();
 
   const dispatch = useDispatch();
   const {auth, message, socket, peer} = useSelector(state => state);
+
+  const handleDeleteConversation = () => {
+    dispatch(deleteConversation({id, auth}));
+    history.push('/message');
+  }
 
   const handleImageChange = e => {
     const newImages = [...e.target.files];
@@ -139,7 +146,7 @@ const ChatView = ({id}) => {
         <div className="chatView__header--right">
           <MdCall onClick={handleAudioCall} />
           <IoVideocam onClick={handleVideoCall} />
-          <FaTrash style={{color: 'red'}} />
+          <FaTrash onClick={handleDeleteConversation} style={{color: 'red'}} />
         </div>
       </div>
       <div className="chatView__body" ref={messageEndRef}>
