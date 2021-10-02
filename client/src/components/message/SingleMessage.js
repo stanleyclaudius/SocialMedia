@@ -1,5 +1,6 @@
+import { FaVideoSlash, FaVideo, FaPhoneSlash, FaPhone } from 'react-icons/fa';
 
-const SingleMessage = ({otherMessage, avatar, text, media, datetime}) => {
+const SingleMessage = ({otherMessage, avatar, text, media, datetime, call}) => {
   return (
     <div className='singleMessage'>
       <div className={`singleMessage__upper ${otherMessage ? '' : 'singleMessage__upper--reverse'}`}>
@@ -12,6 +13,58 @@ const SingleMessage = ({otherMessage, avatar, text, media, datetime}) => {
             <p className={`${otherMessage ? 'otherMessage' : 'yourMessage'}`}>
               {text}
             </p>
+          }
+
+          {
+            call && (
+              <div className='singleMessage__callContainer'>
+                {
+                  call.video
+                  ? call.times > 0
+                    ? (
+                      <>
+                        <FaVideo style={{color: 'green'}} />
+                        <div>
+                          <span>{(parseInt(call.times/3600)).toString().length < 2 ? '0' + (parseInt(call.times/3600)) : (parseInt(call.times/3600))}</span>
+                          <span> : </span>
+
+                          <span>{(parseInt(call.times/60)).toString().length < 2 ? '0' + (parseInt(call.times/60)) : (parseInt(call.times/60))}</span>
+                          <span> : </span>
+
+                          <span>{(call.times%60).toString().length < 2 ? '0' + (call.times%60) : (call.times%60)}</span>
+                        </div>
+                      </>
+                    )
+                    : (
+                      <>
+                        <FaVideoSlash style={{color: 'red'}} />
+                        <p>No Answer</p>
+                      </>
+                    )
+                  : call.times > 0
+                    ? (
+                      <>
+                        <FaPhone style={{color: 'green'}} />
+                        <div>
+                          <span>{(parseInt(call.times/3600)).toString().length < 2 ? '0' + (parseInt(call.times/3600)) : (parseInt(call.times/3600))}</span>
+                          <span> : </span>
+
+                          <span>{(parseInt(call.times/60)).toString().length < 2 ? '0' + (parseInt(call.times/60)) : (parseInt(call.times/60))}</span>
+                          <span> : </span>
+
+                          <span>{(call.times%60).toString().length < 2 ? '0' + (call.times%60) : (call.times%60)}</span>
+                        </div>
+                      </>
+                    )
+                    : (
+                      <>
+                        <FaPhoneSlash style={{color: 'red'}} />
+                        <p>No Answer</p>
+                      </>
+                    )
+                }
+              </div>
+            )
           }
         </div>
       </div>

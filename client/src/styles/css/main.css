@@ -2090,6 +2090,23 @@
   margin-bottom: 5px;
 }
 
+.singleMessage__callContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background: #ededed;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.singleMessage__callContainer svg {
+  margin-right: 10px;
+  font-size: 25px;
+}
+
 .callModal {
   display: -webkit-box;
   display: -ms-flexbox;

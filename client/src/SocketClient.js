@@ -190,6 +190,7 @@ const SocketClient = () => {
         payload: {
           text: data.text,
           media: data.media,
+          call: data.call,
           user: data.sender
         }
       })

@@ -3,6 +3,7 @@ import FollowBtn from './FollowBtn';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { MdPhotoSizeSelectActual } from 'react-icons/md';
+import { FaVideoSlash, FaVideo, FaPhoneSlash, FaPhone } from 'react-icons/fa';
 import { BsCircleFill } from 'react-icons/bs';
 
 const UserCard = ({user, msg, setIsOpenFollowers, setIsOpenFollowings, onMessage, status}) => {
@@ -31,15 +32,63 @@ const UserCard = ({user, msg, setIsOpenFollowers, setIsOpenFollowings, onMessage
                       <MdPhotoSizeSelectActual style={{marginLeft: '5px', transform: 'translateY(-1px)'}} />
                     </small>
                   )
-                  : (
-                    <small>
-                      {
-                        msg.text.length > 25
-                        ? msg.text.slice(0, 25) + ' ...'
-                        : msg.text
-                      }
-                    </small>
-                  )
+                  : msg.call
+                    ? (
+                      <div style={{display: 'flex', alignItems: 'center', margin: '0', color: '#aaa'}}>
+                        {
+                          msg.call.times > 0
+                          ? msg.call.video
+                            ? (
+                              <>
+                                <FaVideo style={{fontSize: '14px'}} />
+                                <div style={{marginLeft: '5px'}}>
+                                  <small>{(parseInt(msg.call.times/3600)).toString().length < 2 ? '0' + (parseInt(msg.call.times/3600)) : (parseInt(msg.call.times/3600))}</small>
+                                  <small> : </small>
+
+                                  <small>{(parseInt(msg.call.times/60)).toString().length < 2 ? '0' + (parseInt(msg.call.times/60)) : (parseInt(msg.call.times/60))}</small>
+                                  <small> : </small>
+
+                                  <small>{(msg.call.times%60).toString().length < 2 ? '0' + (msg.call.times%60) : (msg.call.times%60)}</small>
+                                </div>
+                              </>
+                            )
+                            : (
+                              <>
+                                <FaPhone style={{fontSize: '14px'}} />
+                                <div style={{marginLeft: '5px'}}>
+                                  <small>{(parseInt(msg.call.times/3600)).toString().length < 2 ? '0' + (parseInt(msg.call.times/3600)) : (parseInt(msg.call.times/3600))}</small>
+                                  <small> : </small>
+
+                                  <small>{(parseInt(msg.call.times/60)).toString().length < 2 ? '0' + (parseInt(msg.call.times/60)) : (parseInt(msg.call.times/60))}</small>
+                                  <small> : </small>
+
+                                  <small>{(msg.call.times%60).toString().length < 2 ? '0' + (msg.call.times%60) : (msg.call.times%60)}</small>
+                                </div>
+                              </>
+                            )
+                          : msg.call.video
+                            ? (
+                              <>
+                                <FaVideoSlash />
+                              </>
+                            )
+                            : (
+                              <>
+                                <FaPhoneSlash />
+                              </>
+                            )
+                        }
+                      </div>
+                    )
+                    : (
+                      <small>
+                        {
+                          msg.text.length > 25
+                          ? msg.text.slice(0, 25) + ' ...'
+                          : msg.text
+                        }
+                      </small>
+                    )
                 }
               </div>
             </div>

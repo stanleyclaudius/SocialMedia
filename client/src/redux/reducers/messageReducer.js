@@ -33,7 +33,8 @@ const messageReducer = (state = initialState, action) => {
           ? {
             ...item,
             text: action.payload.text,
-            media: action.payload.media
+            media: action.payload.media,
+            call: action.payload.call
           }
           : item
         )

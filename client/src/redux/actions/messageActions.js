@@ -17,7 +17,7 @@ export const createMessage = ({msg, auth, socket}) => async(dispatch) => {
   try {
     await postDataAPI('message', {
       ...msg,
-      sender: auth.user._id,
+      sender: msg.sender._id,
       recipient: msg.recipient.user._id
     }, auth.token);
   } catch (err) {

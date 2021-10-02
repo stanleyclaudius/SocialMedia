@@ -172,13 +172,13 @@ const ChatView = ({id}) => {
                 ? (
                     <>
                       <div className={`chatView__body--message chatView__body--yourMessage`}>
-                        <SingleMessage otherMessage={false} text={chat.text} avatar={auth.user.avatar} media={chat.media} datetime={chat.createdAt} />
+                        <SingleMessage otherMessage={false} text={chat.text} avatar={auth.user.avatar} media={chat.media} call={chat.call} datetime={chat.createdAt} />
                       </div>
                     </>
                 ) : (
                   <>
                     <div className={`chatView__body--message chatView__body--otherMessage`} style={{marginTop: '8px'}}>
-                      <SingleMessage otherMessage={true} text={chat.text} avatar={info.user?.avatar} media={chat.media} datetime={chat.createdAt} />
+                      <SingleMessage otherMessage={true} text={chat.text} avatar={info.user?.avatar} media={chat.media} call={chat.call} datetime={chat.createdAt} />
                     </div>
                   </>
                 )

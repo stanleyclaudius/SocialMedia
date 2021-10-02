@@ -82,4 +82,17 @@
       }
     }
   }
+  
+  &__callContainer {
+    display: flex;
+    align-items: center;
+    background: rgb(237, 237, 237);
+    border-radius: 5px;
+    padding: 10px;
+
+    svg {
+      margin-right: 10px;
+      font-size: 25px;
+    }
+  }
 }
