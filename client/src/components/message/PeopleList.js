@@ -100,13 +100,18 @@ const PeopleList = ({id}) => {
               <div className='searchResult'>
                 {
                   users.map(user => (
-                    <div style={{cursor: 'pointer'}} key={user._id} className='searchResult__single' onClick={() => handleAddUser(user)}>
-                      <Avatar src={user.avatar} size='small' />
-                      <div className='searchResult__single--right'>
-                        <p>{user.name}</p>
-                        <h5>{user.username}</h5>
-                      </div>
-                    </div>
+                    <>
+                      {
+                        user._id !== auth.user._id &&
+                        <div style={{cursor: 'pointer'}} key={user._id} className='searchResult__single' onClick={() => handleAddUser(user)}>
+                          <Avatar src={user.avatar} size='small' />
+                          <div className='searchResult__single--right'>
+                            <p>{user.name}</p>
+                            <h5>{user.username}</h5>
+                          </div>
+                        </div>
+                      }
+                    </>
                   ))
                 }
               </div>
@@ -116,7 +121,7 @@ const PeopleList = ({id}) => {
       </form>
 
       {
-        users.length === 0 && 
+        !search && 
         <>
           {
             foundChat
