@@ -4,6 +4,7 @@ import { MdCall, MdCallEnd, MdVideocam } from 'react-icons/md';
 import { GLOBALTYPES } from './../../redux/actions/globalTypes';
 import { createMessage } from './../../redux/actions/messageActions';
 import Avatar from './../Avatar';
+import CallAudio from './../../audio/call.mp3';
 
 const CallModal = () => {
   const [hours, setHours] = useState(0);
@@ -19,9 +20,8 @@ const CallModal = () => {
   const {auth, call, socket, peer} = useSelector(state => state);
   const dispatch = useDispatch();
 
-  const addCallMessage = useCallback(() => {
+  const addCallMessage = useCallback((call, times) => {
     if (call.recipient !== auth.user._id) {
-      let times = answer ? total : 0;
       const msg = {
         sender: {
           _id: call.sender
@@ -42,17 +42,27 @@ const CallModal = () => {
       
       dispatch(createMessage({msg, auth, socket}));
     }
-  }, [call.video, dispatch, socket, total, answer, auth, call.recipient, call.sender]);
+  }, [dispatch, socket, auth]);
+
+  const playAudio = callAudio => {
+    callAudio.play();
+  }
+
+  const pauseAudio = callAudio => {
+    callAudio.pause();
+    callAudio.currentTime = 0;
+  }
 
   const handleEndCall = () => {
     tracks && tracks.forEach(track => track.stop());
+    let times = answer ? total : 0;
+    addCallMessage(call, times);
     setAnswer(false);
     dispatch({
       type: GLOBALTYPES.CALL,
       payload: null
     });
-    addCallMessage();
-    socket.emit('endCall', call);
+    socket.emit('endCall', {...call, times});
   }
 
   const openStream = (video) => {
@@ -119,18 +129,18 @@ const CallModal = () => {
   }, [total]);
   
   useEffect(() => {
-    const endCall = setTimeout(() => {
-      if (!answer) {
-        socket.emit('endCall', call);
-        addCallMessage();
+    if (!answer) {
+      const endCall = setTimeout(() => {
+        socket.emit('endCall', {...call, times: 0});
+        addCallMessage(call, 0);
         dispatch({
           type: GLOBALTYPES.CALL,
           payload: null
         })
-      }
-    }, 15000);
+      }, 15000);
 
-    return () => clearTimeout(endCall);
+      return () => clearTimeout(endCall);
+    }
   }, [dispatch, answer, call, socket, addCallMessage]);
 
   useEffect(() => {
@@ -142,7 +152,7 @@ const CallModal = () => {
   useEffect(() => {
     socket.on('endCallToClient', data => {
       tracks && tracks.forEach(track => track.stop());
-      addCallMessage();
+      addCallMessage(data, data.times);
       dispatch({
         type: GLOBALTYPES.CALL,
         payload: null
@@ -155,7 +165,8 @@ const CallModal = () => {
   useEffect(() => {
     socket.on('callerDisconnect', () => {
       tracks && tracks.forEach(track => track.stop());
-      addCallMessage();
+      const times = answer ? total : 0;
+      addCallMessage(call, times);
       dispatch({
         type: GLOBALTYPES.CALL,
         payload: null
@@ -170,7 +181,18 @@ const CallModal = () => {
     });
 
     return () => socket.off('callerDisconnect');
-  }, [socket, dispatch, tracks, addCallMessage]);
+  }, [socket, dispatch, tracks, addCallMessage, answer, call, total]);
+
+  useEffect(() => {
+    const callAudio = new Audio(CallAudio);
+    if (answer) {
+      pauseAudio(callAudio);
+    } else {
+      playAudio(callAudio);
+    }
+
+    return () => pauseAudio(callAudio);
+  }, [answer]);
 
   return (
     <div className='callModal'>
