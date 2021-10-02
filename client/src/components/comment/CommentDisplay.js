@@ -45,7 +45,6 @@ const CommentDisplay = ({comment, post, replyComment}) => {
               See more comments ...
             </div>
           )
-
           : (
             <>
               {

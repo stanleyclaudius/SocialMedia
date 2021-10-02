@@ -4,14 +4,8 @@ import CommentDisplay from './CommentDisplay';
 const CommentContainer = ({post}) => {
   const [comments, setComments] = useState([]);
   const [showComments, setShowComments] = useState([]);
-  // const [filteredComments, setFilteredComments] = useState([]);
   const [replyComment, setReplyComment] = useState([]);
   const [next, setNext] = useState(2);
-
-  // useEffect(() => {
-  //   const newComments = post.comments.filter(comm => !comm.reply);
-  //   setFilteredComments(newComments);
-  // }, [post.comments]);
 
   useEffect(() => {
     const newComments = post.comments.filter(comm => comm.reply);
