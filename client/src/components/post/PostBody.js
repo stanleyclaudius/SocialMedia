@@ -6,7 +6,7 @@ import { BsBookmark, BsBookmarkFill } from 'react-icons/bs';
 import { RiArrowLeftCircleFill, RiArrowRightCircleFill } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
 import { likePost, unlikePost, savedPost, unsavedPost } from './../../redux/actions/postActions';
-import CommentDisplay from './../comment/CommentDisplay';
+import CommentContainer from './../comment/CommentContainer';
 import ShareModal from './ShareModal';
 
 const PostBody = ({post}) => {
@@ -14,8 +14,6 @@ const PostBody = ({post}) => {
   const [curImage, setCurImage] = useState(0);
   const [isLike, setIsLike] = useState(false);
   const [isOpenShareModal, setIsOpenShareModal] = useState(false);
-  const [filteredComments, setFilteredComments] = useState([]);
-  const [replyComment, setReplyComment] = useState([]);
   const [isSaved, setIsSaved] = useState(false);
 
   const dispatch = useDispatch();
@@ -65,16 +63,6 @@ const PostBody = ({post}) => {
       setIsLike(false);
     }
   }, [post.likes, auth.user]);
-
-  useEffect(() => {
-    const newComments = post.comments.filter(comm => !comm.reply);
-    setFilteredComments(newComments);
-  }, [post.comments]);
-
-  useEffect(() => {
-    const newComments = post.comments.filter(comm => comm.reply);
-    setReplyComment(newComments);
-  }, [post.comments]);
 
   useEffect(() => {
     const findSaved = auth.user.saved.find(savePost => savePost === post._id);
@@ -141,11 +129,7 @@ const PostBody = ({post}) => {
             </p>
           </div>
           
-          {
-            filteredComments.map(comm => (
-              <CommentDisplay key={comm._id} comment={comm} post={post} replyComment={replyComment.filter(item => item.reply === comm._id)} />
-            ))
-          }
+          <CommentContainer post={post} />
         </div>
       </div>
     </div>
