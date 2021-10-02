@@ -34,14 +34,37 @@ const CommentContainer = ({post}) => {
       
       {
         comments.length - next > 0
-        ? <div style={{cursor: 'pointer', color: 'blue', fontSize: '13px', width: 'fit-content'}} onClick={() => setNext(comments.length)}>
-          See more comments ...
-        </div>
-
-        : comments.length > 2 &&
-        <div style={{cursor: 'pointer', color: 'blue', fontSize: '13px', width: 'fit-content'}} onClick={() => setNext(2)}>
-          Hide comments ...
-        </div>
+        ? (
+          <div
+            style={{
+              cursor: 'pointer',
+              color: 'blue',
+              fontSize: '13px',
+              width: 'fit-content'
+            }}
+            onClick={() => setNext(comments.length)}
+          >
+            See more comments ...
+          </div>
+        )
+        : (
+          <>
+            {
+              comments.length > 2 &&
+              <div
+                style={{
+                  cursor: 'pointer',
+                  color: 'blue',
+                  fontSize: '13px',
+                  width: 'fit-content'
+                }}
+                onClick={() => setNext(2)}
+              >
+                Hide comments
+              </div>
+            }
+          </>
+        )
       }
     </>
   )
