@@ -20,8 +20,8 @@ const CallModal = () => {
   const {auth, call, socket, peer} = useSelector(state => state);
   const dispatch = useDispatch();
 
-  const addCallMessage = useCallback((call, times) => {
-    if (call.recipient !== auth.user._id) {
+  const addCallMessage = useCallback((call, times, disconnect) => {
+    if (call.recipient !== auth.user._id || disconnect) {
       const msg = {
         sender: {
           _id: call.sender
@@ -166,7 +166,7 @@ const CallModal = () => {
     socket.on('callerDisconnect', () => {
       tracks && tracks.forEach(track => track.stop());
       const times = answer ? total : 0;
-      addCallMessage(call, times);
+      addCallMessage(call, times, true);
       dispatch({
         type: GLOBALTYPES.CALL,
         payload: null
