@@ -151,10 +151,12 @@ const SocketClient = () => {
         type: NOTIFICATION_TYPES.CREATE_NOTIFICATION,
         payload: data
       });
+
+      spawnNotification(data.from.username + ' ' + data.content, data.from.avatar, data.url, 'SR Social');
     });
 
     return () => socket.off('createNotificationToClient');
-  }, []);
+  }, [dispatch, socket]);
 
   // Create Message
   useEffect(() => {
