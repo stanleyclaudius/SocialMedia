@@ -1,6 +1,7 @@
 import { GLOBALTYPES } from './globalTypes';
 import { uploadImage } from './../../utils/imageHelper';
 import { getDataAPI, patchDataAPI } from './../../utils/fetchData';
+import { createNotification } from './../actions/notificationActions';
 
 export const PROFILE_TYPES = {
   LOADING: 'PROFILE_LOADING',
@@ -114,6 +115,17 @@ export const followUser = ({user, auth, socket}) => async(dispatch) => {
 
   try {
     const res = await patchDataAPI(`follow/${user._id}`, null, auth.token);
+
+    // Create Notification
+    const msg = {
+      user: user,
+      from: auth.user,
+      content: 'just follow you.',
+      url: `/profile/${user._id}`
+    }
+
+    dispatch(createNotification({msg, auth, socket}));
+
     socket.emit('follow', res.data.newUser);
   } catch (err) {
     dispatch({
