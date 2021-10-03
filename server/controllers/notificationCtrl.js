@@ -5,6 +5,8 @@ const notificationCtrl = {
     try {
       const {user, content, from, image, url} = req.body;
 
+      if (from === req.user._id.toString()) return;
+
       const newNotification = await Notification.findOneAndUpdate({user}, {
         $push: {
           data: {

@@ -1,5 +1,6 @@
 import { GLOBALTYPES } from './globalTypes';
 import { POST_TYPES } from './postActions';
+import { createNotification } from './notificationActions';
 import { postDataAPI, patchDataAPI, deleteDataAPI } from './../../utils/fetchData';
 
 export const createComment = ({comment, post, auth, socket}) => async(dispatch) => {
@@ -29,6 +30,17 @@ export const createComment = ({comment, post, auth, socket}) => async(dispatch) 
         }
       ]
     }
+
+    // Create Notification
+    const msg = {
+      user: post.user,
+      from: auth.user,
+      content: 'just commented on your post.',
+      url: `/post/${post._id}`,
+      image: post.images[0].secure_url
+    };
+
+    dispatch(createNotification({msg, auth, socket}));
 
     socket.emit('createComment', newPost);
     
