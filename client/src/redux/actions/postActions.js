@@ -1,4 +1,5 @@
 import { GLOBALTYPES } from './globalTypes';
+import { createNotification } from './notificationActions';
 import { deleteDataAPI, getDataAPI, patchDataAPI, postDataAPI } from './../../utils/fetchData';
 import { uploadImage } from './../../utils/imageHelper';
 
@@ -67,6 +68,24 @@ export const createPost = ({content, images, auth, socket}) => async(dispatch) =
           avatar: auth.user.avatar
         }
       }
+    });
+
+    // Create Notification
+    const recipients = [];
+    auth.user.followers.forEach(user => {
+      recipients.push(user);
+    });
+
+    recipients.forEach(item => {
+      const msg = {
+        user: item,
+        content: 'just created a post.',
+        from: auth.user,
+        image: media[0].secure_url,
+        url: `/post/${res.data.post._id}`
+      };
+
+      dispatch(createNotification({msg, auth, socket}));
     });
 
     dispatch({

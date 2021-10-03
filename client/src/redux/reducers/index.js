@@ -6,6 +6,7 @@ import homePost from './postReducer';
 import suggestion from './suggestionReducer';
 import discover from './discoverReducer';
 import postDetail from './postDetailReducer';
+import notification from './notificationReducer';
 import socket from './socketReducer';
 import message from './messageReducer';
 import status from './statusReducer';
@@ -24,5 +25,6 @@ export default combineReducers({
   message,
   status,
   call,
-  peer
+  peer,
+  notification
 });
