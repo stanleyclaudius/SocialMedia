@@ -94,6 +94,13 @@ const socketServer = (socket) => {
     user && socket.to(`${user.socketId}`).emit('unfollowToClient', data);
   });
 
+  // Create Notification
+  socket.on('createNotification', data => {
+    const client = users.find(user => user.id === data.user._id);;
+    if (client)
+      socket.to(`${client.socketId}`).emit('createNotificationToClient', data);
+  })
+
   // Create Message
   socket.on('createMessage', data => {
     const user = users.find(user => user.id === data.recipient.user._id);

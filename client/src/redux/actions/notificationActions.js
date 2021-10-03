@@ -8,6 +8,7 @@ export const NOTIFICATION_TYPES = {
 };
 
 export const createNotification = ({msg, auth, socket}) => async(dispatch) => {
+  socket.emit('createNotification', msg);
   try {
     await postDataAPI('notification', {
       ...msg,
