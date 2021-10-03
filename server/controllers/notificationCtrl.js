@@ -23,9 +23,9 @@ const notificationCtrl = {
   },
   getNotification: async(req, res) => {
     try {
-      const notifications = await Notification.find({'user': req.user._id}).sort('-createdAt').populate('user data.from', 'avatar username')
+      const notifications = await Notification.find({'user': req.user._id}).sort('-createdAt').populate('user data.from', 'avatar username');
       res.status(200).json({
-        notifications
+        notifications: notifications[0].data
       });
     } catch (err) {
       return res.status(500).json({msg: err.message});

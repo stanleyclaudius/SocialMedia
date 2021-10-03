@@ -38,7 +38,7 @@ const Menu = () => {
   const { pathname } = useLocation();
 
   const dispatch = useDispatch();
-  const {auth} = useSelector(state => state);
+  const {auth, notification} = useSelector(state => state);
   
   const isLinkActive = path => {
     if (path === pathname) return true;
@@ -83,18 +83,18 @@ const Menu = () => {
         }
 
         <div className={`notification__dropdown ${isOpenNotification ? 'active' : ''}`}>
-          {/* {
+          {
             notification.data.map(msg => (
               <Notification 
                 key={msg._id}
-                avatar={msg.user.avatar}
-                content={msg.content}
+                avatar={msg.from.avatar}
+                content={`${msg.from.username} ${msg.content}`}
                 url={msg.url}
-                isRead={msg.recipients.find(rec => rec.user === auth.user._id).isRead}
+                isRead={msg.isRead}
                 setIsOpenNotification={setIsOpenNotification}
               />
             ))
-          } */}
+          }
         </div>
       </div>
 

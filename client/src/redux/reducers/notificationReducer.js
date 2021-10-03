@@ -12,6 +12,11 @@ const notificationReducer = (state = initialState, action) => {
         ...state,
         loading: action.payload
       };
+    case NOTIFICATION_TYPES.GET_NOTIFICATION:
+      return {
+        ...state,
+        data: action.payload
+      };
     case NOTIFICATION_TYPES.CREATE_NOTIFICATION:
       return {
         ...state,

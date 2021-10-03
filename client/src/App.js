@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { refreshToken } from './redux/actions/authActions';
+import { getNotification } from './redux/actions/notificationActions';
 import { GLOBALTYPES } from './redux/actions/globalTypes';
 import io from 'socket.io-client';
 import PageRender from './custom_routes/PageRender';
@@ -26,6 +27,11 @@ function App() {
     dispatch({type: GLOBALTYPES.SOCKET, payload: socket});
     return () => socket.close();
   }, [dispatch]);
+
+  useEffect(() => {
+    if (auth.token)
+      dispatch(getNotification(auth.token));
+  }, [dispatch, auth.token]);
 
   useEffect(() => {
     if (!("Notification" in window)) {
