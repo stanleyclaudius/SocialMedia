@@ -165,6 +165,16 @@ export const likePost = ({post, auth, socket}) => async(dispatch) => {
     type: POST_TYPES.EDIT_POST,
     payload: newPost
   });
+  
+  // Create Notification
+  const msg = {
+    user: post.user,
+    content: 'just like your post.',
+    from: auth.user,
+    image: post.images[0].secure_url,
+    url: `/post/${post._id}`
+  }
+  dispatch(createNotification({msg, auth, socket}));
 
   socket.emit('likePost', newPost);
 
