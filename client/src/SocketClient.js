@@ -2,7 +2,6 @@ import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { POST_TYPES } from './redux/actions/postActions';
 import { MESSAGE_TYPES } from './redux/actions/messageActions';
-import { NOTIFICATION_TYPES } from './redux/actions/notificationActions';
 import { GLOBALTYPES } from './redux/actions/globalTypes';
 import notificationSound from './audio/got-it-done-613.mp3'
 
@@ -143,39 +142,6 @@ const SocketClient = () => {
 
     return () => socket.off('unfollowToClient');
   }, [dispatch, socket, auth]);
-
-  // Create Notification
-  useEffect(() => {
-    socket.on('createNotificationToClient', data => {
-      dispatch({
-        type: NOTIFICATION_TYPES.CREATE_NOTIFICATION,
-        payload: data
-      });
-
-      audioRef.current.play();
-      spawnNotification(
-        data.content,
-        data.user.avatar,
-        data.url,
-        'SR-Social'
-      );
-    });
-
-    return () => socket.off('createNotificationToClient');
-  }, [dispatch, socket]);
-
-
-  // Delete Notification
-  useEffect(() => {
-    socket.on('deleteNotificationToClient', data => {
-      dispatch({
-        type: NOTIFICATION_TYPES.DELETE_NOTIFICATION,
-        payload: data
-      })
-    });
-
-    return () => socket.off('deleteNotificationToClient');
-  }, [dispatch, socket]);
 
   // Create Message
   useEffect(() => {

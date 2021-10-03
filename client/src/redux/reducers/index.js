@@ -7,7 +7,6 @@ import suggestion from './suggestionReducer';
 import discover from './discoverReducer';
 import postDetail from './postDetailReducer';
 import socket from './socketReducer';
-import notification from './notificationReducer';
 import message from './messageReducer';
 import status from './statusReducer';
 import call from './callReducer';
@@ -22,7 +21,6 @@ export default combineReducers({
   discover,
   postDetail,
   socket,
-  notification,
   message,
   status,
   call,

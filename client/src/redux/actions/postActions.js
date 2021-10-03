@@ -1,7 +1,6 @@
 import { GLOBALTYPES } from './globalTypes';
 import { deleteDataAPI, getDataAPI, patchDataAPI, postDataAPI } from './../../utils/fetchData';
 import { uploadImage } from './../../utils/imageHelper';
-import { createNotification, deleteNotification } from './notificationActions';
 
 export const POST_TYPES = {
   LOADING: 'POST_LOADING',
@@ -56,25 +55,6 @@ export const createPost = ({content, images, auth, socket}) => async(dispatch) =
       content,
       images: media
     }, auth.token);
-
-    // Create Notification
-    const recipientArr = [];
-
-    auth.user.followers.forEach(item => {
-      recipientArr.push({
-        user: item._id
-      })
-    });
-
-    const msg = {
-      id: res.data.post._id,
-      content: `${auth.user.username} just created a new post.`,
-      url: `/post/${res.data.post._id}`,
-      image: res.data.post.images[0].secure_url,
-      recipients: recipientArr
-    };
-    
-    dispatch(createNotification({msg, auth, socket}));
 
     dispatch({
       type: POST_TYPES.CREATE_POST,
@@ -171,19 +151,6 @@ export const likePost = ({post, auth, socket}) => async(dispatch) => {
 
   try {
     await patchDataAPI(`post/like/${post._id}`, null, auth.token);
-
-    // Create Notification
-    const msg = {
-      id: auth.user._id,
-      content: `${auth.user.username} just liked your post.`,
-      url: `/post/${post._id}`,
-      image: post.images[0].secure_url,
-      recipients: [
-        {user: post.user._id}
-      ]
-    };
-
-    dispatch(createNotification({msg, auth, socket}));
   } catch (err) {
     dispatch({
       type: GLOBALTYPES.ALERT,
@@ -209,12 +176,6 @@ export const unlikePost = ({post, auth, socket}) => async(dispatch) => {
 
   try {
     await patchDataAPI(`post/unlike/${post._id}`, null, auth.token);
-
-    const msg = {
-      id: auth.user._id,
-      url: `/post/${post._id}`
-    };
-    dispatch(deleteNotification({msg, auth, socket}));
   } catch (err) {
     dispatch({
       type: GLOBALTYPES.ALERT,
@@ -232,14 +193,6 @@ export const deletePost = ({id, auth, socket}) => async(dispatch) => {
       type: POST_TYPES.DELETE_POST,
       payload: res.data.post
     })
-
-    // Create Notification
-    const msg = {
-      id,
-      url: `/post/${id}`
-    };
-
-    dispatch(deleteNotification({msg, auth, socket}));
   } catch (err) {
     dispatch({
       type: GLOBALTYPES.ALERT,

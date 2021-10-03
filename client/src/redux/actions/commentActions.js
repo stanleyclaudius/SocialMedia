@@ -1,7 +1,6 @@
 import { GLOBALTYPES } from './globalTypes';
 import { POST_TYPES } from './postActions';
 import { postDataAPI, patchDataAPI, deleteDataAPI } from './../../utils/fetchData';
-import { createNotification, deleteNotification } from './notificationActions';
 
 export const createComment = ({comment, post, auth, socket}) => async(dispatch) => {
   const newPost = {
@@ -37,16 +36,6 @@ export const createComment = ({comment, post, auth, socket}) => async(dispatch) 
       type: POST_TYPES.EDIT_POST,
       payload: newPost
     });
-
-    const msg = {
-      id: res.data.newComment._id,
-      content: comment.reply ? `${auth.user.username} reply your comment "${comment.content}"` : `${auth.user.username} commented on your post "${comment.content}".`,
-      url: `/post/${post._id}`,
-      image: post.images[0].secure_url,
-      recipients: comment.reply ? [{user: comment.tag}] : [{user: post.user._id}]
-    };
-
-    dispatch(createNotification({msg, auth, socket}));
   } catch (err) {
     dispatch({
       type: GLOBALTYPES.ALERT,
@@ -162,13 +151,6 @@ export const deleteComment = ({post, comment, auth, socket}) => async(dispatch) 
     deletedId.forEach(async item => {
       await deleteDataAPI(`/comment/${item}`, auth.token);
     })
-    
-    const msg = {
-      id: comment._id,
-      url: `/post/${post._id}`,
-    };
-
-    dispatch(deleteNotification({msg, auth, socket}));
   } catch (err) {
     dispatch({
       type: GLOBALTYPES.ALERT,
