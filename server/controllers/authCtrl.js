@@ -1,3 +1,4 @@
+const Notification = require('./../models/Notification');
 const User = require('./../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -31,6 +32,11 @@ const authCtrl = {
         password: passwordHash
       });
       await newUser.save();
+
+      const userNotification = new Notification({
+        user: newUser._id
+      });
+      await userNotification.save();
 
       const accessToken = createAccessToken({id: newUser._id});
       const refreshToken = createRefreshToken({id: newUser._id});
