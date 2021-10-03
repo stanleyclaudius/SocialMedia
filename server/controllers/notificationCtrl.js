@@ -3,9 +3,9 @@ const Notification = require('./../models/Notification');
 const notificationCtrl = {
   createNotification: async(req, res) => {
     try {
-      const {user, content, from, image, url} = req.body;
+      const {user, content, from, image, url, special} = req.body;
 
-      if (from === req.user._id.toString()) return;
+      if (from === req.user._id.toString() && !special) return;
 
       const newNotification = await Notification.findOneAndUpdate({user}, {
         $push: {

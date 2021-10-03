@@ -40,6 +40,10 @@ export const createComment = ({comment, post, auth, socket}) => async(dispatch) 
       image: post.images[0].secure_url
     };
 
+    if (post.user._id !== auth.user._id) {
+      msg.special = true;
+    }
+
     dispatch(createNotification({msg, auth, socket}));
 
     socket.emit('createComment', newPost);
@@ -103,6 +107,20 @@ export const likeComment = ({comment, post, auth, socket}) => async(dispatch) =>
 
   try {
     await patchDataAPI(`comment/like/${comment._id}`, null, auth.token);
+
+    // Create Notification
+    const msg = {
+      from: auth.user,
+      user: comment.user,
+      url: `post/${post._id}`,
+      content: `just liked your comment "${comment.content}"`,
+    };
+
+    if (post.user._id !== auth.user._id) {
+      msg.special = true;
+    }
+
+    dispatch(createNotification({msg, auth, socket}));
   } catch (err) {
     dispatch({
       type: GLOBALTYPES.ALERT,
