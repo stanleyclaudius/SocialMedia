@@ -6,7 +6,4 @@ router.route('/notification')
   .get(isAuthenticated, notificationCtrl.getNotification)
   .post(isAuthenticated, notificationCtrl.createNotification);
 
-router.route('/notification/:id')
-  .delete(isAuthenticated, notificationCtrl.deleteNotification);
-
 module.exports = router;
