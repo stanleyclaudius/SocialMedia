@@ -82,7 +82,8 @@ export const createPost = ({content, images, auth, socket}) => async(dispatch) =
         content: 'just created a post.',
         from: auth.user,
         image: media[0].secure_url,
-        url: `/post/${res.data.post._id}`
+        url: `/post/${res.data.post._id}`,
+        special: true
       };
 
       dispatch(createNotification({msg, auth, socket}));
