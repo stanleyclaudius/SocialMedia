@@ -28,6 +28,8 @@
     &__dropdown {
       position: absolute;
       width: 250px;
+      height: 300px !important;
+      overflow: auto !important;
       box-shadow: 0 0 10px rgba(0, 0, 0, .3);
       background: #fff;
       bottom: 100%;

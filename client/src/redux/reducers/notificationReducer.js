@@ -15,7 +15,7 @@ const notificationReducer = (state = initialState, action) => {
     case NOTIFICATION_TYPES.GET_NOTIFICATION:
       return {
         ...state,
-        data: action.payload
+        data: action.payload.reverse()
       };
     case NOTIFICATION_TYPES.CREATE_NOTIFICATION:
       return {

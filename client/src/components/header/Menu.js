@@ -84,16 +84,28 @@ const Menu = () => {
 
         <div className={`notification__dropdown ${isOpenNotification ? 'active' : ''}`}>
           {
-            notification.data.map(msg => (
-              <Notification 
-                key={msg._id}
-                avatar={msg.from.avatar}
-                content={`${msg.from.username} ${msg.content}`}
-                url={msg.url}
-                isRead={msg.isRead}
-                setIsOpenNotification={setIsOpenNotification}
-              />
-            ))
+            notification.data.length === 0
+            ? (
+              <div style={{textAlign: 'center', lineHeight: '300px'}}>
+                <h3 style={{color: '#aaa', letterSpacing: '2px'}}>Notification is Empty.</h3>
+              </div>
+            )
+            : (
+              <>
+                {
+                  notification.data.map(msg => (
+                    <Notification 
+                      key={msg._id}
+                      avatar={msg.from.avatar}
+                      content={`${msg.from.username} ${msg.content}`}
+                      url={msg.url}
+                      isRead={msg.isRead}
+                      setIsOpenNotification={setIsOpenNotification}
+                    />
+                  ))
+                }
+              </>
+            )
           }
         </div>
       </div>

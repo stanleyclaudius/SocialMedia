@@ -121,7 +121,7 @@ export const followUser = ({user, auth, socket}) => async(dispatch) => {
       user: user,
       from: auth.user,
       content: 'just follow you.',
-      url: `/profile/${user._id}`,
+      url: `/profile/${auth.user._id}`,
       special: true
     }
 
