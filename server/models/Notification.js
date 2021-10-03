@@ -1,29 +1,8 @@
 const mongoose = require('mongoose');
 
 const notificationSchema = new mongoose.Schema({
-  content: String,
-  id: mongoose.Types.ObjectId,
-  user: {
-    type: mongoose.Types.ObjectId,
-    ref: 'user'
-  },
-  recipients: [
-    {
-      user: {
-        type: mongoose.Types.ObjectId,
-        ref: 'user'
-      },
-      isRead: {
-        type: Boolean,
-        default: false
-      }
-    }
-  ],
-  url: {
-    type: String,
-    required: true
-  },
-  image: String
+  user: {type: mongoose.Types.ObjectId, ref: 'user'},
+  data: Array
 }, {
   timestamps: true
 });
