@@ -172,7 +172,8 @@ export const likePost = ({post, auth, socket}) => async(dispatch) => {
     content: 'just like your post.',
     from: auth.user,
     image: post.images[0].secure_url,
-    url: `/post/${post._id}`
+    url: `/post/${post._id}`,
+    special: true
   }
   dispatch(createNotification({msg, auth, socket}));
 
