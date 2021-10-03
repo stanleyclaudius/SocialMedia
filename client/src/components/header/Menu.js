@@ -38,7 +38,7 @@ const Menu = () => {
   const { pathname } = useLocation();
 
   const dispatch = useDispatch();
-  const {auth, notification} = useSelector(state => state);
+  const {auth} = useSelector(state => state);
   
   const isLinkActive = path => {
     if (path === pathname) return true;
@@ -83,7 +83,7 @@ const Menu = () => {
         }
 
         <div className={`notification__dropdown ${isOpenNotification ? 'active' : ''}`}>
-          {
+          {/* {
             notification.data.map(msg => (
               <Notification 
                 key={msg._id}
@@ -94,7 +94,7 @@ const Menu = () => {
                 setIsOpenNotification={setIsOpenNotification}
               />
             ))
-          }
+          } */}
         </div>
       </div>
 
