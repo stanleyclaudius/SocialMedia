@@ -20,9 +20,26 @@
     align-items: center;
     position: relative;
 
-    svg {
-      font-size: 24px;
-      cursor: pointer;
+    &__icon {
+      position: relative;
+
+      svg {
+        font-size: 24px;
+        cursor: pointer;
+        transform: translateY(3px);
+      }
+
+      span {
+        position: absolute;
+        top: 2px;
+        right: -3px;
+        display: block;
+        background: red;
+        color: #fff;
+        border-radius: 50%;
+        width: 12px;
+        height: 12px;
+      }
     }
 
     &__dropdown {

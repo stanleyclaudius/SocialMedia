@@ -567,9 +567,26 @@
   position: relative;
 }
 
-.menu .notification svg {
+.menu .notification__icon {
+  position: relative;
+}
+
+.menu .notification__icon svg {
   font-size: 24px;
   cursor: pointer;
+  transform: translateY(3px);
+}
+
+.menu .notification__icon span {
+  position: absolute;
+  top: 2px;
+  right: -3px;
+  display: block;
+  background: red;
+  color: #fff;
+  border-radius: 50%;
+  width: 12px;
+  height: 12px;
 }
 
 .menu .notification__dropdown {

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   AiOutlineCompass,
   AiOutlineHome,
@@ -18,6 +18,7 @@ import Notification from './../Notification';
 const Menu = () => {
   const [isOpenProfile, setIsOpenProfile] = useState(false);
   const [isOpenNotification, setIsOpenNotification] = useState(false);
+  const [isUnread, setIsUnread] = useState(false);
   const links = [
     {
       path: '/',
@@ -65,6 +66,15 @@ const Menu = () => {
     dispatch(logout());
   }
 
+  useEffect(() => {
+    const data = notification.data.filter(item => !item.isRead);
+    if (data.length > 0) {
+      setIsUnread(true);
+    }
+
+    return () => setIsUnread(false);
+  }, [notification.data])
+
   return (
     <div className='menu'>
       {
@@ -78,8 +88,18 @@ const Menu = () => {
       <div className='notification'>
         {
           isOpenNotification 
-          ? <AiFillHeart onClick={handleClickNotification} />
-          : <AiOutlineHeart onClick={handleClickNotification} />
+          ? (
+            <div className='notification__icon'>
+              <AiFillHeart onClick={handleClickNotification} />
+              {isUnread && <span></span>}
+            </div>
+          )
+          : (
+            <div className='notification__icon'>
+              <AiOutlineHeart onClick={handleClickNotification} />
+              {isUnread && <span></span>}
+            </div>
+          )
         }
 
         <div className={`notification__dropdown ${isOpenNotification ? 'active' : ''}`}>
