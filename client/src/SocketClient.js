@@ -4,7 +4,7 @@ import { POST_TYPES } from './redux/actions/postActions';
 import { MESSAGE_TYPES } from './redux/actions/messageActions';
 import { NOTIFICATION_TYPES } from './redux/actions/notificationActions';
 import { GLOBALTYPES } from './redux/actions/globalTypes';
-import notificationSound from './audio/got-it-done-613.mp3'
+import notificationSound from './audio/notification.mp3'
 
 const spawnNotification = (body, icon, url, title) => {
   let options = {

@@ -4,7 +4,7 @@ import { MdCall, MdCallEnd, MdVideocam } from 'react-icons/md';
 import { GLOBALTYPES } from './../../redux/actions/globalTypes';
 import { createMessage } from './../../redux/actions/messageActions';
 import Avatar from './../Avatar';
-import CallAudio from './../../audio/call.mp3';
+import CallAudio from './../../audio/ringtone.mp3';
 
 const CallModal = () => {
   const [hours, setHours] = useState(0);
@@ -16,6 +16,7 @@ const CallModal = () => {
 
   const yourVideo = useRef();
   const otherVideo = useRef();
+  const audioRef = useRef();
 
   const {auth, call, socket, peer} = useSelector(state => state);
   const dispatch = useDispatch();
@@ -43,15 +44,6 @@ const CallModal = () => {
       dispatch(createMessage({msg, auth, socket}));
     }
   }, [dispatch, socket, auth]);
-
-  const playAudio = callAudio => {
-    callAudio.play();
-  }
-
-  const pauseAudio = callAudio => {
-    callAudio.pause();
-    callAudio.currentTime = 0;
-  }
 
   const handleEndCall = () => {
     tracks && tracks.forEach(track => track.stop());
@@ -184,18 +176,19 @@ const CallModal = () => {
   }, [socket, dispatch, tracks, addCallMessage, answer, call, total]);
 
   useEffect(() => {
-    const callAudio = new Audio(CallAudio);
     if (answer) {
-      pauseAudio(callAudio);
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
     } else {
-      playAudio(callAudio);
+      audioRef.current.play();
     }
-
-    return () => pauseAudio(callAudio);
   }, [answer]);
 
   return (
     <div className='callModal'>
+      <audio controls ref={audioRef} style={{display: 'none'}} loop>
+        <source src={CallAudio} type='audio/mp3' />
+      </audio>
       <div className="callModal__box" style={{display: (answer && call.video) ? 'none' : 'block'}}>
         <Avatar src={call.avatar} size='big' />
         <p className='username'>{call.username}</p>
