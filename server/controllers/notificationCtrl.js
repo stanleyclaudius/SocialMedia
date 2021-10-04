@@ -47,6 +47,21 @@ const notificationCtrl = {
     } catch (err) {
       return res.status(500).json({msg: err.message});
     }
+  },
+  deleteNotification: async(req, res) => {
+    try {
+      await Notification.findOneAndUpdate({user: req.user._id}, {
+        $pull: {
+          data: {
+            _id: req.params.id
+          }
+        }
+      });
+
+      res.status(200).json({msg: 'Notification deleted.'});
+    } catch (err) {
+      return res.status(500).json({msg: err.message});
+    }
   }
 };
 

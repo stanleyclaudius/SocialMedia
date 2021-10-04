@@ -27,6 +27,11 @@ const notificationReducer = (state = initialState, action) => {
         ...state,
         data: state.data.map(item => item._id === action.payload ? {...item, isRead: true} : item)
       };
+    case NOTIFICATION_TYPES.DELETE_NOTIFICATION:
+      return {
+        ...state,
+        data: state.data.filter(item => item._id !== action.payload)
+      };
     default:
       return state;
   }

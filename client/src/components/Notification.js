@@ -2,7 +2,7 @@ import Avatar from "./Avatar";
 import { useDispatch, useSelector } from 'react-redux';
 import { FaTrash } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import { readNotification } from './../redux/actions/notificationActions';
+import { readNotification, deleteNotification } from './../redux/actions/notificationActions';
 
 const Notification = ({id, avatar, content, url, isRead, setIsOpenNotification}) => {
   const dispatch = useDispatch();
@@ -11,6 +11,10 @@ const Notification = ({id, avatar, content, url, isRead, setIsOpenNotification})
   const handleClick = () => {
     setIsOpenNotification(false);
     dispatch(readNotification({id, auth}));
+  }
+
+  const handleDeleteNotification = () => {
+    dispatch(deleteNotification({id, auth}));
   }
 
   return (
@@ -26,7 +30,7 @@ const Notification = ({id, avatar, content, url, isRead, setIsOpenNotification})
           </p>
         </div>
       </Link>
-      <div className='singleNotification__delete'>
+      <div className='singleNotification__delete' onClick={handleDeleteNotification}>
         <FaTrash />
       </div>
     </div>
