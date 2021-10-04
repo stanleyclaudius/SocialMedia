@@ -22,6 +22,11 @@ const notificationReducer = (state = initialState, action) => {
         ...state,
         data: [action.payload, ...state.data]
       };
+    case NOTIFICATION_TYPES.READ_NOTIFICATION:
+      return {
+        ...state,
+        data: state.data.map(item => item._id === action.payload ? {...item, isRead: true} : item)
+      };
     default:
       return state;
   }

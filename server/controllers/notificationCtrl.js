@@ -32,6 +32,19 @@ const notificationCtrl = {
     } catch (err) {
       return res.status(500).json({msg: err.message});
     }
+  },
+  readNotification: async(req, res) => {
+    try {
+      await Notification.updateOne({user: req.user._id, "data._id": req.params.id}, {
+        $set: {
+          'data.$.isRead': true
+        }
+      })
+
+      res.status(200).json({msg: 'notification updated.'});
+    } catch (err) {
+      return res.status(500).json({msg: err.message});
+    }
   }
 };
 

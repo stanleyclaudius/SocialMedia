@@ -1,9 +1,15 @@
 import Avatar from "./Avatar";
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { readNotification } from './../redux/actions/notificationActions';
 
-const Notification = ({avatar, content, url, isRead, setIsOpenNotification}) => {
+const Notification = ({id, avatar, content, url, isRead, setIsOpenNotification}) => {
+  const dispatch = useDispatch();
+  const {auth} = useSelector(state => state);
+
   const handleClick = () => {
     setIsOpenNotification(false);
+    dispatch(readNotification({id, auth}));
   }
 
   return (

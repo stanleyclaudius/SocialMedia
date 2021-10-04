@@ -96,6 +96,7 @@ const Menu = () => {
                   notification.data.map(msg => (
                     <Notification 
                       key={msg._id}
+                      id={msg._id}
                       avatar={msg.from.avatar}
                       content={`${msg.from.username} ${msg.content}`}
                       url={msg.url}
