@@ -9,13 +9,18 @@ export const NOTIFICATION_TYPES = {
 };
 
 export const createNotification = ({msg, auth, socket}) => async(dispatch) => {
-  socket.emit('createNotification', msg);
   try {
-    await postDataAPI('notification', {
+    const res = await postDataAPI('notification', {
       ...msg,
       user: msg.user._id,
       from: msg.from._id
     }, auth.token);
+
+    socket.emit('createNotification', {
+      ...res.data.notification,
+      user: msg.user,
+      from: msg.from
+    });
   } catch (err) {
     dispatch({
       type: GLOBALTYPES.ALERT,

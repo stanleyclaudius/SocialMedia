@@ -18,7 +18,9 @@ const notificationCtrl = {
         }
       }, {new: true});
 
-      res.status(200).json({newNotification});
+      res.status(200).json({
+        notification: newNotification.data[newNotification.data.length - 1]
+      });
     } catch (err) {
       return res.status(500).json({msg: err.message});
     }

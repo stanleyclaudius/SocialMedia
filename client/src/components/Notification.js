@@ -20,7 +20,6 @@ const Notification = ({id, avatar, content, url, isRead, setIsOpenNotification})
       </div>
       <div className="singleNotification__right">
         <p>
-          {/* <span>username01</span> just liked your post. */}
           {content}
         </p>
       </div>
