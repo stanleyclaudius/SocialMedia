@@ -151,7 +151,7 @@ const SocketClient = () => {
         type: NOTIFICATION_TYPES.CREATE_NOTIFICATION,
         payload: data
       });
-
+      audioRef.current.play();
       spawnNotification(data.from.username + ' ' + data.content, data.from.avatar, data.url, 'SR Social');
     });
 
