@@ -32,19 +32,47 @@ export const createComment = ({comment, post, auth, socket}) => async(dispatch) 
     }
 
     // Create Notification
-    const msg = {
-      user: post.user,
-      from: auth.user,
-      content: 'just commented on your post.',
-      url: `/post/${post._id}`,
-      image: post.images[0].secure_url
-    };
+    if (comment.reply) {
+      const recipients = [
+        post.user,
+        comment.commentUser
+      ];
 
-    if (post.user._id !== auth.user._id) {
-      msg.special = true;
+      const contents = [
+        `just commented on your post "${comment.content}".`,
+        `just reply your comment "${comment.content}."`
+      ];
+
+      for (let i = 0; i < 2; i++) {
+        const msg = {
+          user: recipients[i],
+          from: auth.user,
+          content: contents[i],
+          url: `/post/${post._id}`,
+          image: post.images[0].secure_url
+        };
+
+        if (recipients[i]._id !== auth.user._id) {
+          msg.special = true;
+        }
+        
+        dispatch(createNotification({msg, auth, socket}));
+      }
+    } else {
+      const msg = {
+        user: post.user,
+        from: auth.user,
+        content: `just commented on your post "${comment.content}"."`,
+        url: `/post/${post._id}`,
+        image: post.images[0].secure_url
+      };
+  
+      if (post.user._id !== auth.user._id) {
+        msg.special = true;
+      }
+  
+      dispatch(createNotification({msg, auth, socket}));
     }
-
-    dispatch(createNotification({msg, auth, socket}));
 
     socket.emit('createComment', newPost);
     

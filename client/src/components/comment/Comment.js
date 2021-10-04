@@ -96,7 +96,7 @@ const Comment = ({post, comment, children}) => {
 
       {
         onReply && (
-          <PostFooter onReply={onReply} setOnReply={setOnReply} commentId={comment._id} tag={comment.user._id} post={post}>
+          <PostFooter onReply={onReply} setOnReply={setOnReply} commentUser={comment.user} commentId={comment._id} tag={comment.user._id} post={post}>
             <small>@{comment.user.username}</small>
           </PostFooter>
         )

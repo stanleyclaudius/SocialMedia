@@ -10,6 +10,7 @@ export const NOTIFICATION_TYPES = {
 
 export const createNotification = ({msg, auth, socket}) => async(dispatch) => {
   try {
+    console.log(msg)
     const res = await postDataAPI('notification', {
       ...msg,
       user: msg.user._id,

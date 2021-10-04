@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createComment } from './../../redux/actions/commentActions';
 
-const PostFooter = ({post, setOnReply, onReply, children, commentId, tag}) => {
+const PostFooter = ({post, setOnReply, onReply, children, commentUser, commentId, tag}) => {
   const emojiArr = [
     '😀', '😫', '😄', '😁', '😆', '😅', '😂', '🤣',
     '😊', '😇', '🙂', '🙃', '😍', '🥰', '😘', '😗',
@@ -30,7 +30,8 @@ const PostFooter = ({post, setOnReply, onReply, children, commentId, tag}) => {
       likes: [],
       createdAt: new Date().toISOString(),
       reply: onReply && commentId,
-      tag: onReply && tag
+      tag: onReply && tag,
+      commentUser: onReply && commentUser
     };
     dispatch(createComment({comment, post, auth, socket}));
     setContent('');
