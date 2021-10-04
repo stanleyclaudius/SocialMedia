@@ -3,10 +3,17 @@
   text-align: left;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   width: 100%;
 
-  & > * + * {
-    margin-left: 15px;
+  &__content {
+    display: flex;
+    align-items: center;
+  }
+
+  &__delete {
+    color: rgb(255, 62, 62);
+    cursor: pointer;
   }
 
   &:not(:last-child) {
@@ -15,6 +22,7 @@
 
   &__left {
     position: relative;
+    margin-right: 10px;
 
     .readIcon{
       width: 10px;
