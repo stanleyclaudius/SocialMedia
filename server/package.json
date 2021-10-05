@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Backend for social media application",
   "main": "server.js",
-  "repository": "https://github.com/stanleyclaudius/SocialMedia",
+  "repository": "https://github.com/stanleyclaudius/social-media",
   "author": "Stanley Claudius",
   "license": "MIT",
   "scripts": {
