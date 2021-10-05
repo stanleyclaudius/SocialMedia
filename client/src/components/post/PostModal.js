@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { AiOutlineClose, AiFillCamera, AiFillPicture } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
-import { GLOBALTYPES } from './../../redux/actions/globalTypes';
+import { GLOBALTYPES } from './../../redux/constants/globalTypes';
 import { createPost, editPost } from './../../redux/actions/postActions';
 import ConfirmAlert from './../ConfirmAlert';
 

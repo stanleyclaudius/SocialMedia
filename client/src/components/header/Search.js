@@ -3,7 +3,7 @@ import { AiOutlineSearch, AiOutlineClose } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getDataAPI } from './../../utils/fetchData';
-import { GLOBALTYPES } from './../../redux/actions/globalTypes';
+import { GLOBALTYPES } from './../../redux/constants/globalTypes';
 import Avatar from './../Avatar';
 import Loading from './../../images/loading.gif';
 

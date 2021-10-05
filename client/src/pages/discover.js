@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { DISCOVER_TYPES, getDiscoverPost } from './../redux/actions/discoverActions';
+import { getDiscoverPost } from './../redux/actions/discoverActions';
+import { DISCOVER_TYPES } from './../redux/constants/discoverTypes';
 import { getDataAPI } from './../utils/fetchData';
 import PostThumbnail from './../components/PostThumbnail';
 import HeadInfo from './../utils/HeadInfo';

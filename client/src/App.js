@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { refreshToken } from './redux/actions/authActions';
 import { getNotification } from './redux/actions/notificationActions';
-import { GLOBALTYPES } from './redux/actions/globalTypes';
+import { GLOBALTYPES } from './redux/constants/globalTypes';
 import io from 'socket.io-client';
 import PageRender from './custom_routes/PageRender';
 import SocketClient from './SocketClient';

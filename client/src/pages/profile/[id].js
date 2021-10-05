@@ -1,7 +1,8 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { PROFILE_TYPES, getUserProfile } from './../../redux/actions/profileActions';
+import { getUserProfile } from './../../redux/actions/profileActions';
+import { PROFILE_TYPES } from './../../redux/constants/profileTypes';
 import { getDataAPI } from './../../utils/fetchData';
 import Post from './../../components/profile/Post';
 import HeadInfo from './../../utils/HeadInfo';

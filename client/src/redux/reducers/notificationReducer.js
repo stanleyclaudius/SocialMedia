@@ -1,4 +1,4 @@
-import { NOTIFICATION_TYPES } from './../constants/notificationActions';
+import { NOTIFICATION_TYPES } from './../constants/notificationTypes';
 
 const initialState = {
   loading: false,

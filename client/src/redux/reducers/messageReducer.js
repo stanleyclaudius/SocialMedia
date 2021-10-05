@@ -1,4 +1,4 @@
-import { MESSAGE_TYPES } from "./../constants/messageActions";
+import { MESSAGE_TYPES } from "./../constants/messageTypes";
 
 const initialState = {
   users: [],

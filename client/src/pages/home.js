@@ -1,7 +1,8 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { MdRefresh } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
-import { POST_TYPES, getPosts } from './../redux/actions/postActions';
+import { getPosts } from './../redux/actions/postActions';
+import { POST_TYPES } from './../redux/constants/postTypes';
 import { getSuggestion } from './../redux/actions/suggestionActions';
 import { getDataAPI } from './../utils/fetchData';
 import PostCard from './../components/post/PostCard';

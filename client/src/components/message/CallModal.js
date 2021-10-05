@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { MdCall, MdCallEnd, MdVideocam } from 'react-icons/md';
-import { GLOBALTYPES } from './../../redux/actions/globalTypes';
+import { GLOBALTYPES } from './../../redux/constants/globalTypes';
 import { createMessage } from './../../redux/actions/messageActions';
 import Avatar from './../Avatar';
 import CallAudio from './../../audio/ringtone.mp3';

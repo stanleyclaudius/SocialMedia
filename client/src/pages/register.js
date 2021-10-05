@@ -6,7 +6,7 @@ import { register } from './../redux/actions/authActions';
 import validateEmail from './../utils/checkEmail';
 import HeadInfo from './../utils/HeadInfo';
 import Loading from './../components/Loading';
-import { GLOBALTYPES } from '../redux/actions/globalTypes';
+import { GLOBALTYPES } from '../redux/constants/globalTypes';
 
 const checkErr = ({name, username, email, password, confirmPassword}) => {
   let err = {};

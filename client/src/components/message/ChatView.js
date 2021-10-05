@@ -5,7 +5,7 @@ import { MdCall, MdPhotoSizeSelectActual } from 'react-icons/md';
 import { FaTrash } from 'react-icons/fa';
 import { useHistory } from 'react-router-dom';
 import { uploadImage } from './../../utils/imageHelper';
-import { GLOBALTYPES } from './../../redux/actions/globalTypes';
+import { GLOBALTYPES } from './../../redux/constants/globalTypes';
 import {createMessage, deleteConversation, getMessage } from './../../redux/actions/messageActions';
 import SingleMessage from './SingleMessage';
 import Avatar from './../Avatar';

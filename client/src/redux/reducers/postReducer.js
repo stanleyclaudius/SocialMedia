@@ -1,4 +1,4 @@
-import { POST_TYPES } from "./../constants/postActions";
+import { POST_TYPES } from "./../constants/postTypes";
 
 const initialState = {
   loading: false,

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
-import { GLOBALTYPES } from './../../redux/actions/globalTypes';
+import { GLOBALTYPES } from './../../redux/constants/globalTypes';
 import { editProfile } from './../../redux/actions/profileActions';
 import Avatar from './../Avatar';
 

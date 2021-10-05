@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { GLOBALTYPES } from './../../redux/actions/globalTypes';
+import { GLOBALTYPES } from './../../redux/constants/globalTypes';
 import { getDataAPI } from './../../utils/fetchData';
 import PostThumbnail from './../../components/PostThumbnail';
 import Loading from './../../components/Loading';

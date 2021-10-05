@@ -1,9 +1,9 @@
 import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { POST_TYPES } from './redux/actions/postActions';
-import { MESSAGE_TYPES } from './redux/actions/messageActions';
-import { NOTIFICATION_TYPES } from './redux/actions/notificationActions';
-import { GLOBALTYPES } from './redux/actions/globalTypes';
+import { POST_TYPES } from './redux/constants/postTypes';
+import { MESSAGE_TYPES } from './redux/constants/messageTypes';
+import { NOTIFICATION_TYPES } from './redux/constants/notificationTypes';
+import { GLOBALTYPES } from './redux/constants/globalTypes';
 import notificationSound from './audio/notification.mp3'
 
 const spawnNotification = (body, icon, url, title) => {

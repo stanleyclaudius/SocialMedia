@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
-import { GLOBALTYPES } from './../redux/actions/globalTypes';
+import { GLOBALTYPES } from './../redux/constants/globalTypes';
 import { login } from './../redux/actions/authActions';
 import validateEmail from './../utils/checkEmail';
 import HeadInfo from './../utils/HeadInfo';

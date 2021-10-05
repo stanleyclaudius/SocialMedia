@@ -1,4 +1,4 @@
-import { POST_TYPES } from "./../constants/postActions";
+import { POST_TYPES } from "./../constants/postTypes";
 
 const postDetailReducer = (state = [], action) => {
   switch (action.type) {

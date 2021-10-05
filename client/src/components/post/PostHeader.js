@@ -4,7 +4,7 @@ import { AiFillEdit } from 'react-icons/ai';
 import { FaTrash, FaCopy } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { GLOBALTYPES } from './../../redux/actions/globalTypes';
+import { GLOBALTYPES } from './../../redux/constants/globalTypes';
 import { deletePost } from './../../redux/actions/postActions';
 import ConfirmAlert from './../ConfirmAlert';
 import PostModal from './PostModal';
