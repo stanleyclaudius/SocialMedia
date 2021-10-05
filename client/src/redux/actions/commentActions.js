@@ -1,5 +1,5 @@
-import { GLOBALTYPES } from './globalTypes';
-import { POST_TYPES } from './postActions';
+import { GLOBALTYPES } from './../constants/globalTypes';
+import { POST_TYPES } from './../constants/postTypes';
 import { createNotification } from './notificationActions';
 import { postDataAPI, patchDataAPI, deleteDataAPI } from './../../utils/fetchData';
 

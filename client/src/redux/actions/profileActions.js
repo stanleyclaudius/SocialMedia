@@ -1,16 +1,8 @@
-import { GLOBALTYPES } from './globalTypes';
+import { GLOBALTYPES } from './../constants/globalTypes';
+import { PROFILE_TYPES } from './../constants/profileTypes';
 import { uploadImage } from './../../utils/imageHelper';
 import { getDataAPI, patchDataAPI } from './../../utils/fetchData';
 import { createNotification } from './../actions/notificationActions';
-
-export const PROFILE_TYPES = {
-  LOADING: 'PROFILE_LOADING',
-  GET_USER_PROFILE: 'GET_USER_PROFILE',
-  FOLLOW: 'FOLLOW',
-  UNFOLLOW: 'UNFOLLOW',
-  GET_POST: 'GET_PROFILE_POST',
-  EDIT_POST: 'EDIT_PROFILE_POST'
-};
 
 export const getUserProfile = ({id, token}) => async(dispatch) => {
   try {

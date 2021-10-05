@@ -1,4 +1,4 @@
-import { PROFILE_TYPES } from "./../actions/profileActions";
+import { PROFILE_TYPES } from "./../constants/profileActions";
 
 const initialState = {
   loading: false,

@@ -1,4 +1,4 @@
-import { GLOBALTYPES } from "./../actions/globalTypes";
+import { GLOBALTYPES } from "./../constants/globalTypes";
 
 const callReducer = (state = null, action) => {
   switch (action.type) {

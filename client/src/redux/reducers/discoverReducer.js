@@ -1,4 +1,4 @@
-import { DISCOVER_TYPES } from "./../actions/discoverActions";
+import { DISCOVER_TYPES } from "./../constants/discoverActions";
 
 const initialState = {
   loading: false,

@@ -1,10 +1,6 @@
-import { GLOBALTYPES } from './globalTypes';
+import { GLOBALTYPES } from './../constants/globalTypes';
+import { DISCOVER_TYPES } from './../constants/discoverTypes';
 import { getDataAPI } from './../../utils/fetchData';
-
-export const DISCOVER_TYPES = {
-  LOADING: 'DISCOVER_LOADING',
-  GET_DISCOVER_POSTS: 'GET_DISCOVER_POSTS'
-};
 
 export const getDiscoverPost = (token) => async(dispatch) => {
   try {

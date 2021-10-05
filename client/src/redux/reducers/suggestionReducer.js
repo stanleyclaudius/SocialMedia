@@ -1,4 +1,4 @@
-import { SUGGESTION_TYPES } from './../actions/suggestionActions';
+import { SUGGESTION_TYPES } from './../constants/suggestionActions';
 
 const initialState = {
   loading: false,

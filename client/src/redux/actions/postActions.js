@@ -1,16 +1,8 @@
-import { GLOBALTYPES } from './globalTypes';
+import { GLOBALTYPES } from './../constants/globalTypes';
+import { POST_TYPES } from './../constants/postTypes';
 import { createNotification } from './notificationActions';
 import { deleteDataAPI, getDataAPI, patchDataAPI, postDataAPI } from './../../utils/fetchData';
 import { uploadImage } from './../../utils/imageHelper';
-
-export const POST_TYPES = {
-  LOADING: 'POST_LOADING',
-  CREATE_POST: 'CREATE_POST',
-  GET_POSTS: 'GET_POSTS',
-  EDIT_POST: 'EDIT_POST',
-  DELETE_POST: 'DELETE_POST',
-  GET_POST: 'GET_POST'
-};
 
 export const getPosts = (token) => async(dispatch) => {
   try {

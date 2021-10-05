@@ -1,10 +1,6 @@
-import { GLOBALTYPES } from './globalTypes';
+import { GLOBALTYPES } from './../constants/globalTypes';
+import { SUGGESTION_TYPES } from './../constants/suggestionTypes';
 import { getDataAPI } from './../../utils/fetchData';
-
-export const SUGGESTION_TYPES = {
-  LOADING: 'SUGGESTION_LOADING',
-  GET_SUGGESTION: 'GET_SUGGESTION'
-};
 
 export const getSuggestion = (token) => async(dispatch) => {
   try {

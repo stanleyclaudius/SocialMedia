@@ -1,13 +1,6 @@
-import { GLOBALTYPES } from './globalTypes';
+import { GLOBALTYPES } from './../constants/globalTypes';
+import { NOTIFICATION_TYPES } from './../constants/notificationTypes';
 import { getDataAPI, postDataAPI, patchDataAPI, deleteDataAPI } from './../../utils/fetchData';
-
-export const NOTIFICATION_TYPES = {
-  NOTIFICATION_LOADING: 'NOTIFICATION_LOADING',
-  GET_NOTIFICATION: 'GET_NOTIFICATION',
-  CREATE_NOTIFICATION: 'CREATE_NOTIFICATION',
-  READ_NOTIFICATION: 'READ_NOTIFICATION',
-  DELETE_NOTIFICATION: 'DELETE_NOTIFICATION'
-};
 
 export const createNotification = ({msg, auth, socket}) => async(dispatch) => {
   try {

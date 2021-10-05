@@ -1,4 +1,4 @@
-import { GLOBALTYPES } from './globalTypes';
+import { GLOBALTYPES } from './../constants/globalTypes';
 import { postDataAPI } from './../../utils/fetchData';
 
 export const register = (userData) => async(dispatch) => {
