@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { IoPaperPlaneOutline, IoVideocam } from 'react-icons/io5';
 import { MdCall, MdPhotoSizeSelectActual } from 'react-icons/md';
 import { FaTrash } from 'react-icons/fa';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { uploadImage } from './../../utils/imageHelper';
 import { GLOBALTYPES } from './../../redux/constants/globalTypes';
 import {createMessage, deleteConversation, getMessage } from './../../redux/actions/messageActions';
@@ -27,7 +27,7 @@ const ChatView = ({id}) => {
   const [isOpenEmoji, setIsOpenEmoji] = useState(false);
   const [messages, setMessages] = useState([]);
 
-  const history = useHistory();
+  const navigate = useNavigate();
   const messageEndRef = useRef();
 
   const dispatch = useDispatch();
@@ -40,7 +40,7 @@ const ChatView = ({id}) => {
 
   const handleDeleteConversation = () => {
     dispatch(deleteConversation({id, auth}));
-    history.push('/message');
+    navigate('/message');
   }
 
   const handleImageChange = e => {

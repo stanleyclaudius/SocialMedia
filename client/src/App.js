@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { refreshToken } from './redux/actions/authActions';
 import { getNotification } from './redux/actions/notificationActions';
@@ -63,12 +63,17 @@ function App() {
       {auth.token && <SocketClient />}
       {call && <CallModal />}
       <Alert />
-      <Switch>
-        <Route exact path='/' component={auth.token ? Home : Login} />
-        <Route exact path='/register' component={Register} />
-        <PrivateRoute exact path='/:page' component={PageRender} />
-        <PrivateRoute exact path='/:page/:id' component={PageRender} />
-      </Switch>
+      <Routes>
+        <Route path='/' element={auth.token ? <Home /> : <Login />} />
+        <Route path='/register' element={<Register />} />
+
+        <Route path='/:page' element={<PrivateRoute />}>
+          <Route path='/:page' element={<PageRender />} />
+        </Route>
+        <Route path='/:page/:id' element={<PrivateRoute />}>
+          <Route path='/:page/:id' element={<PageRender />} />
+        </Route>
+      </Routes>
     </Router>
   );
 }

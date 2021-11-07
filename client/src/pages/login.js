@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import { GLOBALTYPES } from './../redux/constants/globalTypes';
@@ -33,7 +33,7 @@ const Login = () => {
   });
   const [isShowPassword, setIsShowPassword] = useState(false);
 
-  const history = useHistory();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const {auth, alert} = useSelector(state => state);
 
@@ -57,8 +57,8 @@ const Login = () => {
 
   useEffect(() => {
     if (auth.token)
-      history.push('/');
-  }, [auth.token, history]);
+      navigate('/');
+  }, [auth.token, navigate]);
 
   return (
     <>
