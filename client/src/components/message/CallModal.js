@@ -13,6 +13,7 @@ const CallModal = () => {
   const [total, setTotal] = useState(0);
   const [answer, setAnswer] = useState(false);
   const [tracks, setTracks] = useState([]);
+  const [newCall, setNewCall] = useState(null);
 
   const yourVideo = useRef();
   const otherVideo = useRef();
@@ -47,6 +48,7 @@ const CallModal = () => {
 
   const handleEndCall = () => {
     tracks && tracks.forEach(track => track.stop());
+    if (newCall) newCall.close();
     let times = answer ? total : 0;
     addCallMessage(call, times);
     setAnswer(false);
@@ -79,6 +81,8 @@ const CallModal = () => {
       newCall.on('stream', function(remoteStream) {
         playStream(otherVideo.current, remoteStream);
       });
+      setAnswer(true);
+      setNewCall(newCall);
     })
   }
 
@@ -100,6 +104,8 @@ const CallModal = () => {
             playStream(otherVideo.current, remoteStream);
           } 
         });
+        setAnswer(true);
+        setNewCall(newCall);
       })
     })
 
@@ -144,6 +150,7 @@ const CallModal = () => {
   useEffect(() => {
     socket.on('endCallToClient', data => {
       tracks && tracks.forEach(track => track.stop());
+      if (newCall) newCall.close();
       addCallMessage(data, data.times);
       dispatch({
         type: GLOBALTYPES.CALL,
@@ -152,11 +159,12 @@ const CallModal = () => {
     });
 
     return () => socket.off('endCallToClient');
-  }, [socket, dispatch, tracks, addCallMessage]);
+  }, [socket, dispatch, tracks, addCallMessage, newCall]);
 
   useEffect(() => {
     socket.on('callerDisconnect', () => {
       tracks && tracks.forEach(track => track.stop());
+      if (newCall) newCall.close();
       const times = answer ? total : 0;
       addCallMessage(call, times, true);
       dispatch({
@@ -173,7 +181,7 @@ const CallModal = () => {
     });
 
     return () => socket.off('callerDisconnect');
-  }, [socket, dispatch, tracks, addCallMessage, answer, call, total]);
+  }, [socket, dispatch, tracks, addCallMessage, answer, call, total, newCall]);
 
   useEffect(() => {
     if (answer) {
@@ -231,8 +239,8 @@ const CallModal = () => {
       </div>
 
       <div className="show__video" style={{display: (answer && call.video) ? 'block' : 'none'}}>
-        <video ref={yourVideo} className='your__video' />
-        <video ref={otherVideo} className='other__video' />
+        <video ref={yourVideo} className='your__video' playsInline muted />
+        <video ref={otherVideo} className='other__video' playsInline />
 
         <div className='videoCallTimespan'>
           <small>{hours.toString().length < 2 ? '0' + hours : hours}</small>

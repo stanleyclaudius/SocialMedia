@@ -4,7 +4,7 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const connectDB = require('./config/db');
 const SocketServer = require('./socketServer');
-const {PeerServer} = require('peer');
+const {ExpressPeerServer} = require('peer');
 
 const app = express();
 
@@ -15,7 +15,7 @@ io.on('connection', socket => {
   SocketServer(socket);
 });
 
-PeerServer({port: 3001, path: '/'});
+ExpressPeerServer(http, {path: '/'});
 
 app.use(express.json({limit: '50mb'}));
 app.use(cors());
